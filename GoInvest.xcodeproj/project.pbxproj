@@ -11,6 +11,7 @@
 		1B4504052BAA140200287D6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4504042BAA140200287D6F /* ViewController.swift */; };
 		1B45040A2BAA140400287D6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B4504092BAA140400287D6F /* Assets.xcassets */; };
 		1B45040D2BAA140400287D6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B45040B2BAA140400287D6F /* LaunchScreen.storyboard */; };
+		64DD696D4AD853A38BACAD9B /* Pods_GoInvest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F39EDF30FFEFDDF6FA9870F /* Pods_GoInvest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,9 @@
 		1B4504092BAA140400287D6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B45040C2BAA140400287D6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B45040E2BAA140400287D6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B6F92E8F889FA35524FCA55 /* Pods-GoInvest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvest.debug.xcconfig"; path = "Target Support Files/Pods-GoInvest/Pods-GoInvest.debug.xcconfig"; sourceTree = "<group>"; };
+		6F39EDF30FFEFDDF6FA9870F /* Pods_GoInvest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoInvest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB09436A04F11495FCD6B476 /* Pods-GoInvest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvest.release.xcconfig"; path = "Target Support Files/Pods-GoInvest/Pods-GoInvest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64DD696D4AD853A38BACAD9B /* Pods_GoInvest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +43,8 @@
 			children = (
 				1B4503FF2BAA140200287D6F /* GoInvest */,
 				1B4503FE2BAA140200287D6F /* Products */,
+				D093B07CF44C1EB67B4ADEA0 /* Pods */,
+				FACF815FA9E86B86FD7E5236 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +68,24 @@
 			path = GoInvest;
 			sourceTree = "<group>";
 		};
+		D093B07CF44C1EB67B4ADEA0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1B6F92E8F889FA35524FCA55 /* Pods-GoInvest.debug.xcconfig */,
+				CB09436A04F11495FCD6B476 /* Pods-GoInvest.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FACF815FA9E86B86FD7E5236 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6F39EDF30FFEFDDF6FA9870F /* Pods_GoInvest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -68,6 +93,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B4504112BAA140400287D6F /* Build configuration list for PBXNativeTarget "GoInvest" */;
 			buildPhases = (
+				F0FEFC010F9E9BB3F171C1C9 /* [CP] Check Pods Manifest.lock */,
 				1B4503F92BAA140200287D6F /* Sources */,
 				1B4503FA2BAA140200287D6F /* Frameworks */,
 				1B4503FB2BAA140200287D6F /* Resources */,
@@ -125,6 +151,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F0FEFC010F9E9BB3F171C1C9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoInvest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1B4503F92BAA140200287D6F /* Sources */ = {
@@ -271,6 +322,7 @@
 		};
 		1B4504122BAA140400287D6F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B6F92E8F889FA35524FCA55 /* Pods-GoInvest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -297,6 +349,7 @@
 		};
 		1B4504132BAA140400287D6F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB09436A04F11495FCD6B476 /* Pods-GoInvest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
