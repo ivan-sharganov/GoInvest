@@ -3,100 +3,63 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B4504012BAA140200287D6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4504002BAA140200287D6F /* AppDelegate.swift */; };
-		1B4504052BAA140200287D6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4504042BAA140200287D6F /* ViewController.swift */; };
-		1B45040A2BAA140400287D6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B4504092BAA140400287D6F /* Assets.xcassets */; };
-		1B45040D2BAA140400287D6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B45040B2BAA140400287D6F /* LaunchScreen.storyboard */; };
-		64DD696D4AD853A38BACAD9B /* Pods_GoInvest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F39EDF30FFEFDDF6FA9870F /* Pods_GoInvest.framework */; };
+		026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5400113FBE77B8361053BA9A /* AppDelegate.swift */; };
+		4ADF1EB37DC3D7368C4CB1C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */; };
+		973F5B97235852633E59A57D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */; };
+		B3C7091CB75688818AC89EB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15897C06A339C02BB515284F /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1B4503FD2BAA140200287D6F /* GoInvest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B4504002BAA140200287D6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1B4504042BAA140200287D6F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1B4504092BAA140400287D6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1B45040C2BAA140400287D6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1B45040E2BAA140400287D6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1B6F92E8F889FA35524FCA55 /* Pods-GoInvest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvest.debug.xcconfig"; path = "Target Support Files/Pods-GoInvest/Pods-GoInvest.debug.xcconfig"; sourceTree = "<group>"; };
-		6F39EDF30FFEFDDF6FA9870F /* Pods_GoInvest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoInvest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB09436A04F11495FCD6B476 /* Pods-GoInvest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvest.release.xcconfig"; path = "Target Support Files/Pods-GoInvest/Pods-GoInvest.release.xcconfig"; sourceTree = "<group>"; };
+		14F7EBA878DB1B4FA131C792 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		15897C06A339C02BB515284F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1B5493FA53125B9B47D907D6 /* GoInvest.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GoInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5400113FBE77B8361053BA9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CF661426B7B280E7564E7D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		1B4503FA2BAA140200287D6F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				64DD696D4AD853A38BACAD9B /* Pods_GoInvest.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		1B4503F42BAA140200287D6F = {
+		09651CCC54ECCAFDF8014CD0 = {
 			isa = PBXGroup;
 			children = (
-				1B4503FF2BAA140200287D6F /* GoInvest */,
-				1B4503FE2BAA140200287D6F /* Products */,
-				D093B07CF44C1EB67B4ADEA0 /* Pods */,
-				FACF815FA9E86B86FD7E5236 /* Frameworks */,
+				5365D24D31D22DE1F46623E9 /* GoInvest */,
+				6B67AD34589B15F641C9358A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		1B4503FE2BAA140200287D6F /* Products */ = {
+		5365D24D31D22DE1F46623E9 /* GoInvest */ = {
 			isa = PBXGroup;
 			children = (
-				1B4503FD2BAA140200287D6F /* GoInvest.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		1B4503FF2BAA140200287D6F /* GoInvest */ = {
-			isa = PBXGroup;
-			children = (
-				1B4504002BAA140200287D6F /* AppDelegate.swift */,
-				1B4504042BAA140200287D6F /* ViewController.swift */,
-				1B4504092BAA140400287D6F /* Assets.xcassets */,
-				1B45040B2BAA140400287D6F /* LaunchScreen.storyboard */,
-				1B45040E2BAA140400287D6F /* Info.plist */,
+				5400113FBE77B8361053BA9A /* AppDelegate.swift */,
+				B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */,
+				CF661426B7B280E7564E7D69 /* Info.plist */,
+				E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */,
+				15897C06A339C02BB515284F /* ViewController.swift */,
 			);
 			path = GoInvest;
 			sourceTree = "<group>";
 		};
-		D093B07CF44C1EB67B4ADEA0 /* Pods */ = {
+		6B67AD34589B15F641C9358A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1B6F92E8F889FA35524FCA55 /* Pods-GoInvest.debug.xcconfig */,
-				CB09436A04F11495FCD6B476 /* Pods-GoInvest.release.xcconfig */,
+				1B5493FA53125B9B47D907D6 /* GoInvest.app */,
 			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		FACF815FA9E86B86FD7E5236 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6F39EDF30FFEFDDF6FA9870F /* Pods_GoInvest.framework */,
-			);
-			name = Frameworks;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1B4503FC2BAA140200287D6F /* GoInvest */ = {
+		B6A3BE4B469D42749D7C028A /* GoInvest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1B4504112BAA140400287D6F /* Build configuration list for PBXNativeTarget "GoInvest" */;
+			buildConfigurationList = 4BF953F0F6EE3F197E5547B6 /* Build configuration list for PBXNativeTarget "GoInvest" */;
 			buildPhases = (
-				F0FEFC010F9E9BB3F171C1C9 /* [CP] Check Pods Manifest.lock */,
-				1B4503F92BAA140200287D6F /* Sources */,
-				1B4503FA2BAA140200287D6F /* Frameworks */,
-				1B4503FB2BAA140200287D6F /* Resources */,
+				01D3D9DD1BEBDAFF75DD52A3 /* Sources */,
+				785EC675FD1C31DEBEAB5590 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -104,96 +67,66 @@
 			);
 			name = GoInvest;
 			productName = GoInvest;
-			productReference = 1B4503FD2BAA140200287D6F /* GoInvest.app */;
+			productReference = 1B5493FA53125B9B47D907D6 /* GoInvest.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1B4503F52BAA140200287D6F /* Project object */ = {
+		86A46A91F93CB1A1DD0B518A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					1B4503FC2BAA140200287D6F = {
-						CreatedOnToolsVersion = 15.0;
-					};
 				};
 			};
-			buildConfigurationList = 1B4503F82BAA140200287D6F /* Build configuration list for PBXProject "GoInvest" */;
+			buildConfigurationList = 3C4D9455BFC897518B9A174C /* Build configuration list for PBXProject "GoInvest" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
-			mainGroup = 1B4503F42BAA140200287D6F;
-			productRefGroup = 1B4503FE2BAA140200287D6F /* Products */;
+			mainGroup = 09651CCC54ECCAFDF8014CD0;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1B4503FC2BAA140200287D6F /* GoInvest */,
+				B6A3BE4B469D42749D7C028A /* GoInvest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1B4503FB2BAA140200287D6F /* Resources */ = {
+		785EC675FD1C31DEBEAB5590 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B45040D2BAA140400287D6F /* LaunchScreen.storyboard in Resources */,
-				1B45040A2BAA140400287D6F /* Assets.xcassets in Resources */,
+				4ADF1EB37DC3D7368C4CB1C7 /* Assets.xcassets in Resources */,
+				973F5B97235852633E59A57D /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		F0FEFC010F9E9BB3F171C1C9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GoInvest-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		1B4503F92BAA140200287D6F /* Sources */ = {
+		01D3D9DD1BEBDAFF75DD52A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B4504052BAA140200287D6F /* ViewController.swift in Sources */,
-				1B4504012BAA140200287D6F /* AppDelegate.swift in Sources */,
+				026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */,
+				B3C7091CB75688818AC89EB7 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1B45040B2BAA140400287D6F /* LaunchScreen.storyboard */ = {
+		E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1B45040C2BAA140400287D6F /* Base */,
+				14F7EBA878DB1B4FA131C792 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -201,14 +134,14 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1B45040F2BAA140400287D6F /* Debug */ = {
+		6082E9DFC55D2306D7EE9D2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -238,14 +171,13 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"DEBUG=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -254,24 +186,57 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		1B4504102BAA140400287D6F /* Release */ = {
+		89F1207ADBC24EBD958C32B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = GoInvest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A73B6B26D942E17310D204EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = GoInvest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FC0F372FA86142F73C56E535 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -301,8 +266,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -311,91 +275,38 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		1B4504122BAA140400287D6F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B6F92E8F889FA35524FCA55 /* Pods-GoInvest.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GoInvest/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yandexSirius.GoInvest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		1B4504132BAA140400287D6F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB09436A04F11495FCD6B476 /* Pods-GoInvest.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GoInvest/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yandexSirius.GoInvest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1B4503F82BAA140200287D6F /* Build configuration list for PBXProject "GoInvest" */ = {
+		3C4D9455BFC897518B9A174C /* Build configuration list for PBXProject "GoInvest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1B45040F2BAA140400287D6F /* Debug */,
-				1B4504102BAA140400287D6F /* Release */,
+				6082E9DFC55D2306D7EE9D2A /* Debug */,
+				FC0F372FA86142F73C56E535 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		1B4504112BAA140400287D6F /* Build configuration list for PBXNativeTarget "GoInvest" */ = {
+		4BF953F0F6EE3F197E5547B6 /* Build configuration list for PBXNativeTarget "GoInvest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1B4504122BAA140400287D6F /* Debug */,
-				1B4504132BAA140400287D6F /* Release */,
+				89F1207ADBC24EBD958C32B5 /* Debug */,
+				A73B6B26D942E17310D204EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1B4503F52BAA140200287D6F /* Project object */;
+	rootObject = 86A46A91F93CB1A1DD0B518A /* Project object */;
 }
