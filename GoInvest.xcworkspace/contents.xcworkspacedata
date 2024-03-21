@@ -4,6 +4,13 @@
    <FileRef
       location = "group:GoInvest.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:Functional tests"
+      name = "Functional tests">
+      <FileRef
+         location = "group:GoInvestTests.swift">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
