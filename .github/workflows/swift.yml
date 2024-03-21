@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: |
         cd GoInvest
-        xcodebuild build -project GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
+        xcodebuild build -project GoInvest/GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
 
     # - name: Build
     #   run: |
