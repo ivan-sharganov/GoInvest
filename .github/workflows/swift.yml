@@ -7,9 +7,15 @@ on:
   push:
     branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "**" ]
 
 jobs:
+  SwiftLint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: GitHub Action for SwiftLint
+        uses: norio-nomura/action-swiftlint@3.2.1
   build:
   
     runs-on: macos-latest
@@ -22,7 +28,12 @@ jobs:
         cd GoInvest
         pod install --repo-update
       shell: bash
-
+      
+    - name: Xcodegen
+      run: |
+        xcodegen generate
+      shell: bash
+      
     - name: Build
       run: |
         cd GoInvest
