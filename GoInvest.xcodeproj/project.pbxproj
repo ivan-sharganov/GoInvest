@@ -8,22 +8,49 @@
 
 /* Begin PBXBuildFile section */
 		026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5400113FBE77B8361053BA9A /* AppDelegate.swift */; };
+		3795AADB15FE998FC8F829EE /* Pods_GoInvestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6FBDDD2F445CA41BC1F0792 /* Pods_GoInvestTests.framework */; };
 		4ADF1EB37DC3D7368C4CB1C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */; };
 		973F5B97235852633E59A57D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */; };
 		B3C7091CB75688818AC89EB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15897C06A339C02BB515284F /* ViewController.swift */; };
+		C83D361C78B7623D6A358C8F /* Pods_GoInvest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C774B8FA685AE30486CE263 /* Pods_GoInvest.framework */; };
 		F750E8594A9FF234402B2F49 /* GoInvestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		14F7EBA878DB1B4FA131C792 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15897C06A339C02BB515284F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1A79D6AD422C4BC235DE9B13 /* Pods-GoInvest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvest.release.xcconfig"; path = "Target Support Files/Pods-GoInvest/Pods-GoInvest.release.xcconfig"; sourceTree = "<group>"; };
 		1B5493FA53125B9B47D907D6 /* GoInvest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A4FE80713756931EF6FC835 /* Pods-GoInvest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvest.debug.xcconfig"; path = "Target Support Files/Pods-GoInvest/Pods-GoInvest.debug.xcconfig"; sourceTree = "<group>"; };
+		3C774B8FA685AE30486CE263 /* Pods_GoInvest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoInvest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F95574447121706431C8712 /* Pods-GoInvestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvestTests.release.xcconfig"; path = "Target Support Files/Pods-GoInvestTests/Pods-GoInvestTests.release.xcconfig"; sourceTree = "<group>"; };
 		5400113FBE77B8361053BA9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		80489776825EAE0D8FE6EB33 /* GoInvestTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GoInvestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		764E2F7F2D3B6AA6B13A4DCE /* Pods-GoInvestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvestTests.debug.xcconfig"; path = "Target Support Files/Pods-GoInvestTests/Pods-GoInvestTests.debug.xcconfig"; sourceTree = "<group>"; };
+		80489776825EAE0D8FE6EB33 /* GoInvestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoInvestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoInvestTests.swift; sourceTree = "<group>"; };
 		B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF661426B7B280E7564E7D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D6FBDDD2F445CA41BC1F0792 /* Pods_GoInvestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoInvestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		735D919F28D45A900D3A0F59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3795AADB15FE998FC8F829EE /* Pods_GoInvestTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EF50AFDBAAEDBA2D7288E1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C83D361C78B7623D6A358C8F /* Pods_GoInvest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		09651CCC54ECCAFDF8014CD0 = {
@@ -32,7 +59,20 @@
 				5365D24D31D22DE1F46623E9 /* GoInvest */,
 				1C0D6F26CB66CE15504B7FDC /* GoInvestTests */,
 				6B67AD34589B15F641C9358A /* Products */,
+				12CCFBBDC1F84031B1083DC6 /* Pods */,
+				641902E1EC06F9762C1931D7 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		12CCFBBDC1F84031B1083DC6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2A4FE80713756931EF6FC835 /* Pods-GoInvest.debug.xcconfig */,
+				1A79D6AD422C4BC235DE9B13 /* Pods-GoInvest.release.xcconfig */,
+				764E2F7F2D3B6AA6B13A4DCE /* Pods-GoInvestTests.debug.xcconfig */,
+				3F95574447121706431C8712 /* Pods-GoInvestTests.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		1C0D6F26CB66CE15504B7FDC /* GoInvestTests */ = {
@@ -55,6 +95,15 @@
 			path = GoInvest;
 			sourceTree = "<group>";
 		};
+		641902E1EC06F9762C1931D7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C774B8FA685AE30486CE263 /* Pods_GoInvest.framework */,
+				D6FBDDD2F445CA41BC1F0792 /* Pods_GoInvestTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6B67AD34589B15F641C9358A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -71,8 +120,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BF953F0F6EE3F197E5547B6 /* Build configuration list for PBXNativeTarget "GoInvest" */;
 			buildPhases = (
+				AFD2F91B3BC3E405E85B4906 /* [CP] Check Pods Manifest.lock */,
 				01D3D9DD1BEBDAFF75DD52A3 /* Sources */,
 				785EC675FD1C31DEBEAB5590 /* Resources */,
+				8EF50AFDBAAEDBA2D7288E1B /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -87,7 +138,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 20ED55C1E174AF3D847A862A /* Build configuration list for PBXNativeTarget "GoInvestTests" */;
 			buildPhases = (
+				1A903E6738FF9D1AE72F8DA9 /* [CP] Check Pods Manifest.lock */,
 				8B0E1F0C76A62032C6D77877 /* Sources */,
+				735D919F28D45A900D3A0F59 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -116,6 +169,7 @@
 				en,
 			);
 			mainGroup = 09651CCC54ECCAFDF8014CD0;
+			productRefGroup = 6B67AD34589B15F641C9358A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -136,6 +190,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1A903E6738FF9D1AE72F8DA9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoInvestTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AFD2F91B3BC3E405E85B4906 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoInvest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		01D3D9DD1BEBDAFF75DD52A3 /* Sources */ = {
@@ -234,17 +335,17 @@
 		};
 		89F1207ADBC24EBD958C32B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A4FE80713756931EF6FC835 /* Pods-GoInvest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8G2G3T97GX;
-				GENERATE_INFOPLIST_FILE = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = GoInvest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandexSirius.GoInvest;
+				MARKETING_VERSION = 1.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -252,8 +353,10 @@
 		};
 		A3CA79E20961C68657838512 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F95574447121706431C8712 /* Pods-GoInvestTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -266,17 +369,17 @@
 		};
 		A73B6B26D942E17310D204EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A79D6AD422C4BC235DE9B13 /* Pods-GoInvest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8G2G3T97GX;
-				GENERATE_INFOPLIST_FILE = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = GoInvest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandexSirius.GoInvest;
+				MARKETING_VERSION = 1.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -284,8 +387,10 @@
 		};
 		C7A5ED98FA927374D5109A0F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 764E2F7F2D3B6AA6B13A4DCE /* Pods-GoInvestTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
