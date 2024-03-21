@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Получаем имя текущей ветки
+CURRENT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+# Извлекаем номер задачи из имени ветки
+TASK_NUMBER=$(echo "$CURRENT_BRANCH_NAME" | sed -E 's/^([0-9]+)-.*$/\1/')
+
+# Получаем текущее сообщение коммита
+CURRENT_COMMIT_MESSAGE=$(cat $1)
+
+# Проверяем, если номер задачи еще не включен в сообщение коммита, добавляем его
+if [[ "$CURRENT_COMMIT_MESSAGE" != *"$TASK_NUMBER"* ]]; then
+   sed -i.bak -e "1s/^/#$TASK_NUMBER /" $1
+fi
