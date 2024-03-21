@@ -19,7 +19,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        cd GitHubActions
+        cd GoInvest
         pod install --repo-update
       shell: bash
 
