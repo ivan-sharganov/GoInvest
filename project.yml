@@ -14,10 +14,10 @@ targets:
             - path: GoInvest/
         scheme:
             testTargets:
-            - Functional tests
-    Functional tests:
+            - GoInvestTests
+    GoInvestTests:
         type: bundle.unit-test
         platform: iOS
         sources:
-            - path: Functional tests
+            - path: GoInvestTests
 

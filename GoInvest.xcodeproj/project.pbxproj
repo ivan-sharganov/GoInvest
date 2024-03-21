@@ -9,18 +9,18 @@
 /* Begin PBXBuildFile section */
 		026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5400113FBE77B8361053BA9A /* AppDelegate.swift */; };
 		4ADF1EB37DC3D7368C4CB1C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */; };
-		7A9BEC02DFB3D28A5ED533C5 /* Functional_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C344463B57A52C12AC0C0C /* Functional_tests.swift */; };
 		973F5B97235852633E59A57D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */; };
 		B3C7091CB75688818AC89EB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15897C06A339C02BB515284F /* ViewController.swift */; };
+		F750E8594A9FF234402B2F49 /* GoInvestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		14F7EBA878DB1B4FA131C792 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15897C06A339C02BB515284F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1B5493FA53125B9B47D907D6 /* GoInvest.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GoInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		38C344463B57A52C12AC0C0C /* Functional_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functional_tests.swift; sourceTree = "<group>"; };
 		5400113FBE77B8361053BA9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A6102043D3EC8B61B5C7F628 /* Functional tests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "Functional tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		80489776825EAE0D8FE6EB33 /* GoInvestTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GoInvestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoInvestTests.swift; sourceTree = "<group>"; };
 		B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF661426B7B280E7564E7D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -29,10 +29,18 @@
 		09651CCC54ECCAFDF8014CD0 = {
 			isa = PBXGroup;
 			children = (
-				CD233949FBF7C324660780FF /* Functional tests */,
 				5365D24D31D22DE1F46623E9 /* GoInvest */,
+				1C0D6F26CB66CE15504B7FDC /* GoInvestTests */,
 				6B67AD34589B15F641C9358A /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		1C0D6F26CB66CE15504B7FDC /* GoInvestTests */ = {
+			isa = PBXGroup;
+			children = (
+				B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */,
+			);
+			path = GoInvestTests;
 			sourceTree = "<group>";
 		};
 		5365D24D31D22DE1F46623E9 /* GoInvest */ = {
@@ -50,18 +58,10 @@
 		6B67AD34589B15F641C9358A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A6102043D3EC8B61B5C7F628 /* Functional tests.xctest */,
 				1B5493FA53125B9B47D907D6 /* GoInvest.app */,
+				80489776825EAE0D8FE6EB33 /* GoInvestTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		CD233949FBF7C324660780FF /* Functional tests */ = {
-			isa = PBXGroup;
-			children = (
-				38C344463B57A52C12AC0C0C /* Functional_tests.swift */,
-			);
-			path = "Functional tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,19 +83,19 @@
 			productReference = 1B5493FA53125B9B47D907D6 /* GoInvest.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F1805F289B654F17698AECC8 /* Functional tests */ = {
+		D00B068FDB7DCAE5BBB3331B /* GoInvestTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3322000C8BE44DB523DFB4D4 /* Build configuration list for PBXNativeTarget "Functional tests" */;
+			buildConfigurationList = 20ED55C1E174AF3D847A862A /* Build configuration list for PBXNativeTarget "GoInvestTests" */;
 			buildPhases = (
-				DC4C58ED6EA95A272801E322 /* Sources */,
+				8B0E1F0C76A62032C6D77877 /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Functional tests";
-			productName = "Functional tests";
-			productReference = A6102043D3EC8B61B5C7F628 /* Functional tests.xctest */;
+			name = GoInvestTests;
+			productName = GoInvestTests;
+			productReference = 80489776825EAE0D8FE6EB33 /* GoInvestTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -121,8 +121,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F1805F289B654F17698AECC8 /* Functional tests */,
 				B6A3BE4B469D42749D7C028A /* GoInvest */,
+				D00B068FDB7DCAE5BBB3331B /* GoInvestTests */,
 			);
 		};
 /* End PBXProject section */
@@ -149,11 +149,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC4C58ED6EA95A272801E322 /* Sources */ = {
+		8B0E1F0C76A62032C6D77877 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A9BEC02DFB3D28A5ED533C5 /* Functional_tests.swift in Sources */,
+				F750E8594A9FF234402B2F49 /* GoInvestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +249,20 @@
 			};
 			name = Debug;
 		};
+		A3CA79E20961C68657838512 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		A73B6B26D942E17310D204EB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -264,7 +278,7 @@
 			};
 			name = Release;
 		};
-		C2DEE2AE73E72BAD3DAF00CE /* Debug */ = {
+		C7A5ED98FA927374D5109A0F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -277,20 +291,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		DFE470FCAE6A23358316C913 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
 		};
 		FC0F372FA86142F73C56E535 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -351,11 +351,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3322000C8BE44DB523DFB4D4 /* Build configuration list for PBXNativeTarget "Functional tests" */ = {
+		20ED55C1E174AF3D847A862A /* Build configuration list for PBXNativeTarget "GoInvestTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C2DEE2AE73E72BAD3DAF00CE /* Debug */,
-				DFE470FCAE6A23358316C913 /* Release */,
+				C7A5ED98FA927374D5109A0F /* Debug */,
+				A3CA79E20961C68657838512 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

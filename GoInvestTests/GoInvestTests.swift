@@ -1,16 +1,15 @@
 //
-//  Functional_tests.swift
-//  Functional tests
+//  GoInvestTests.swift
+//  GoInvestTests
 //
 //  Created by Кирилл Бережной on 21.03.2024.
 //
 
 import XCTest
 
-final class Functional_tests: XCTestCase {
+final class GoInvestTests: XCTestCase {
 
     override func setUpWithError() throws {
-        
     }
 
     override func tearDownWithError() throws {
@@ -19,12 +18,6 @@ final class Functional_tests: XCTestCase {
 
     func testExample() throws {
         
-    }
-
-    func testPerformanceExample() throws {
-        measure {
-            
-        }
     }
 
 }
