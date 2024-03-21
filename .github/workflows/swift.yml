@@ -28,11 +28,15 @@ jobs:
         cd GoInvest
         pod install --repo-update
       shell: bash
-      
-    - name: Xcodegen
+
+    - name: Generate Xcode project
       run: |
         xcodegen generate
-      shell: bash
+      
+    # - name: Xcodegen
+    #   run: |
+    #     xcodegen generate
+    #   shell: bash
       
     - name: Build
       run: |
