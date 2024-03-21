@@ -1,7 +1,23 @@
-export PATH="$PATH:/opt/homebrew/bin"
-if which swiftlint >/dev/null; then
-  swiftlint
+#export PATH="$PATH:/opt/homebrew/bin"
+#if which swiftlint >/dev/null; then
+#  swiftlint
+#else
+#  echo "error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint"
+#  exit 1
+#fi
+
+
+#!/bin/bash
+
+# Запускаем SwiftLint
+if which swiftlint > /dev/null; then
+  # Проверяем наличие предупреждений
+  if ! swiftlint | grep -q "warning"; then
+    echo "No SwiftLint warnings found. Continuing with commit."
+  else
+    echo "SwiftLint warnings found. Commit aborted."
+    exit 1  # Прерываем коммит
+  fi
 else
-  echo "error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint"
-  exit 1
+  echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
 fi
