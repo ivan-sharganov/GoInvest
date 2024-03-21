@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -60,6 +60,7 @@
 			buildPhases = (
 				01D3D9DD1BEBDAFF75DD52A3 /* Sources */,
 				785EC675FD1C31DEBEAB5590 /* Resources */,
+				1B1BFEF82BAC59D700B4C3F8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -78,8 +79,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 3C4D9455BFC897518B9A174C /* Build configuration list for PBXProject "GoInvest" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -109,6 +108,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B1BFEF82BAC59D700B4C3F8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "tfgxf\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		01D3D9DD1BEBDAFF75DD52A3 /* Sources */ = {
