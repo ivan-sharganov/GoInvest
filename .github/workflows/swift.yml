@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Build
-      run: xcodebuild build -project GoInvest.xcodeproj -scheme GoInvest clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
+      run: xcodebuild clean build -project "GoInvest.xcworkspace" -scheme "GoInvest" -sdk iphoneos CODE_SIGNING_ALLOWED=No
 
     # - name: Build
     #   run: |
