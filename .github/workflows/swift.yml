@@ -36,8 +36,10 @@ jobs:
 
     - name: Generate Xcode project
       run: |
+      cd ../
         xcodegen generate
-      
+      shell: bash
+#
     # - name: Xcodegen
     #   run: |
     #     xcodegen generate
