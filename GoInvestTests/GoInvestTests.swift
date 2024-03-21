@@ -13,11 +13,11 @@ final class GoInvestTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        
+
     }
 
     func testExample() throws {
-        
+
     }
 
 }
