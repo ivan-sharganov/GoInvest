@@ -17,6 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install Dependencies
+      run: |
+        cd GitHubActions
+        pod install --repo-update
+      shell: bash
+
     - name: Build
       run: |
         cd GoInvest
