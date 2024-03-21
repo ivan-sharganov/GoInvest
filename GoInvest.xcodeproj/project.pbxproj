@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5400113FBE77B8361053BA9A /* AppDelegate.swift */; };
-		1B1BFEFA2BAC918B00B4C3F8 /* TestFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1BFEF92BAC918B00B4C3F8 /* TestFile.swift */; };
 		3795AADB15FE998FC8F829EE /* Pods_GoInvestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6FBDDD2F445CA41BC1F0792 /* Pods_GoInvestTests.framework */; };
 		4ADF1EB37DC3D7368C4CB1C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */; };
 		973F5B97235852633E59A57D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */; };
@@ -21,7 +20,6 @@
 		14F7EBA878DB1B4FA131C792 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15897C06A339C02BB515284F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1A79D6AD422C4BC235DE9B13 /* Pods-GoInvest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvest.release.xcconfig"; path = "Target Support Files/Pods-GoInvest/Pods-GoInvest.release.xcconfig"; sourceTree = "<group>"; };
-		1B1BFEF92BAC918B00B4C3F8 /* TestFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFile.swift; sourceTree = "<group>"; };
 		1B5493FA53125B9B47D907D6 /* GoInvest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A4FE80713756931EF6FC835 /* Pods-GoInvest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoInvest.debug.xcconfig"; path = "Target Support Files/Pods-GoInvest/Pods-GoInvest.debug.xcconfig"; sourceTree = "<group>"; };
 		3C774B8FA685AE30486CE263 /* Pods_GoInvest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoInvest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +91,6 @@
 				CF661426B7B280E7564E7D69 /* Info.plist */,
 				E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */,
 				15897C06A339C02BB515284F /* ViewController.swift */,
-				1B1BFEF92BAC918B00B4C3F8 /* TestFile.swift */,
 			);
 			path = GoInvest;
 			sourceTree = "<group>";
@@ -246,7 +243,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B1BFEFA2BAC918B00B4C3F8 /* TestFile.swift in Sources */,
 				026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */,
 				B3C7091CB75688818AC89EB7 /* ViewController.swift in Sources */,
 			);
