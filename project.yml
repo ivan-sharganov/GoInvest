@@ -12,8 +12,8 @@ targets:
         platform: iOS
         sources:
             - path: GoInvest/
-        dependencies:
-        - framework: UIComponents.framework
+#        dependencies:
+#        - framework: UIComponents.framework
         scheme:
             testTargets:
             - GoInvestTests
