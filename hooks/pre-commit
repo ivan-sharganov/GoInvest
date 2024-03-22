@@ -2,7 +2,7 @@
 
 # Запускаем SwiftLint
  
-
+echo "dhkjghfgjhjhkgh"
 if which swiftlint > /dev/null; then
   # Проверяем наличие предупреждений
   swiftlint --fix
