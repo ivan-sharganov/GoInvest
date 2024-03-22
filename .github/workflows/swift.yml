@@ -28,16 +28,6 @@ jobs:
         pod install --repo-update
       shell: bash
       
-    - name: Install XcodeGen
-      run: |
-        brew update
-        brew install xcodegen
-
-    - name: Generate Xcode project
-      run: |
-        xcodegen generate
-      shell: bash
-      
     - name: Build
       run: |
         xcodebuild build -workspace GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
