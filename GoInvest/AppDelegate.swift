@@ -9,12 +9,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-
         let window = UIWindow()
-        window.rootViewController = ViewController()
+        window.rootViewController = MainViewController(viewModel: MainViewModelImpl(useCase: MainUseCaseImpl()))
         window.makeKeyAndVisible()
         self.window = window
-
+        
         return true
     }
 }
