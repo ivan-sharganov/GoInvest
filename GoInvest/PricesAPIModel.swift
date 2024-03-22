@@ -41,22 +41,24 @@ enum Datum: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let x = try? container.decode(Int.self) {
-            self = .integer(x)
+        if let value = try? container.decode(Int.self) {
+            self = .integer(value)
             return
         }
-        if let x = try? container.decode(Double.self) {
-            self = .double(x)
+        if let value = try? container.decode(Double.self) {
+            self = .double(value)
             return
         }
-        if let x = try? container.decode(String.self) {
-            self = .string(x)
+        if let value = try? container.decode(String.self) {
+            self = .string(value)
             return
         }
         if container.decodeNil() {
                self = .null
                return
         }
-        throw DecodingError.typeMismatch(Datum.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Datum"))
+        throw DecodingError.typeMismatch(Datum.self,
+                                         DecodingError.Context(codingPath: decoder.codingPath,
+                                                               debugDescription: "Wrong type for Datum"))
     }
 }

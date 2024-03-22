@@ -8,7 +8,7 @@ class NetworkManager {
         var outD = [PricesModel]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
-        for (_, data) in initialData.enumerated() {
+        for data in initialData {
             var price = PricesModel()
             data.forEach({ (element) in
                 if case .integer(let integer) = element {
@@ -55,7 +55,9 @@ class NetworkManager {
     }
 
     func getPricesForTicker() {
-        let url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/TQBR/securities/YNDX/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/TQBR/securities/YNDX"
+        url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
+        url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
 
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -72,7 +74,9 @@ class NetworkManager {
     }
 
     func getPricesForStock() {
-        let url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss.only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
+        url +=
+         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
 
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
