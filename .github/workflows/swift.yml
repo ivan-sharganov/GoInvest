@@ -44,4 +44,4 @@ jobs:
 
     - name: Run tests
       run: |
-        xcodebuild build -workspace GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
+        xcodebuild test -workspace GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
