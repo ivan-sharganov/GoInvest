@@ -17,7 +17,11 @@ final class MainViewModelImpl: MainViewModel {
     
     // MARK: - Public properties
     
-    var displayItems: [StockModel] = [StockModel(shortName: "ExampleShortName", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5), StockModel(shortName: "AnotherExampleShortName", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5), StockModel(shortName: "FuckCI", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5)]
+    var displayItems: [StockModel] = [
+        StockModel(shortName: "ExampleShortName", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5),
+        StockModel(shortName: "AnotherExampleShortName", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5),
+        StockModel(shortName: "FuckCI", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5)
+    ]
     
     // MARK: - Private properties
     
