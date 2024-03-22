@@ -4,7 +4,7 @@
 CURRENT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 # Извлекаем номер задачи из имени ветки
 TASK_NUMBER=$(echo "$CURRENT_BRANCH_NAME" | sed -E 's/^([0-9]+)-.*$/\1/')
-if [[ $TASK_NUMBER =~ ^[0-9]+$ ]]; then   
+if ! [[ $TASK_NUMBER =~ ^[0-9]+$ ]]; then   
    exit 0
 fi
 # Получаем текущее сообщение коммита
