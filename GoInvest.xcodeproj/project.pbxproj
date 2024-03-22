@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5400113FBE77B8361053BA9A /* AppDelegate.swift */; };
+		47BD65FA4C4D4692AA7BF967 /* StocksAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFA928112ABC7A14EBA90D0 /* StocksAPIModel.swift */; };
+		4ADF1EB37DC3D7368C4CB1C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */; };
+		973F5B97235852633E59A57D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */; };
 		B3C7091CB75688818AC89EB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15897C06A339C02BB515284F /* ViewController.swift */; };
 		F750E8594A9FF234402B2F49 /* GoInvestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */; };
 /* End PBXBuildFile section */
@@ -17,6 +20,7 @@
 		1B5493FA53125B9B47D907D6 /* GoInvest.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GoInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5400113FBE77B8361053BA9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80489776825EAE0D8FE6EB33 /* GoInvestTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GoInvestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABFA928112ABC7A14EBA90D0 /* StocksAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksAPIModel.swift; sourceTree = "<group>"; };
 		B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoInvestTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,6 +46,10 @@
 			isa = PBXGroup;
 			children = (
 				5400113FBE77B8361053BA9A /* AppDelegate.swift */,
+				B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */,
+				CF661426B7B280E7564E7D69 /* Info.plist */,
+				E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */,
+				ABFA928112ABC7A14EBA90D0 /* StocksAPIModel.swift */,
 				15897C06A339C02BB515284F /* ViewController.swift */,
 			);
 			path = GoInvest;
@@ -124,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */,
+				47BD65FA4C4D4692AA7BF967 /* StocksAPIModel.swift in Sources */,
 				B3C7091CB75688818AC89EB7 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
