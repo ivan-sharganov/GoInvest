@@ -27,7 +27,7 @@ final class MainViewController: UIViewController {
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
-    
+
     // MARK: - Life cycle
 
     init(viewModel: MainViewModel) {
@@ -53,20 +53,15 @@ final class MainViewController: UIViewController {
 
     private func setupUI() {
         view.addSubview(tblView)
-<<<<<<< HEAD
-        tblView.translatesAutoresizingMaskIntoConstraints = false
-
-=======
         view.addSubview(self.segmentedController)
-        
->>>>>>> 95c451e (#35 add segmented control)
+
         NSLayoutConstraint.activate([
             self.segmentedController.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.segmentedController.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.segmentedController.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.segmentedController.bottomAnchor.constraint(equalTo: self.tblView.topAnchor),
             self.segmentedController.heightAnchor.constraint(equalToConstant: 35),
-            
+
 //            tblView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
