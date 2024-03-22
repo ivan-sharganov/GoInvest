@@ -17,8 +17,15 @@ final class MainViewController: UIViewController {
     private lazy var tblView: UITableView = {
         let tbl = UITableView()
         tbl.backgroundColor = .red
-
+        tbl.translatesAutoresizingMaskIntoConstraints = false
         return tbl
+    }()
+    private lazy var segmentedController: UISegmentedControl = {
+        let control = UISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
+        control.backgroundColor = .systemGray6
+        control.selectedSegmentTintColor = .gray
+        control.translatesAutoresizingMaskIntoConstraints = false
+        return control
     }()
 
     // MARK: - Life cycle
@@ -46,10 +53,16 @@ final class MainViewController: UIViewController {
 
     private func setupUI() {
         view.addSubview(tblView)
-        tblView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self.segmentedController)
 
         NSLayoutConstraint.activate([
-            tblView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            self.segmentedController.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.segmentedController.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.segmentedController.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.segmentedController.bottomAnchor.constraint(equalTo: self.tblView.topAnchor),
+            self.segmentedController.heightAnchor.constraint(equalToConstant: 35),
+
+//            tblView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
