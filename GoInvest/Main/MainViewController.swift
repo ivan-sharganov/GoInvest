@@ -63,7 +63,7 @@ final class MainViewController: UIViewController {
 fileprivate extension MainViewController {
     
     func createDiffableDataSource() -> DiffableDataSource {
-        let dataSource                                      = DiffableDataSource(tableView: tblView) { [weak self] tableView, indexPath, displayItems in
+        let dataSource = DiffableDataSource(tableView: tblView) { [weak self] tableView, indexPath, displayItems in
             self?.setupCell(text: displayItems.shortName ?? "nil") ?? UITableViewCell()
         }
         
