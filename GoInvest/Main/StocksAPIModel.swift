@@ -7,7 +7,7 @@ struct StockData {
 }
 
 struct StockModel: Hashable {
-    
+
     /// Название компании
     var shortName: String?
 
