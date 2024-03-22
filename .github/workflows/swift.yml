@@ -44,4 +44,4 @@ jobs:
 
     - name: Run tests
       run: |
-        xcodebuild test -workspace GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphoneos -destination "platform=iOS Simulator,name=iPhone 14 Plus" CODE_SIGNING_ALLOWED=NO
+        xcodebuild test -workspace GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphoneos -destination "platform=iOS Simulator,name=iPhone 14 Plus" CODE_SIGNING_ALLOWED=No
