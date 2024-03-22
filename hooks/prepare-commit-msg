@@ -14,3 +14,4 @@ CURRENT_COMMIT_MESSAGE=$(cat $1)
 if [[ "$CURRENT_COMMIT_MESSAGE" != *"$TASK_NUMBER"* ]]; then
    sed -i.bak -e "1s/^/#$TASK_NUMBER /" $1
 fi
+ 
