@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5400113FBE77B8361053BA9A /* AppDelegate.swift */; };
-		1B1B01652BADBA3A00B4C3F8 /* UIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1B01642BADBA3A00B4C3F8 /* UIComponents.framework */; };
 		4ADF1EB37DC3D7368C4CB1C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */; };
 		973F5B97235852633E59A57D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30BB35FA348888938B6EB55 /* LaunchScreen.storyboard */; };
 		B3C7091CB75688818AC89EB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15897C06A339C02BB515284F /* ViewController.swift */; };
@@ -18,7 +17,6 @@
 /* Begin PBXFileReference section */
 		14F7EBA878DB1B4FA131C792 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15897C06A339C02BB515284F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1B1B01642BADBA3A00B4C3F8 /* UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B5493FA53125B9B47D907D6 /* GoInvest.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GoInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5400113FBE77B8361053BA9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80489776825EAE0D8FE6EB33 /* GoInvestTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GoInvestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -27,17 +25,6 @@
 		CF661426B7B280E7564E7D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		1B1B01622BADBA2400B4C3F8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B1B01652BADBA3A00B4C3F8 /* UIComponents.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
 		09651CCC54ECCAFDF8014CD0 = {
 			isa = PBXGroup;
@@ -45,16 +32,7 @@
 				5365D24D31D22DE1F46623E9 /* GoInvest */,
 				1C0D6F26CB66CE15504B7FDC /* GoInvestTests */,
 				6B67AD34589B15F641C9358A /* Products */,
-				1B1B01632BADBA3A00B4C3F8 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		1B1B01632BADBA3A00B4C3F8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1B1B01642BADBA3A00B4C3F8 /* UIComponents.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		1C0D6F26CB66CE15504B7FDC /* GoInvestTests */ = {
@@ -95,7 +73,6 @@
 			buildPhases = (
 				01D3D9DD1BEBDAFF75DD52A3 /* Sources */,
 				785EC675FD1C31DEBEAB5590 /* Resources */,
-				1B1B01622BADBA2400B4C3F8 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +106,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 3C4D9455BFC897518B9A174C /* Build configuration list for PBXProject "GoInvest" */;
 			compatibilityVersion = "Xcode 14.0";
