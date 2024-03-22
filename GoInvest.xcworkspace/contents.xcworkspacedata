@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../../../../../Development/&#x440;&#x430;&#x431;&#x43e;&#x442;&#x430;/&#x43f;&#x430;&#x43f;&#x43a;&#x430;_&#x441;&#x43e;_&#x432;&#x441;&#x435;&#x43c;/Playground/UIComponents/UIComponents.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:GoInvest.xcodeproj">
    </FileRef>
    <FileRef
