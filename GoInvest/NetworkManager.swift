@@ -5,7 +5,7 @@ class NetworkManager{
     let shared = NetworkManager()
 
     
-    func TransformPriceData(from initialData: [[Datum]]) -> PricesData {
+    func transformPriceData(from initialData: [[Datum]]) -> PricesData {
         var outD = [PricesModel]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
@@ -28,7 +28,7 @@ class NetworkManager{
         return PricesData(data: outD)
     }
     
-    func TransformStockData(from initialData: [[Datum]]) -> StockData {
+    func transformStockData(from initialData: [[Datum]]) -> StockData {
         var outD = [StockModel]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
@@ -65,7 +65,7 @@ class NetworkManager{
         URLSession.shared.dataTask(with: request){ data, response, error in
             DispatchQueue.main.async {
                 if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data){
-                    print(self.TransformPriceData(from: answer.history.data)) // передача дальше
+                    print(self.transformPriceData(from: answer.history.data)) // передача дальше
                 } else {
                     print("NO DATA")
                 }
@@ -81,7 +81,7 @@ class NetworkManager{
         URLSession.shared.dataTask(with: request){ data, response, error in
             DispatchQueue.main.async {
                 if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data){
-                    print(self.TransformStockData(from: answer.history.data)) // передача дальше
+                    print(self.transformStockData(from: answer.history.data)) // передача дальше
                 } else {
                     print("NO DATA")
                 }
