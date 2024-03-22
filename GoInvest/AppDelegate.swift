@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = MainViewController(viewModel: MainViewModelImpl(useCase: MainUseCaseImpl()))
         window.makeKeyAndVisible()
         self.window = window
-        
+
         return true
     }
 }
