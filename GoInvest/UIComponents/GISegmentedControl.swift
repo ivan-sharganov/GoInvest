@@ -6,7 +6,6 @@ class GISegmentedControl: UISegmentedControl {
         self.selectedSegmentIndex = 0
         self.selectedSegmentTintColor = .accent
         self.backgroundColor = .background
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
 
     required init?(coder: NSCoder) {

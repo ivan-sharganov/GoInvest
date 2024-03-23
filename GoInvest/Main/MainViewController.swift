@@ -24,6 +24,7 @@ final class MainViewController: UIViewController {
 
     private lazy var segmentedController: GISegmentedControl = {
         let control = GISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
+        control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
 
