@@ -55,7 +55,6 @@ final class MainViewController: UIViewController {
         view.addSubview(self.segmentedController)
         self.view.backgroundColor = .background
 
-
         NSLayoutConstraint.activate([
             self.segmentedController.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.segmentedController.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
