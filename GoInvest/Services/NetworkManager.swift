@@ -24,6 +24,7 @@ class NetworkManager {
             })
             outD.append(price)
         }
+        
         return PricesData(data: outD)
     }
 
@@ -51,6 +52,7 @@ class NetworkManager {
             }
             outD.append(price)
         }
+        
         return StockData(data: outD)
     }
 

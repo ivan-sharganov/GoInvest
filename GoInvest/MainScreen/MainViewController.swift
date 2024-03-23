@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 final class MainViewController: UIViewController {
 
@@ -10,6 +11,8 @@ final class MainViewController: UIViewController {
     // MARK: - Private properties
 
     private var viewModel: MainViewModel
+    private let bag = DisposeBag()
+    private lazy var router: Routable = MainRouter(viewController: self)
     private lazy var diffableDataSource = createDiffableDataSource()
 
     // MARK: - UI
@@ -18,6 +21,7 @@ final class MainViewController: UIViewController {
         let tbl = UITableView()
         tbl.backgroundColor = .background
         tbl.translatesAutoresizingMaskIntoConstraints = false
+        tbl.delegate = self
 
         return tbl
     }()
@@ -45,10 +49,21 @@ final class MainViewController: UIViewController {
 
         setupUI()
         tblView.dataSource = diffableDataSource
+        setupBindings()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         updateSnapshot()
+    }
+    
+    // MARK: - Private methods
+    
+    private func setupBindings() {
+        viewModel.cellTapped
+            .subscribe(onNext: { [weak self] in
+                self?.router.pushNext()
+            })
+            .disposed(by: bag)
     }
 
     private func setupUI() {
@@ -67,6 +82,8 @@ final class MainViewController: UIViewController {
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+//        setupNavigationController()
     }
 
 }
@@ -97,8 +114,17 @@ fileprivate extension MainViewController {
         cell.backgroundColor = .background
 
         cell.textLabel?.text = text
+        cell.selectionStyle = .none
 
         return cell
     }
 
+}
+
+extension MainViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.handleItemSelection()
+    }
+    
 }

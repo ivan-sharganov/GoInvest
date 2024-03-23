@@ -6,11 +6,13 @@ target 'GoInvest' do
   use_frameworks!
 
   # Pods for GoInvest
+  pod 'RxSwift'
+  pod 'RxCocoa'
 
   target 'GoInvestTests' do
     inherit! :search_paths
     # Pods for testing
-  pod 'SwiftLint'
+    pod 'SwiftLint'
   end
 
 end
