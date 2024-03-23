@@ -18,16 +18,16 @@ final class MainViewController: UIViewController {
         let tbl = UITableView()
         tbl.backgroundColor = .red
         tbl.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return tbl
     }()
-    
+
     private lazy var segmentedController: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
         control.backgroundColor = .systemGray6
         control.selectedSegmentTintColor = .gray
         control.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return control
     }()
 
