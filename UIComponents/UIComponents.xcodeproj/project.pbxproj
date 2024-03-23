@@ -13,6 +13,7 @@
 		CE8D07982BAEE43D00EDC340 /* StocksCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D07942BAEE43D00EDC340 /* StocksCellContentView.swift */; };
 		CE8D07992BAEE43D00EDC340 /* MockGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D07952BAEE43D00EDC340 /* MockGraph.swift */; };
 		CE8D079A2BAEE43D00EDC340 /* VerticalPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D07962BAEE43D00EDC340 /* VerticalPriceView.swift */; };
+		CE8D079C2BAEE67F00EDC340 /* HorizontalPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D079B2BAEE67F00EDC340 /* HorizontalPriceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		CE8D07942BAEE43D00EDC340 /* StocksCellContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocksCellContentView.swift; sourceTree = "<group>"; };
 		CE8D07952BAEE43D00EDC340 /* MockGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGraph.swift; sourceTree = "<group>"; };
 		CE8D07962BAEE43D00EDC340 /* VerticalPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalPriceView.swift; sourceTree = "<group>"; };
+		CE8D079B2BAEE67F00EDC340 /* HorizontalPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPriceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 		1B1B01542BADB9B800B4C3F8 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				CE8D079B2BAEE67F00EDC340 /* HorizontalPriceView.swift */,
 				CE8D07922BAEE3D800EDC340 /* Cell components */,
 				1B1B01552BADB9B800B4C3F8 /* UIComponents.h */,
 			);
@@ -157,6 +160,7 @@
 				CE5DC5192BADBD6000F023ED /* RateLabel.swift in Sources */,
 				CE8D07972BAEE43D00EDC340 /* NamesView.swift in Sources */,
 				CE8D07992BAEE43D00EDC340 /* MockGraph.swift in Sources */,
+				CE8D079C2BAEE67F00EDC340 /* HorizontalPriceView.swift in Sources */,
 				CE8D079A2BAEE43D00EDC340 /* VerticalPriceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
