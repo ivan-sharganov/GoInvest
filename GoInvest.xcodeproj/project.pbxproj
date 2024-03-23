@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5400113FBE77B8361053BA9A /* AppDelegate.swift */; };
+		10D88204D8429383C0CCFBE8 /* RateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4069CE6050444084D2BC526C /* RateLabel.swift */; };
+		12EB6FF9A3C1D83EECE8BB8B /* MockGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFFFF31C0AEAB3FFDEA9EB /* MockGraph.swift */; };
+		196AABD9E497BD52E88657C5 /* NamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC9EA43F5A9E3EFD7779996 /* NamesView.swift */; };
 		374BA8F4BBC459C426A1ECE6 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FBD36CB654D5687450007 /* MainViewModel.swift */; };
 		5C6D95AE02835DCD7AB8C834 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67358B8C7EDA50379E75E61D /* Assets.xcassets */; };
 		65D0CA9CA37938A4A5E6CAC4 /* StocksAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1655C42EA50E10F8FF325238 /* StocksAPIModel.swift */; };
+		667FDD2F9CD8E6142B5590AE /* StocksCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E33E4B99CE8D3C5739CCFE /* StocksCellContentView.swift */; };
 		7E973AF769B0E112D429A891 /* PricesAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617F0AC2B99F68AF70F9488 /* PricesAPIModel.swift */; };
 		82B0188307C7449DF730317A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF67B6C2947F2BC69B307CC6 /* LaunchScreen.storyboard */; };
 		862B2AA25FA3F6268CCFC2EC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E80D979DD52D11FF4E3D72B /* NetworkManager.swift */; };
+		A6A1C9983957A5F630759C38 /* HorizontalPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FCE70B4AFA5AB56E6D6741 /* HorizontalPriceView.swift */; };
+		AA7852558D95A24FDE41C4D3 /* VerticalPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AFCC5407D1BFD7638A46ED /* VerticalPriceView.swift */; };
 		C019748C5BAC83D84C7E5317 /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA94B3FB0FFD92EB0BA07DF /* MainRepository.swift */; };
 		C41BD6059C21AE6D726D9623 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86CB4EB2D6398324650E185 /* MainRouter.swift */; };
 		E1B5FC0CEBF38B8E8F5C74C2 /* MainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C592962EF195E9E9FA0C0E7A /* MainUseCase.swift */; };
@@ -22,31 +28,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01AFCC5407D1BFD7638A46ED /* VerticalPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalPriceView.swift; sourceTree = "<group>"; };
 		1655C42EA50E10F8FF325238 /* StocksAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksAPIModel.swift; sourceTree = "<group>"; };
 		1B5493FA53125B9B47D907D6 /* GoInvest.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GoInvest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31FCE70B4AFA5AB56E6D6741 /* HorizontalPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPriceView.swift; sourceTree = "<group>"; };
 		345FBD36CB654D5687450007 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		3E70CA9E0295E0A9418D7193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4069CE6050444084D2BC526C /* RateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLabel.swift; sourceTree = "<group>"; };
 		4E80D979DD52D11FF4E3D72B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		5400113FBE77B8361053BA9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67358B8C7EDA50379E75E61D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6EA94B3FB0FFD92EB0BA07DF /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
+		6EC9EA43F5A9E3EFD7779996 /* NamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesView.swift; sourceTree = "<group>"; };
 		80489776825EAE0D8FE6EB33 /* GoInvestTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GoInvestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98E8D0A41C559859EB380DA1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A617F0AC2B99F68AF70F9488 /* PricesAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesAPIModel.swift; sourceTree = "<group>"; };
+		A9E33E4B99CE8D3C5739CCFE /* StocksCellContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksCellContentView.swift; sourceTree = "<group>"; };
+		AA296A7E523CB00EDD8DB088 /* UIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponents.h; sourceTree = "<group>"; };
+		AFFFFFF31C0AEAB3FFDEA9EB /* MockGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraph.swift; sourceTree = "<group>"; };
 		B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoInvestTests.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		C592962EF195E9E9FA0C0E7A /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
-=======
-		B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CE5DC5142BADBC0B00F023ED /* UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE8D079D2BAF101E00EDC340 /* HorizontalPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPriceView.swift; sourceTree = "<group>"; };
-		CE8D079E2BAF101E00EDC340 /* MockGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGraph.swift; sourceTree = "<group>"; };
-		CE8D079F2BAF101E00EDC340 /* NamesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NamesView.swift; sourceTree = "<group>"; };
-		CE8D07A02BAF101E00EDC340 /* StocksCellContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocksCellContentView.swift; sourceTree = "<group>"; };
-		CE8D07A12BAF101E00EDC340 /* VerticalPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalPriceView.swift; sourceTree = "<group>"; };
-		CE8D07A22BAF101E00EDC340 /* RateLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLabel.swift; sourceTree = "<group>"; };
-		CE8D07A42BAF101E00EDC340 /* UIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponents.h; sourceTree = "<group>"; };
->>>>>>> f0d09b2 (Moved ui components to goinvest project)
 		CF661426B7B280E7564E7D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F86CB4EB2D6398324650E185 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,13 +95,13 @@
 		5365D24D31D22DE1F46623E9 /* GoInvest */ = {
 			isa = PBXGroup;
 			children = (
-				CE8D07A52BAF101E00EDC340 /* UIComponents */,
 				5400113FBE77B8361053BA9A /* AppDelegate.swift */,
 				CF661426B7B280E7564E7D69 /* Info.plist */,
 				4E80D979DD52D11FF4E3D72B /* NetworkManager.swift */,
 				A617F0AC2B99F68AF70F9488 /* PricesAPIModel.swift */,
 				1AB9DCB881323C4049D98FCD /* Common */,
 				529BCBC6EAC7DBAAF82FAD81 /* Main */,
+				E583079088CD00A41C2B0136 /* UIComponents */,
 			);
 			path = GoInvest;
 			sourceTree = "<group>";
@@ -114,39 +115,28 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-=======
-		CE5DC5132BADBC0B00F023ED /* Frameworks */ = {
+		AE34F8888E74475D17C230D0 /* Cell components */ = {
 			isa = PBXGroup;
 			children = (
-				CE5DC5142BADBC0B00F023ED /* UIComponents.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CE8D07A32BAF101E00EDC340 /* Cell components */ = {
-			isa = PBXGroup;
-			children = (
-				CE8D079E2BAF101E00EDC340 /* MockGraph.swift */,
-				CE8D079F2BAF101E00EDC340 /* NamesView.swift */,
-				CE8D07A02BAF101E00EDC340 /* StocksCellContentView.swift */,
-				CE8D07A12BAF101E00EDC340 /* VerticalPriceView.swift */,
-				CE8D07A22BAF101E00EDC340 /* RateLabel.swift */,
+				AFFFFFF31C0AEAB3FFDEA9EB /* MockGraph.swift */,
+				6EC9EA43F5A9E3EFD7779996 /* NamesView.swift */,
+				4069CE6050444084D2BC526C /* RateLabel.swift */,
+				A9E33E4B99CE8D3C5739CCFE /* StocksCellContentView.swift */,
+				01AFCC5407D1BFD7638A46ED /* VerticalPriceView.swift */,
 			);
 			path = "Cell components";
 			sourceTree = "<group>";
 		};
-		CE8D07A52BAF101E00EDC340 /* UIComponents */ = {
+		E583079088CD00A41C2B0136 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
-				CE8D079D2BAF101E00EDC340 /* HorizontalPriceView.swift */,
-				CE8D07A32BAF101E00EDC340 /* Cell components */,
-				CE8D07A42BAF101E00EDC340 /* UIComponents.h */,
+				31FCE70B4AFA5AB56E6D6741 /* HorizontalPriceView.swift */,
+				AA296A7E523CB00EDD8DB088 /* UIComponents.h */,
+				AE34F8888E74475D17C230D0 /* Cell components */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
->>>>>>> f0d09b2 (Moved ui components to goinvest project)
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -228,14 +218,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				026AF271FB8289548FB229B5 /* AppDelegate.swift in Sources */,
+				A6A1C9983957A5F630759C38 /* HorizontalPriceView.swift in Sources */,
 				C019748C5BAC83D84C7E5317 /* MainRepository.swift in Sources */,
 				C41BD6059C21AE6D726D9623 /* MainRouter.swift in Sources */,
 				E1B5FC0CEBF38B8E8F5C74C2 /* MainUseCase.swift in Sources */,
 				EC6FCD4757B6736F73FD9955 /* MainViewController.swift in Sources */,
 				374BA8F4BBC459C426A1ECE6 /* MainViewModel.swift in Sources */,
+				12EB6FF9A3C1D83EECE8BB8B /* MockGraph.swift in Sources */,
+				196AABD9E497BD52E88657C5 /* NamesView.swift in Sources */,
 				862B2AA25FA3F6268CCFC2EC /* NetworkManager.swift in Sources */,
 				7E973AF769B0E112D429A891 /* PricesAPIModel.swift in Sources */,
+				10D88204D8429383C0CCFBE8 /* RateLabel.swift in Sources */,
 				65D0CA9CA37938A4A5E6CAC4 /* StocksAPIModel.swift in Sources */,
+				667FDD2F9CD8E6142B5590AE /* StocksCellContentView.swift in Sources */,
+				AA7852558D95A24FDE41C4D3 /* VerticalPriceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
