@@ -49,7 +49,11 @@ final class MainViewController: UIViewController {
 
         setupUI()
         tblView.dataSource = diffableDataSource
+        tblView.delegate = self
+        tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
+
         setupBindings()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -93,8 +97,27 @@ final class MainViewController: UIViewController {
 fileprivate extension MainViewController {
 
     func createDiffableDataSource() -> DiffableDataSource {
-        let dataSource = DiffableDataSource(tableView: tblView) { [weak self] _, _, displayItems in
-            self?.setupCell(text: displayItems.shortName ?? "nil") ?? UITableViewCell()
+        let dataSource = DiffableDataSource(tableView: tblView) { tableView, indexPath, item in
+            
+            guard let fullName = item.shortName, 
+                    let shortName = item.ticker, 
+                    let price = item.close,
+                    let priceChange = item.trendclspr
+            else {
+                return UITableViewCell()
+            }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseId, for: indexPath)
+            var configuration = cell.stocksCellContentViewConfiguration()
+            
+            configuration.fullName = fullName
+            configuration.shortName = shortName
+            configuration.price = price
+            configuration.priceChange = priceChange
+            configuration.rate = Double.random(in: 0...10)      // TODO: Add actual data
+            cell.contentConfiguration = configuration
+            
+            return cell
         }
 
         return dataSource
@@ -108,6 +131,7 @@ fileprivate extension MainViewController {
 
         diffableDataSource.apply(snapshot)
     }
+<<<<<<< HEAD:GoInvest/MainScreen/MainViewController.swift
 
     func setupCell(text: String) -> UITableViewCell {
         let cell = UITableViewCell()
@@ -119,6 +143,16 @@ fileprivate extension MainViewController {
         return cell
     }
 
+=======
+}
+
+// MARK: - UITableViewDelegate
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
+    }
+>>>>>>> 94e9640 (Setup tableView cell, added new mock data to model.):GoInvest/Main/MainViewController.swift
 }
 
 extension MainViewController: UITableViewDelegate {

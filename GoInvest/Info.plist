@@ -5,7 +5,7 @@
 	<key>CFBundleExecutable</key>
 	<string>GoInvest</string>
 	<key>CFBundleIdentifier</key>
-	<string>ru.yandexSirius.GoInvest</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleName</key>
 	<string>GoInvest</string>
 	<key>CFBundleShortVersionString</key>

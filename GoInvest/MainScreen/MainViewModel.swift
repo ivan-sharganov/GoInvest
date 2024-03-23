@@ -19,9 +19,12 @@ final class MainViewModelImpl: MainViewModel {
     let cellTapped = PublishRelay<Void>()
 
     var displayItems: [StockModel] = [
-        StockModel(shortName: "ExampleShortName", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5),
-        StockModel(shortName: "AnotherExampleShortName", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5),
-        StockModel(shortName: "FuckCI", ticker: "ExampleTicket", close: 5.5, trendclspr: 5.5)
+        StockModel(shortName: "Longlonglongname", ticker: "LONGLONGNAME", close: 50.25, trendclspr: 5.5),
+        StockModel(shortName: "Company", ticker: "CSLS", close: 5124.5, trendclspr: -125.5),
+        StockModel(shortName: "FuckCI", ticker: "FUCKCI", close: 1234.5, trendclspr: 125.35),
+        StockModel(shortName: "Dadadada", ticker: "DDDD", close: 135.5, trendclspr: -5.5),
+        StockModel(shortName: "Yandex, LCC", ticker: "YNDX", close: 12225.5, trendclspr: 25.55),
+        StockModel(shortName: "Ahahah", ticker: "AHAHAH", close: 5123.5, trendclspr: 5.65)
     ]
 
     // MARK: - Private properties
