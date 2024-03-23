@@ -16,18 +16,14 @@ final class MainViewController: UIViewController {
 
     private lazy var tblView: UITableView = {
         let tbl = UITableView()
-        tbl.backgroundColor = .red
+        tbl.backgroundColor = .background
         tbl.translatesAutoresizingMaskIntoConstraints = false
 
         return tbl
     }()
 
-    private lazy var segmentedController: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
-        control.backgroundColor = .systemGray6
-        control.selectedSegmentTintColor = .gray
-        control.translatesAutoresizingMaskIntoConstraints = false
-
+    private lazy var segmentedController: GISegmentedControl = {
+        let control = GISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
         return control
     }()
 
@@ -57,6 +53,8 @@ final class MainViewController: UIViewController {
     private func setupUI() {
         view.addSubview(self.tblView)
         view.addSubview(self.segmentedController)
+        self.view.backgroundColor = .background
+
 
         NSLayoutConstraint.activate([
             self.segmentedController.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -65,7 +63,6 @@ final class MainViewController: UIViewController {
             self.segmentedController.bottomAnchor.constraint(equalTo: self.tblView.topAnchor),
             self.segmentedController.heightAnchor.constraint(equalToConstant: 35),
 
-//            tblView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -97,6 +94,7 @@ fileprivate extension MainViewController {
 
     func setupCell(text: String) -> UITableViewCell {
         let cell = UITableViewCell()
+        cell.backgroundColor = .background
 
         cell.textLabel?.text = text
 
