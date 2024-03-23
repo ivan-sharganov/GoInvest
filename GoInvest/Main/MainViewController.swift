@@ -16,19 +16,27 @@ final class MainViewController: UIViewController {
 
     private lazy var tblView: UITableView = {
         let tbl = UITableView()
+        tbl.backgroundColor = .background
         tbl.backgroundColor = .red
+        tbl.keyboardDismissMode = .onDrag
         tbl.translatesAutoresizingMaskIntoConstraints = false
 
         return tbl
     }()
 
-    private lazy var segmentedController: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
-        control.backgroundColor = .systemGray6
-        control.selectedSegmentTintColor = .gray
+    private lazy var segmentedController: GISegmentedControl = {
+        let control = GISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
         control.translatesAutoresizingMaskIntoConstraints = false
-
         return control
+    }()
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search"
+        searchBar.backgroundColor = .gray
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        return searchBar
     }()
 
     // MARK: - Life cycle
@@ -47,7 +55,9 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
+        searchBar.delegate = self
         tblView.dataSource = diffableDataSource
+//        self.hideKeyboardWhenTappedAround()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -57,15 +67,21 @@ final class MainViewController: UIViewController {
     private func setupUI() {
         view.addSubview(self.tblView)
         view.addSubview(self.segmentedController)
+        self.view.backgroundColor = .background
+        view.addSubview(self.searchBar)
 
         NSLayoutConstraint.activate([
             self.segmentedController.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.segmentedController.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.segmentedController.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.segmentedController.bottomAnchor.constraint(equalTo: self.tblView.topAnchor),
             self.segmentedController.heightAnchor.constraint(equalToConstant: 35),
+            
+            self.searchBar.topAnchor.constraint(equalTo: self.segmentedController.bottomAnchor, constant: 8),
+            self.searchBar.heightAnchor.constraint(equalToConstant: 35),
+            self.searchBar.leadingAnchor.constraint(equalTo: self.segmentedController.leadingAnchor),
+            self.searchBar.trailingAnchor.constraint(equalTo: self.segmentedController.trailingAnchor),
 
-//            tblView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            self.tblView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -97,10 +113,31 @@ fileprivate extension MainViewController {
 
     func setupCell(text: String) -> UITableViewCell {
         let cell = UITableViewCell()
+        cell.backgroundColor = .background
 
         cell.textLabel?.text = text
 
         return cell
     }
 
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+
+extension MainViewController: UISearchBarDelegate{
+    @objc private func cancelTapped() {
+        self.searchBar.endEditing(true)
+        self.searchBar.text = ""
+    }
 }
