@@ -33,7 +33,7 @@ final class MainViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search"
-        searchBar.backgroundColor = .gray
+        searchBar.backgroundColor = .background
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         
         return searchBar
@@ -57,7 +57,7 @@ final class MainViewController: UIViewController {
         setupUI()
         searchBar.delegate = self
         tblView.dataSource = diffableDataSource
-//        self.hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -78,8 +78,8 @@ final class MainViewController: UIViewController {
             
             self.searchBar.topAnchor.constraint(equalTo: self.segmentedController.bottomAnchor, constant: 8),
             self.searchBar.heightAnchor.constraint(equalToConstant: 35),
-            self.searchBar.leadingAnchor.constraint(equalTo: self.segmentedController.leadingAnchor),
-            self.searchBar.trailingAnchor.constraint(equalTo: self.segmentedController.trailingAnchor),
+            self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
 
             self.tblView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -122,22 +122,12 @@ fileprivate extension MainViewController {
 
 }
 
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
-
-
 extension MainViewController: UISearchBarDelegate{
     @objc private func cancelTapped() {
-        self.searchBar.endEditing(true)
+        self.searchBar.endEditing(false)
         self.searchBar.text = ""
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
     }
 }
