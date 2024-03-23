@@ -18,13 +18,16 @@ final class MainViewController: UIViewController {
         let tbl = UITableView()
         tbl.backgroundColor = .red
         tbl.translatesAutoresizingMaskIntoConstraints = false
+        
         return tbl
     }()
+    
     private lazy var segmentedController: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
         control.backgroundColor = .systemGray6
         control.selectedSegmentTintColor = .gray
         control.translatesAutoresizingMaskIntoConstraints = false
+        
         return control
     }()
 
@@ -52,7 +55,7 @@ final class MainViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.addSubview(tblView)
+        view.addSubview(self.tblView)
         view.addSubview(self.segmentedController)
 
         NSLayoutConstraint.activate([
@@ -63,9 +66,9 @@ final class MainViewController: UIViewController {
             self.segmentedController.heightAnchor.constraint(equalToConstant: 35),
 
 //            tblView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 

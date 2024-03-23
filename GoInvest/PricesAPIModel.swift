@@ -34,6 +34,7 @@ struct History: Decodable {
 
 }
 enum Datum: Decodable {
+    
     case double(Double)
     case string(String)
     case integer(Int)
@@ -61,4 +62,5 @@ enum Datum: Decodable {
                                          DecodingError.Context(codingPath: decoder.codingPath,
                                                                debugDescription: "Wrong type for Datum"))
     }
+    
 }
