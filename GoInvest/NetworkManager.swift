@@ -31,9 +31,9 @@ class NetworkManager {
         var outD = [StockModel]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
-        for (index, data) in initialData.enumerated() {
+        initialData.forEach{ (data) in
             var price = StockModel()
-            data.forEach({ (element) in
+            for (index, element) in data.enumerated() {
                 if case .double(let double) = element {
                     if index==2 {
                         price.close = double
@@ -44,18 +44,19 @@ class NetworkManager {
                 if case .string(let string) = element {
                     if index==0 {
                         price.shortName = string
-                    } else {
+                    } else if (index == 1){
                         price.ticker = string
                     }
                 }
-            })
+            }
             outD.append(price)
         }
         return StockData(data: outD)
     }
 
-    func getPricesForTicker(ticker: String,completion: @escaping (PricesData?) -> Void) {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/TQBR/securities/\(ticker)"
+    /// Получить дату для всех "securities", передаваемы параметры board - тип торгов и ticker - название компаниив
+    func getPricesForTicker(ticker: String = "YNDX", board: String = "TQBR", completion: @escaping (PricesData?) -> Void) {
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/\(board)/securities/\(ticker)"
         url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
         url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
 
@@ -65,7 +66,8 @@ class NetworkManager {
         URLSession.shared.dataTask(with: request) { data, _, _ in
             DispatchQueue.main.async {
                 if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    completion(self.transformPriceData(from: answer.history.data))
+                    completion({[weak self] in
+                            self?.transformPriceData(from: answer.history.data)}())
                 } else {
                     completion(nil)
                 }
@@ -83,7 +85,8 @@ class NetworkManager {
         URLSession.shared.dataTask(with: request) { data, _, _ in
             DispatchQueue.main.async {
                 if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    completion(self.transformStockData(from: answer.history.data))
+                    completion({[weak self] in
+                        self?.transformStockData(from: answer.history.data)}())
                 } else {
                     completion(nil)
                 }
