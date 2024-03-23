@@ -2,9 +2,9 @@ import Foundation
 
 class NetworkManager {
 
-    let shared = NetworkManager()
+    static let shared = NetworkManager()
 
-    func transformPriceData(from initialData: [[Datum]]) -> PricesData {
+    private func transformPriceData(from initialData: [[Datum]]) -> PricesData {
         var outD = [PricesModel]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
@@ -27,7 +27,7 @@ class NetworkManager {
         return PricesData(data: outD)
     }
 
-    func transformStockData(from initialData: [[Datum]]) -> StockData {
+    private func transformStockData(from initialData: [[Datum]]) -> StockData {
         var outD = [StockModel]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy-MM-dd"
@@ -54,8 +54,8 @@ class NetworkManager {
         return StockData(data: outD)
     }
 
-    func getPricesForTicker() {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/TQBR/securities/YNDX"
+    func getPricesForTicker(ticker: String,completion: @escaping (PricesData?) -> Void) {
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/TQBR/securities/\(ticker)"
         url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
         url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
 
@@ -65,15 +65,15 @@ class NetworkManager {
         URLSession.shared.dataTask(with: request) { data, _, _ in
             DispatchQueue.main.async {
                 if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    print(self.transformPriceData(from: answer.history.data)) // передача дальше
+                    completion(self.transformPriceData(from: answer.history.data))
                 } else {
-                    print("NO DATA")
+                    completion(nil)
                 }
             }
         }.resume()
     }
 
-    func getPricesForStock() {
+    func getPricesForStock(completion: @escaping (StockData?) -> Void){
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
         url +=
          ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
@@ -83,9 +83,9 @@ class NetworkManager {
         URLSession.shared.dataTask(with: request) { data, _, _ in
             DispatchQueue.main.async {
                 if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    print(self.transformStockData(from: answer.history.data)) // передача дальше
+                    completion(self.transformStockData(from: answer.history.data))
                 } else {
-                    print("NO DATA")
+                    completion(nil)
                 }
             }
         }.resume()
