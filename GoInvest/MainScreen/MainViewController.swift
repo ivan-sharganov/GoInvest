@@ -136,12 +136,10 @@ fileprivate extension MainViewController {
 // MARK: - UITableViewDelegate
 
 extension MainViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
-}
-
-extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.handleItemSelection()
