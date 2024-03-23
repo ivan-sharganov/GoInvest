@@ -131,19 +131,6 @@ fileprivate extension MainViewController {
 
         diffableDataSource.apply(snapshot)
     }
-<<<<<<< HEAD:GoInvest/MainScreen/MainViewController.swift
-
-    func setupCell(text: String) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.backgroundColor = .background
-
-        cell.textLabel?.text = text
-        cell.selectionStyle = .none
-
-        return cell
-    }
-
-=======
 }
 
 // MARK: - UITableViewDelegate
@@ -152,7 +139,6 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
->>>>>>> 94e9640 (Setup tableView cell, added new mock data to model.):GoInvest/Main/MainViewController.swift
 }
 
 extension MainViewController: UITableViewDelegate {
