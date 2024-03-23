@@ -23,11 +23,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Dependencies
-      run: |
-        pod install --repo-update
-      shell: bash
-      
     - name: Install XcodeGen
       run: |
         brew update
@@ -37,7 +32,12 @@ jobs:
       run: |
         xcodegen generate
       shell: bash
-      
+
+    - name: Install Dependencies
+      run: |
+        pod install --repo-update
+      shell: bash
+
     - name: Build
       run: |
         xcodebuild build -workspace GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
