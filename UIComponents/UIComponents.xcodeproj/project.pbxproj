@@ -61,7 +61,8 @@
 				CE8D07922BAEE3D800EDC340 /* Cell components */,
 				1B1B01552BADB9B800B4C3F8 /* UIComponents.h */,
 			);
-			path = UIComponents;
+			name = UIComponents;
+			path = ../GoInvest/UIComponents;
 			sourceTree = "<group>";
 		};
 		CE8D07922BAEE3D800EDC340 /* Cell components */ = {

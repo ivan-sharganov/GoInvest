@@ -34,7 +34,19 @@
 		98E8D0A41C559859EB380DA1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A617F0AC2B99F68AF70F9488 /* PricesAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesAPIModel.swift; sourceTree = "<group>"; };
 		B50F0C52DAEEDD998F59FDAD /* GoInvestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoInvestTests.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		C592962EF195E9E9FA0C0E7A /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
+=======
+		B95AB034CAED4E02C03AE6C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CE5DC5142BADBC0B00F023ED /* UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE8D079D2BAF101E00EDC340 /* HorizontalPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPriceView.swift; sourceTree = "<group>"; };
+		CE8D079E2BAF101E00EDC340 /* MockGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGraph.swift; sourceTree = "<group>"; };
+		CE8D079F2BAF101E00EDC340 /* NamesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NamesView.swift; sourceTree = "<group>"; };
+		CE8D07A02BAF101E00EDC340 /* StocksCellContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocksCellContentView.swift; sourceTree = "<group>"; };
+		CE8D07A12BAF101E00EDC340 /* VerticalPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalPriceView.swift; sourceTree = "<group>"; };
+		CE8D07A22BAF101E00EDC340 /* RateLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLabel.swift; sourceTree = "<group>"; };
+		CE8D07A42BAF101E00EDC340 /* UIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponents.h; sourceTree = "<group>"; };
+>>>>>>> f0d09b2 (Moved ui components to goinvest project)
 		CF661426B7B280E7564E7D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F86CB4EB2D6398324650E185 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +94,7 @@
 		5365D24D31D22DE1F46623E9 /* GoInvest */ = {
 			isa = PBXGroup;
 			children = (
+				CE8D07A52BAF101E00EDC340 /* UIComponents */,
 				5400113FBE77B8361053BA9A /* AppDelegate.swift */,
 				CF661426B7B280E7564E7D69 /* Info.plist */,
 				4E80D979DD52D11FF4E3D72B /* NetworkManager.swift */,
@@ -101,6 +114,39 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+=======
+		CE5DC5132BADBC0B00F023ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE5DC5142BADBC0B00F023ED /* UIComponents.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE8D07A32BAF101E00EDC340 /* Cell components */ = {
+			isa = PBXGroup;
+			children = (
+				CE8D079E2BAF101E00EDC340 /* MockGraph.swift */,
+				CE8D079F2BAF101E00EDC340 /* NamesView.swift */,
+				CE8D07A02BAF101E00EDC340 /* StocksCellContentView.swift */,
+				CE8D07A12BAF101E00EDC340 /* VerticalPriceView.swift */,
+				CE8D07A22BAF101E00EDC340 /* RateLabel.swift */,
+			);
+			path = "Cell components";
+			sourceTree = "<group>";
+		};
+		CE8D07A52BAF101E00EDC340 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				CE8D079D2BAF101E00EDC340 /* HorizontalPriceView.swift */,
+				CE8D07A32BAF101E00EDC340 /* Cell components */,
+				CE8D07A42BAF101E00EDC340 /* UIComponents.h */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+>>>>>>> f0d09b2 (Moved ui components to goinvest project)
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
