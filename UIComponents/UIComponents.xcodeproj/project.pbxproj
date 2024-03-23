@@ -9,12 +9,20 @@
 /* Begin PBXBuildFile section */
 		1B1B01562BADB9B800B4C3F8 /* UIComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B1B01552BADB9B800B4C3F8 /* UIComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE5DC5192BADBD6000F023ED /* RateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DC5182BADBD6000F023ED /* RateLabel.swift */; };
+		CE8D07972BAEE43D00EDC340 /* NamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D07932BAEE43C00EDC340 /* NamesView.swift */; };
+		CE8D07982BAEE43D00EDC340 /* StocksCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D07942BAEE43D00EDC340 /* StocksCellContentView.swift */; };
+		CE8D07992BAEE43D00EDC340 /* MockGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D07952BAEE43D00EDC340 /* MockGraph.swift */; };
+		CE8D079A2BAEE43D00EDC340 /* VerticalPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D07962BAEE43D00EDC340 /* VerticalPriceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1B1B01522BADB9B800B4C3F8 /* UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B1B01552BADB9B800B4C3F8 /* UIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponents.h; sourceTree = "<group>"; };
 		CE5DC5182BADBD6000F023ED /* RateLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLabel.swift; sourceTree = "<group>"; };
+		CE8D07932BAEE43C00EDC340 /* NamesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NamesView.swift; sourceTree = "<group>"; };
+		CE8D07942BAEE43D00EDC340 /* StocksCellContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocksCellContentView.swift; sourceTree = "<group>"; };
+		CE8D07952BAEE43D00EDC340 /* MockGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGraph.swift; sourceTree = "<group>"; };
+		CE8D07962BAEE43D00EDC340 /* VerticalPriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalPriceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,10 +55,22 @@
 		1B1B01542BADB9B800B4C3F8 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
-				CE5DC5182BADBD6000F023ED /* RateLabel.swift */,
+				CE8D07922BAEE3D800EDC340 /* Cell components */,
 				1B1B01552BADB9B800B4C3F8 /* UIComponents.h */,
 			);
 			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		CE8D07922BAEE3D800EDC340 /* Cell components */ = {
+			isa = PBXGroup;
+			children = (
+				CE8D07952BAEE43D00EDC340 /* MockGraph.swift */,
+				CE8D07932BAEE43C00EDC340 /* NamesView.swift */,
+				CE8D07942BAEE43D00EDC340 /* StocksCellContentView.swift */,
+				CE8D07962BAEE43D00EDC340 /* VerticalPriceView.swift */,
+				CE5DC5182BADBD6000F023ED /* RateLabel.swift */,
+			);
+			path = "Cell components";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,7 +153,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8D07982BAEE43D00EDC340 /* StocksCellContentView.swift in Sources */,
 				CE5DC5192BADBD6000F023ED /* RateLabel.swift in Sources */,
+				CE8D07972BAEE43D00EDC340 /* NamesView.swift in Sources */,
+				CE8D07992BAEE43D00EDC340 /* MockGraph.swift in Sources */,
+				CE8D079A2BAEE43D00EDC340 /* VerticalPriceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

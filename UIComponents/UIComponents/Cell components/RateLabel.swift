@@ -1,6 +1,7 @@
 import UIKit
 
 final class RateLabel: UILabel {
+    // MARK: - Properties
     var rate: Double = 0 {
         didSet {
             switch rate {
@@ -18,6 +19,7 @@ final class RateLabel: UILabel {
         }
     }
     
+    // MARK: - Initialization
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         
@@ -35,10 +37,11 @@ final class RateLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Methods
     private func setupLayer() {
         layer.cornerRadius = 8
         layer.masksToBounds = true
-        layer.shadowColor = UIColor.secondarySystemBackground.cgColor           // TODO: Set correct color
+        layer.shadowColor = UIColor.secondarySystemBackground.cgColor
         layer.shadowRadius = 10
     }
     
