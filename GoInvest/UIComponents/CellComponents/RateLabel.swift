@@ -18,25 +18,25 @@ final class RateLabel: UILabel {
             text = String(format: "%.1f", rate)
         }
     }
-    
+
     // MARK: - Initialization
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        
+
         backgroundColor = .systemCyan
-        
+
         textColor = .white
         font = UIFont.systemFont(ofSize: 22)
         textAlignment = .center
-        
+
         setupLayer()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Methods
     private func setupLayer() {
         layer.cornerRadius = 8
@@ -44,7 +44,7 @@ final class RateLabel: UILabel {
         layer.shadowColor = UIColor.secondarySystemBackground.cgColor
         layer.shadowRadius = 10
     }
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 32),

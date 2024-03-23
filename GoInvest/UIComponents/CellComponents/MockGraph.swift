@@ -4,21 +4,21 @@ final class MockGraph: UIView {
     // MARK: - Initialization
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        
+
         backgroundColor = .clear
-        
+
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 48),
             widthAnchor.constraint(equalToConstant: 96)
         ])
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Methods
-    
+
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: 48))
