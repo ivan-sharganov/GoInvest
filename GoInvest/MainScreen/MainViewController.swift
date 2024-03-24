@@ -48,6 +48,8 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
+        setupTabBarItem()
+
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
@@ -86,8 +88,24 @@ final class MainViewController: UIViewController {
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
+
 //        setupNavigationController()
+    }
+
+    private func setupTabBarItem() {
+        let configuration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 24))
+
+        let image = UIImage(
+            systemName: "list.bullet",
+            withConfiguration: configuration)?
+            .withTintColor(.placeholderText, renderingMode: .alwaysOriginal)
+        let selectedImage = UIImage(
+            systemName: "list.bullet",
+            withConfiguration: configuration)?
+            .withTintColor(.label, renderingMode: .alwaysOriginal)
+
+        tabBarItem = UITabBarItem(title: nil, image: image, tag: 0)
+        tabBarItem.selectedImage = selectedImage
     }
 
 }
