@@ -1,9 +1,13 @@
 import UIKit
 
+// MARK: - UITableViewCell
+
 extension UITableViewCell {
-    static let reuseId = "reuseId"
+    
+    static let reuseId = String(describing: UITableViewCell.self)
     
     func stocksCellContentViewConfiguration() -> StocksCellContentView.Configuration {
-        return StocksCellContentView.Configuration()
+        StocksCellContentView.Configuration()
     }
+    
 }

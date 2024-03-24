@@ -29,6 +29,7 @@ final class MainViewController: UIViewController {
     private lazy var segmentedController: GISegmentedControl = {
         let control = GISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
         control.translatesAutoresizingMaskIntoConstraints = false
+        
         return control
     }()
 
@@ -86,8 +87,6 @@ final class MainViewController: UIViewController {
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-//        setupNavigationController()
     }
 
 }

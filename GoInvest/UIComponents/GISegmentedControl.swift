@@ -1,6 +1,9 @@
 import UIKit
 
 class GISegmentedControl: UISegmentedControl {
+    
+    // MARK: - Life cycle
+    
     override init(items: [Any]?) {
         super.init(items: items)
         self.selectedSegmentIndex = 0
@@ -11,4 +14,5 @@ class GISegmentedControl: UISegmentedControl {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }

@@ -1,13 +1,19 @@
 import UIKit
 
 enum Currence: String {
+    
     case rub = "₽"
     case usd = "$"
     case eur = "€"
+    
 }
 
 final class HorizontalPriceView: UIView {
-    // MARK: - Properties
+    
+    // MARK: - Public properties
+    
+    var currence: Currence = .rub
+    
     /// Current price.
     var price: Double = 0 {
         didSet { priceLabel.text = currence.rawValue + String(format: "%.2f", price) }
@@ -23,17 +29,19 @@ final class HorizontalPriceView: UIView {
             priceDifferenceLabel.textColor = priceDifference >= 0 ? .systemGreen : .systemRed
         }
     }
-
-    var currence: Currence = .rub
+    
+    // MARK: - Private properties
+    
+    private let priceLabel = UILabel()
+    private let priceDifferenceLabel = UILabel()
+    
     private var differencePercentage: Double {
         let previousPrice = price - priceDifference
         return priceDifference / previousPrice * 100
     }
 
-    private let priceLabel = UILabel()
-    private let priceDifferenceLabel = UILabel()
-
-    // MARK: - Initialization
+    // MARK: - Life cycle
+    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         setupView()
@@ -43,8 +51,9 @@ final class HorizontalPriceView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Private methods
 
-    // MARK: - Methods
     private func setupView() {
         priceLabel.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
         priceLabel.text = currence.rawValue + "0.00"
@@ -72,4 +81,5 @@ final class HorizontalPriceView: UIView {
             priceDifferenceLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+    
 }
