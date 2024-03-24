@@ -1,11 +1,14 @@
 import UIKit
 
 final class StocksCellContentView: UIView, UIContentView {
+    
     struct Configuration: UIContentConfiguration {
+        
         var fullName: String = ""
         var shortName: String = ""
         var rate: Double = 0
         var price: Double = 0
+        /// Percent price change.
         var priceChange: Double = 0
 
         func makeContentView() -> any UIView & UIContentView {
@@ -15,9 +18,11 @@ final class StocksCellContentView: UIView, UIContentView {
         func updated(for state: any UIConfigurationState) -> StocksCellContentView.Configuration {
             return self
         }
+        
     }
 
     // MARK: - Properties
+    
     var configuration: any UIContentConfiguration {
         didSet {
             configure(with: configuration)
@@ -34,12 +39,14 @@ final class StocksCellContentView: UIView, UIContentView {
     }
 
     // MARK: - Initialization
+    
     init(_ configuration: any UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
 
         addSubviews()
         setupConstaits()
+        self.backgroundColor = .background
     }
 
     required init?(coder: NSCoder) {
@@ -47,8 +54,10 @@ final class StocksCellContentView: UIView, UIContentView {
     }
 
     // MARK: - Methods
+    
     func configure(with: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
+        
         rateLabel.rate = configuration.rate
         namesView.shortName = configuration.shortName
         namesView.fullName = configuration.fullName
@@ -87,10 +96,5 @@ final class StocksCellContentView: UIView, UIContentView {
             priceView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
-}
-
-extension UITableViewCell {
-    func stocksCellContentViewConfiguration() -> StocksCellContentView.Configuration {
-        return StocksCellContentView.Configuration()
-    }
+    
 }
