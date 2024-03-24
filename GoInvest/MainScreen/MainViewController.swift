@@ -93,19 +93,14 @@ final class MainViewController: UIViewController {
     }
 
     private func setupTabBarItem() {
-        let configuration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 24))
-
-        let image = UIImage(
-            systemName: "list.bullet",
-            withConfiguration: configuration)?
-            .withTintColor(.placeholderText, renderingMode: .alwaysOriginal)
-        let selectedImage = UIImage(
-            systemName: "list.bullet",
-            withConfiguration: configuration)?
-            .withTintColor(.label, renderingMode: .alwaysOriginal)
+        let image = UIImage(named: "list.bullet")?
+            .withSize(CGSize(width: 29, height: 22))
+        let selectedImage = UIImage(named: "list.bullet.selected")?
+            .withSize(CGSize(width: 29, height: 22))
 
         tabBarItem = UITabBarItem(title: nil, image: image, tag: 0)
         tabBarItem.selectedImage = selectedImage
+        tabBarItem.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
     }
 
 }
