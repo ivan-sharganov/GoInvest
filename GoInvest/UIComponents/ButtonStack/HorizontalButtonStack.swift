@@ -4,9 +4,9 @@ import RxSwift
 /// Nonscrollable stack of buttons.
 final class HorizontalButtonStack: UIStackView {
 
-    // MARK: - Configuration
+    // MARK: - Constants
 
-    private struct Configuration {
+    private struct Constants {
         static let spacing: CGFloat = 8
         static let distribution: UIStackView.Distribution = .fillEqually
         static let axis: NSLayoutConstraint.Axis = .vertical
@@ -70,9 +70,9 @@ final class HorizontalButtonStack: UIStackView {
     }
 
     private func prepareUI() {
-        axis = Configuration.axis
-        distribution = Configuration.distribution
-        spacing = Configuration.spacing
+        axis = Constants.axis
+        distribution = Constants.distribution
+        spacing = Constants.spacing
         
         buttons.forEach { button in
             addArrangedSubview(button)
