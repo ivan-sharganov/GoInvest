@@ -24,7 +24,6 @@ targets:
                 # Swiftlint
     
                 export PATH="$PATH:/opt/homebrew/bin"
-                echo "sdfdsfsdfdsf"
                 if which swiftlint >/dev/null; then
                     swiftlint lint --strict
                 else

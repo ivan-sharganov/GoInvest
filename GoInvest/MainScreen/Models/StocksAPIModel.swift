@@ -2,7 +2,7 @@ import Foundation
 
 struct StockData {
 
-    let data: [StockModel]
+    let stocksModels: [StockModel]
 
 }
 

@@ -9,7 +9,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        let mainViewController = MainViewController(viewModel: MainViewModelImpl(useCase: MainUseCaseImpl()))
+        let mainViewController = MainViewController(
+            viewModel: MainViewModelImpl(useCase: MainUseCaseImpl(repository: MainRepositoryImpl()))
+        )
         let navigationController = UINavigationController(rootViewController: mainViewController)
         let tabBarController = UITabBarController()
         let backBarButtonItem = UIBarButtonItem()

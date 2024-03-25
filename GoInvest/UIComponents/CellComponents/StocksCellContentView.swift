@@ -1,13 +1,14 @@
 import UIKit
 
 final class StocksCellContentView: UIView, UIContentView {
-    
+
     struct Configuration: UIContentConfiguration {
-        
+
         var fullName: String = ""
         var shortName: String = ""
         var rate: Double = 0
         var price: Double = 0
+        
         /// Percent price change.
         var priceChange: Double = 0
 
@@ -18,16 +19,18 @@ final class StocksCellContentView: UIView, UIContentView {
         func updated(for state: any UIConfigurationState) -> StocksCellContentView.Configuration {
             return self
         }
-        
+
     }
 
-    // MARK: - Properties
+    // MARK: - Public properties
     
     var configuration: any UIContentConfiguration {
         didSet {
             configure(with: configuration)
         }
     }
+    
+    // MARK: - Private properties
 
     private let rateLabel = RateLabel()
     private let namesView = NamesView()
@@ -38,7 +41,7 @@ final class StocksCellContentView: UIView, UIContentView {
         return CGSize(width: 0, height: 64)
     }
 
-    // MARK: - Initialization
+    // MARK: - Life cycle
     
     init(_ configuration: any UIContentConfiguration) {
         self.configuration = configuration
@@ -53,17 +56,19 @@ final class StocksCellContentView: UIView, UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Methods
+    // MARK: - Public methods
     
     func configure(with: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
-        
+
         rateLabel.rate = configuration.rate
         namesView.shortName = configuration.shortName
         namesView.fullName = configuration.fullName
         priceView.price = configuration.price
         priceView.priceChange = configuration.priceChange
     }
+    
+    // MARK: - Private methods
 
     private func addSubviews() {
         addSubview(rateLabel)
@@ -96,5 +101,5 @@ final class StocksCellContentView: UIView, UIContentView {
             priceView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
-    
+
 }

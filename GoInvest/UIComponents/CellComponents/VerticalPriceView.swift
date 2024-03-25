@@ -53,7 +53,7 @@ final class VerticalPriceView: UIView {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 42),
             widthAnchor.constraint(equalToConstant: 80),
-            
+
             priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             priceLabel.topAnchor.constraint(equalTo: topAnchor),
             priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor),

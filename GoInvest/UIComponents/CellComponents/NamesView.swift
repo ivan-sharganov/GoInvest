@@ -2,7 +2,8 @@ import UIKit
 
 final class NamesView: UIView {
 
-    // MARK: - Properties
+    // MARK: - Public properties
+    
     /// Company names that longer than 11 symbols will be cropped.
     var shortName: String? {
         get { shortNameLabel.text }
@@ -14,11 +15,14 @@ final class NamesView: UIView {
         get { fullNameLabel.text }
         set { fullNameLabel.text = newValue }
     }
+    
+    // MARK: - Private properties
 
     private let shortNameLabel = UILabel()
     private let fullNameLabel = UILabel()
 
-    // MARK: - Initialization
+    // MARK: - Life cycle
+    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         setupViews()
@@ -29,7 +33,8 @@ final class NamesView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Methods
+    // MARK: - Private methods
+    
     private func setupViews() {
         shortNameLabel.font = UIFont.systemFont(ofSize: 24)
         shortNameLabel.textAlignment = .left
@@ -59,4 +64,5 @@ final class NamesView: UIView {
             fullNameLabel.heightAnchor.constraint(equalToConstant: 23)
         ])
     }
+    
 }
