@@ -1,8 +1,16 @@
 import UIKit
 import RxSwift
 
-/// Nonscrollable set of buttons. Height of HorizontalButtonStack should be constrained to 36 points due design purposes.
+/// Nonscrollable stack of buttons.
 final class HorizontalButtonStack: UIStackView {
+
+    // MARK: - Configuration
+
+    private struct Configuration {
+        static let spacing: CGFloat = 8
+        static let distribution: UIStackView.Distribution = .fillEqually
+        static let axis: NSLayoutConstraint.Axis = .vertical
+    }
 
     // MARK: - Public properties
 
@@ -62,9 +70,9 @@ final class HorizontalButtonStack: UIStackView {
     }
 
     private func prepareUI() {
-        axis = .horizontal
-        distribution = .fillEqually
-        spacing = 8
+        axis = Configuration.axis
+        distribution = Configuration.distribution
+        spacing = Configuration.spacing
         
         buttons.forEach { button in
             addArrangedSubview(button)

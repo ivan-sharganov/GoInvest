@@ -3,13 +3,25 @@ import UIKit
 /// Used in HorizontalButtonStack.
 final class ReusableButton: UIButton {
 
+    // MARK: - Constants
+
+    private struct Constants {
+        static let font: UIFont = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        static let onBackgroundColor: UIColor = .systemGray
+        static let offBackgroundColor: UIColor = .systemGray5
+        static let onTitleColor: UIColor = .white
+        static let offTitleColor: UIColor = .black
+        static let cornerRadius: CGFloat = 10
+    }
+
     // MARK: - Public properties
 
     var isOn: Bool = false {
         didSet {
-            backgroundColor = self.isOn ? .systemGray : .systemGray5
+            backgroundColor = self.isOn ?
+                Constants.onBackgroundColor : Constants.offBackgroundColor
             setTitleColor(
-                self.isOn ? .white : .black,
+                self.isOn ? Constants.onTitleColor : Constants.offTitleColor,
                 for: .normal
             )
         }
@@ -30,10 +42,10 @@ final class ReusableButton: UIButton {
     // MARK: - Private methods
 
     private func setupView() {
-        backgroundColor = .systemGray5
-        titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        setTitleColor(.black, for: .normal)
-        layer.cornerRadius = 10
+        backgroundColor = Constants.offBackgroundColor
+        setTitleColor(Constants.offTitleColor, for: .normal)
+        titleLabel?.font = Constants.font
+        layer.cornerRadius = Constants.cornerRadius
         layer.masksToBounds = true
     }
 
