@@ -186,6 +186,11 @@ extension MainViewController: UITableViewDelegate {
 // MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.updateSnapshot() // переписать на rx.snapshot
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
     }
@@ -193,6 +198,8 @@ extension MainViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.searchTextField.text = ""
         self.searchBar.showsCancelButton.toggle()
+        self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.updateSnapshot() // переписать на rx.snapshot
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
