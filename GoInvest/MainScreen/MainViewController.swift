@@ -48,6 +48,8 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
+        setupTabBarItem()
+
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
@@ -93,6 +95,20 @@ final class MainViewController: UIViewController {
         ])
 
 //        setupNavigationController()
+    }
+
+    private func setupTabBarItem() {
+        let imageSize = CGSize(width: 29, height: 22)
+        let imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+
+        let image = UIImage(named: "list.bullet")?
+            .withSize(imageSize)
+        let selectedImage = UIImage(named: "list.bullet.selected")?
+            .withSize(imageSize)
+
+        tabBarItem = UITabBarItem(title: nil, image: image, tag: 0)
+        tabBarItem.selectedImage = selectedImage
+        tabBarItem.imageInsets = imageInsets
     }
 
 }
