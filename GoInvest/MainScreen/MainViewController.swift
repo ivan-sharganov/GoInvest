@@ -47,21 +47,18 @@ final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         setupTabBarItem()
-
+        
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
-
+        
         setupBindings()
         Task {
             await self.viewModel.fetchData()
             self.updateSnapshot()
-
-        let _ = horizontalButtonStack.subject.subscribe { event in
-            print(event)
         }
     }
 
