@@ -34,14 +34,15 @@ final class MainViewController: UIViewController {
     }()
     
     private lazy var searchBar: UISearchBar = {
-            let searchBar = UISearchBar()
-            searchBar.showsCancelButton = true
-            searchBar.placeholder = "Search"
-            searchBar.backgroundColor = .background
-            searchBar.translatesAutoresizingMaskIntoConstraints = false
-
-            return searchBar
-       }()
+        let searchBar = UISearchBar()
+        searchBar.showsCancelButton = true
+        searchBar.searchTextField.clearButtonMode = .never
+        searchBar.placeholder = "Search"
+        searchBar.backgroundColor = .background
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        return searchBar
+    }()
 
     // MARK: - Life cycle
 
@@ -101,8 +102,8 @@ final class MainViewController: UIViewController {
             
             self.searchBar.topAnchor.constraint(equalTo: self.horizontalButtonStack.bottomAnchor, constant: 8),
             self.searchBar.heightAnchor.constraint(equalToConstant: 35),
-            self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            self.searchBar.leadingAnchor.constraint(equalTo: self.horizontalButtonStack.leadingAnchor),
+            self.searchBar.trailingAnchor.constraint(equalTo: self.horizontalButtonStack.trailingAnchor),
             self.searchBar.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
 
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -184,7 +185,13 @@ extension MainViewController: UITableViewDelegate {
 
 // MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.searchTextField.text = ""
+    }
+    
 }
