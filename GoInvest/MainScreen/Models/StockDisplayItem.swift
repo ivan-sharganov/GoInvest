@@ -15,11 +15,15 @@ struct StockDisplayItem: Hashable {
     var closePrice: Double?
     var highPrice: Double?
     var lowPrice: Double?
-    var trendclspr: Double?
+//    var trendclspr: Double?
     var isFavorite: Bool = false
     
     var rate: Double? {
-        guard let openPrice, let closePrice, let highPrice, let lowPrice else {
+        guard let openPrice,
+              let closePrice,
+              let highPrice,
+              let lowPrice
+        else {
             return nil
         }
         

@@ -2,17 +2,23 @@ import Foundation
 
 protocol MainRepository {
 
-    func getStocks() async throws -> [StockModel]
+    func getStocks(parameters: StockState) async throws -> [StockModel]
 
 }
-// VC -> VM -> UseCase -> Repo -> NetworkManager
 
 final class MainRepositoryImpl: MainRepository {
 
     public init() {}
 
-    public func getStocks() async throws -> [StockModel] {
-        try await NetworkManager.shared.analogGetPricesForStock()
+    public func getStocks(parameters: StockState) async throws -> [StockModel] {
+        switch parameters {
+        case .indexes:
+            try await NetworkManager.shared.analogGetPricesForStock(parameter: "index")
+        case .futures:
+            try await NetworkManager.shared.analogGetPricesForStock(parameter: "shares")
+        case .currencies:
+            try await NetworkManager.shared.analogGetPricesForStock(parameter: "bonds")
+        }
     }
 
 }

@@ -2,14 +2,24 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+enum StockState {
+    
+    case indexes
+    case futures
+    case currencies
+    
+}
+
 protocol MainViewModel {
 
     var cellTapped: PublishRelay<Void> { get }
+    var updateSnapshot: PublishRelay<Bool> { get }
 
     var displayItems: [StockDisplayItem] { get }
 
     func handleItemSelection()
-    func fetchData() async
+    func fetchData(parameters: StockState) async
+    func chooseStockStateData(stockState: StockState)
 
 }
 
@@ -18,6 +28,7 @@ final class MainViewModelImpl: MainViewModel {
     // MARK: - Public properties
 
     let cellTapped = PublishRelay<Void>()
+    var updateSnapshot = PublishRelay<Bool>()
 
     var displayItems: [StockDisplayItem] = []
 
@@ -29,6 +40,11 @@ final class MainViewModelImpl: MainViewModel {
 
     init(useCase: MainUseCase) {
         self.useCase = useCase
+        
+        Task {
+            await fetchData(parameters: .indexes)
+            updateSnapshot.accept((true))
+        }
     }
 
     // MARK: - Public methods
@@ -36,11 +52,18 @@ final class MainViewModelImpl: MainViewModel {
     func handleItemSelection() {
         cellTapped.accept(())
     }
+    
+    func chooseStockStateData(stockState: StockState) {
+        Task {
+            await fetchData(parameters: stockState)
+            updateSnapshot.accept((false))
+        }
+    }
 
-    // сделать енум параметров (индексы, фьючерсы и тд)
-    public func fetchData() async {
+    public func fetchData(parameters: StockState) async {
         do {
-            self.displayItems = try await prepareDisplayItems(stockModels: self.useCase.get())
+            self.displayItems = try await prepareDisplayItems(stockModels: self.useCase.get(parameters: parameters))
+            print(self.displayItems)
         } catch {
             self.displayItems = []
         }
@@ -52,8 +75,10 @@ final class MainViewModelImpl: MainViewModel {
         stockModels.map {
             StockDisplayItem(name: $0.shortName,
                              shortName: $0.ticker,
+                             openPrice: $0.open,
                              closePrice: $0.close,
-                             trendclspr: $0.trendclspr)
+                             highPrice: $0.high,
+                             lowPrice: $0.low) // trendclspr: $0.trendclspr
         }
     }
     
