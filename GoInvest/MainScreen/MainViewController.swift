@@ -21,7 +21,6 @@ final class MainViewController: UIViewController {
         let tbl = UITableView()
         tbl.backgroundColor = .background
         tbl.keyboardDismissMode = .onDrag
-        tbl.translatesAutoresizingMaskIntoConstraints = false
         tbl.delegate = self
 
         return tbl
@@ -35,11 +34,9 @@ final class MainViewController: UIViewController {
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.showsCancelButton = true
         searchBar.searchTextField.clearButtonMode = .never
         searchBar.placeholder = "Search"
-        searchBar.backgroundColor = .background
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.backgroundImage = UIImage()
         
         return searchBar
     }()
@@ -61,7 +58,6 @@ final class MainViewController: UIViewController {
 
         setupUI()
         setupTabBarItem()
-
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
@@ -94,6 +90,10 @@ final class MainViewController: UIViewController {
         view.addSubview(self.searchBar)
         self.view.backgroundColor = .background
         hideKeyboardWhenTappedAround()
+        
+        self.tblView.translatesAutoresizingMaskIntoConstraints = false
+        self.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             self.horizontalButtonStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
@@ -192,6 +192,11 @@ extension MainViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.searchTextField.text = ""
+        self.searchBar.showsCancelButton.toggle()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
     }
     
 }
