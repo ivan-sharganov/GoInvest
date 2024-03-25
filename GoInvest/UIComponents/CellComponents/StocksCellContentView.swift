@@ -1,9 +1,9 @@
 import UIKit
 
 final class StocksCellContentView: UIView, UIContentView {
-    
+
     struct Configuration: UIContentConfiguration {
-        
+
         var fullName: String = ""
         var shortName: String = ""
         var rate: Double = 0
@@ -19,7 +19,7 @@ final class StocksCellContentView: UIView, UIContentView {
         func updated(for state: any UIConfigurationState) -> StocksCellContentView.Configuration {
             return self
         }
-        
+
     }
 
     // MARK: - Public properties
@@ -60,7 +60,7 @@ final class StocksCellContentView: UIView, UIContentView {
     
     func configure(with: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
-        
+
         rateLabel.rate = configuration.rate
         namesView.shortName = configuration.shortName
         namesView.fullName = configuration.fullName
@@ -101,5 +101,5 @@ final class StocksCellContentView: UIView, UIContentView {
             priceView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
-    
+
 }

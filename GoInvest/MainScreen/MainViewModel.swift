@@ -3,11 +3,11 @@ import RxSwift
 import RxCocoa
 
 protocol MainViewModel {
-    
+
     var cellTapped: PublishRelay<Void> { get }
 
     var displayItems: [StockModel] { get }
-    
+
     func handleItemSelection()
 
 }
@@ -15,7 +15,7 @@ protocol MainViewModel {
 final class MainViewModelImpl: MainViewModel {
 
     // MARK: - Public properties
-    
+
     let cellTapped = PublishRelay<Void>()
 
     var displayItems: [StockModel] = [
@@ -42,9 +42,9 @@ final class MainViewModelImpl: MainViewModel {
     init(useCase: MainUseCase) {
         self.useCase = useCase
     }
-    
+
     // MARK: - Public methods
-    
+
     func handleItemSelection() {
         cellTapped.accept(())
     }
