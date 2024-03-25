@@ -5,13 +5,16 @@ class NetworkManager {
     private enum NetworkConstants {
         static let responseItemsCount: Int = 20
     }
-    // MARK: - Singleton
+    private enum GIError: Error {
+         case error
+    }
+        // MARK: - Singleton
 
     static let shared = NetworkManager()
-    
-    // MARK: - Public methods
-    
-    /// Получить дату для всех "securities", передаваемы параметры board - тип торгов и ticker - название компаниив
+
+        // MARK: - Public methods
+
+        /// Получить дату для всех "securities", передаваемы параметры board - тип торгов и ticker - название компаниив
     func getPricesForTicker(
         ticker: String = "YNDX",
         board: String = "TQBR",
@@ -28,7 +31,7 @@ class NetworkManager {
             DispatchQueue.main.async {
                 if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
                     completion({[weak self] in
-                            self?.transformPriceData(from: answer.history.data)}())
+                        self?.transformPriceData(from: answer.history.data)}())
                 } else {
                     completion(nil)
                 }
@@ -39,7 +42,7 @@ class NetworkManager {
     func getPricesForStock(completion: @escaping (StockData?) -> Void) {
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
         url +=
-         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
+        ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
 
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -54,12 +57,8 @@ class NetworkManager {
             }
         }.resume()
     }
-    
-
-    
-
     // MARK: - Private methods
-    
+
     private func transformPriceData(from initialData: [[Datum]]) -> PricesData {
         var outD = [PricesModel]()
         let dateFormatter = DateFormatter()
@@ -111,82 +110,28 @@ class NetworkManager {
 
         return StockData(stocksModels: outD)
     }
-<<<<<<< HEAD
-=======
+    
+    func analogGetPricesForStock() async throws -> [StockModel] {
+             var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
+             url +=
+              ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=100&start=0"
 
-    /// Получить дату для всех "securities", передаваемы параметры board - тип торгов и ticker - название компаниив
-    func getPricesForTicker(
-        ticker: String = "YNDX",
-        board: String = "TQBR",
-        completion: @escaping (PricesData?) -> Void
-    ) {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/\(board)/securities/\(ticker)"
-        url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
-        url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
+              guard let URL = URL(string: url) else {
+                  throw GIError.error
+              }
 
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "GET"
+              var request = URLRequest(url: URL)
+              request.httpMethod = "GET"
+              let (data, _) = try await URLSession.shared.data(for: request)
+              guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
+                  throw GIError.error
+              }
 
-        URLSession.shared.dataTask(with: request) { data, _, _ in
-            DispatchQueue.main.async {
-                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    completion({[weak self] in
-                            self?.transformPriceData(from: answer.history.data)}())
-                } else {
-                    completion(nil)
-                }
-            }
-        }.resume()
-    }
-
-    func getPricesForStock(completion: @escaping (StockData?) -> Void) {
-
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
-        url +=
-         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
-
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "GET"
-        URLSession.shared.dataTask(with: request) { data, _, _ in
-            DispatchQueue.global().async {
-                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    completion(
-                        self.transformStockData(from: answer.history.data)
-                        )
-                } else {
-                    completion(nil)
-                }
-            }
-        }.resume()
-    }
-
-     func analogGetPricesForStock() async throws -> [StockModel] {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
-        url +=
-         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=100&start=0"
-
-         guard let URL = URL(string: url) else {
-             throw GIError.error
+              return self.transformStockData(from: answer.history.data).stocksModels.filter {
+                  $0.shortName != nil &&
+                  $0.trendclspr != nil &&
+                  $0.ticker != nil &&
+                  $0.close != nil
+              }
          }
-
-         var request = URLRequest(url: URL)
-         request.httpMethod = "GET"
-         let (data, _) = try await URLSession.shared.data(for: request)
-         guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
-             throw GIError.error
-         }
-
-         return self.transformStockData(from: answer.history.data).stocksModels.filter {
-             $0.shortName != nil &&
-             $0.trendclspr != nil &&
-             $0.ticker != nil &&
-             $0.close != nil
-         }
-    }
-
-}
-
-enum GIError: Error {
-    case error
->>>>>>> 54d47a2 (63 fix bundle id)
 }
