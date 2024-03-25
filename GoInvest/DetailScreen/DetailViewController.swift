@@ -31,11 +31,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func setupFavoriteButton(isFavorite: Bool) -> UIImage? {
-        if isFavorite {
-            return UIImage(systemName: "heart.fill")
-        }
-        
-        return UIImage(systemName: "heart")
+        isFavorite ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
     }
     
     // MARK: - Handlers
