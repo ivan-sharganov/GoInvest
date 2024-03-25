@@ -55,11 +55,9 @@ final class MainViewController: UIViewController {
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
 
         setupBindings()
-
-        // just in purpose to show that horizintalButtonStack works, delete later
-        let _ = horizontalButtonStack.subject.subscribe { event in
-            // prints current selected button index
-            print(event)
+        Task {
+            await self.viewModel.fetchData()
+            self.updateSnapshot()
         }
     }
 
@@ -117,23 +115,23 @@ fileprivate extension MainViewController {
 
     func createDiffableDataSource() -> DiffableDataSource {
         let dataSource = DiffableDataSource(tableView: tblView) { tableView, indexPath, item in
-
-            guard let fullName = item.shortName, 
-                    let shortName = item.ticker, 
-                    let price = item.close,
-                    let priceChange = item.trendclspr
+            
+            guard let fullName = item.shortName,
+                  let shortName = item.ticker,
+                  let price = item.close,
+                  let priceChange = item.trendclspr
             else {
                 return UITableViewCell()
             }
 
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseId, for: indexPath)
             var configuration = cell.stocksCellContentViewConfiguration()
-            
+
             configuration.fullName = fullName
             configuration.shortName = shortName
             configuration.price = price
             configuration.priceChange = priceChange
-            configuration.rate = Double.random(in: 0...10)      // TODO: Add actual data
+            configuration.rate = Double.random(in: 0...10)
             cell.contentConfiguration = configuration
 
             return cell

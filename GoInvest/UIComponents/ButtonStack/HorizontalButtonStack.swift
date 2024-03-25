@@ -9,7 +9,7 @@ final class HorizontalButtonStack: UIStackView {
     private struct Constants {
         static let spacing: CGFloat = 8
         static let distribution: UIStackView.Distribution = .fillEqually
-        static let axis: NSLayoutConstraint.Axis = .vertical
+        static let axis: NSLayoutConstraint.Axis = .horizontal
     }
 
     // MARK: - Public properties
