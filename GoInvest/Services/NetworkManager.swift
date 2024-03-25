@@ -106,6 +106,79 @@ class NetworkManager {
             outD.append(price)
         }
 
-        return StockData(data: outD)
+        return StockData(stocksModels: outD)
     }
+<<<<<<< HEAD
+=======
+
+    /// Получить дату для всех "securities", передаваемы параметры board - тип торгов и ticker - название компаниив
+    func getPricesForTicker(
+        ticker: String = "YNDX",
+        board: String = "TQBR",
+        completion: @escaping (PricesData?) -> Void
+    ) {
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/\(board)/securities/\(ticker)"
+        url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
+        url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
+
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            DispatchQueue.main.async {
+                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
+                    completion({[weak self] in
+                            self?.transformPriceData(from: answer.history.data)}())
+                } else {
+                    completion(nil)
+                }
+            }
+        }.resume()
+    }
+
+    func getPricesForStock(completion: @escaping (StockData?) -> Void) {
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
+        url +=
+         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
+
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            DispatchQueue.global().async {
+                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
+                    completion(
+                        self.transformStockData(from: answer.history.data)
+                        )
+                } else {
+                    completion(nil)
+                }
+            }
+        }.resume()
+    }
+
+     func analogGetPricesForStock() async throws -> [StockModel] {
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
+        url +=
+         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=100&start=0"
+
+         guard let URL = URL(string: url) else {
+             throw GIError.error
+         }
+
+         var request = URLRequest(url: URL)
+         request.httpMethod = "GET"
+//         let smth = try await URLSession.shared.dataTask(with: request).da
+         let (data, _) = try await URLSession.shared.data(for: request)
+         guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
+             throw GIError.error
+         }
+
+         return self.transformStockData(from: answer.history.data).stocksModels
+    }
+
+}
+
+enum GIError: Error {
+    case error
+>>>>>>> 54d47a2 (63 fix bundle id)
 }

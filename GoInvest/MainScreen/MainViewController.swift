@@ -55,6 +55,10 @@ final class MainViewController: UIViewController {
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
 
         setupBindings()
+        Task {
+            await self.viewModel.fetchData()
+            self.updateSnapshot()
+        }
 
         // just in purpose to show that horizintalButtonStack works, delete later
         let _ = horizontalButtonStack.subject.subscribe { event in
@@ -65,6 +69,7 @@ final class MainViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         updateSnapshot()
+        print(#function)
     }
 
     // MARK: - Private methods
