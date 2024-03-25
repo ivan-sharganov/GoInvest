@@ -10,7 +10,6 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-<<<<<<< HEAD
         
         setupUI()
     }
@@ -18,8 +17,8 @@ final class DetailViewController: UIViewController {
     // MARK: - Private methods
     
     private func setupUI() {
-        view.backgroundColor = .white
-        
+        view.backgroundColor = .background
+        self.navigationController?.isNavigationBarHidden = false
         configureNavigationBar()
     }
     
@@ -41,10 +40,6 @@ final class DetailViewController: UIViewController {
     private func rightBarButtonItemTapped(_ sender: UIBarButtonItem) {
         isFavorite = !isFavorite
         sender.image = setupFavoriteButton(isFavorite: isFavorite)
-=======
-
-        view.backgroundColor = .background
->>>>>>> c8c37ec (59 add custom view for navbar and hack navbar)
     }
 
 }

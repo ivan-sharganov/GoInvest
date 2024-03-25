@@ -9,6 +9,7 @@ final class MainViewController: UIViewController {
     // MARK: - Public properties
 
     // MARK: - Private properties
+    
     private var isPressed = false
     private var viewModel: MainViewModel
     private let bag = DisposeBag()
@@ -27,12 +28,18 @@ final class MainViewController: UIViewController {
     }()
 
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
-        let stack = HorizontalButtonStack(titles: ["Indexes", "Futures", "Currences"])
+        let stack = HorizontalButtonStack(titles: ["Indexes", "Futures", "Currences"], size: .small)
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         return stack
     }()
-
+    
+    private lazy var navItem: HorizontalButtonStack = {
+        let stack = HorizontalButtonStack(titles: ["Securities", "Favorities"], size: .large)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     // MARK: - Life cycle
 
     init(viewModel: MainViewModel) {
@@ -60,38 +67,11 @@ final class MainViewController: UIViewController {
             await self.viewModel.fetchData()
             self.updateSnapshot()
         }
-        
-//        let imageView = UILabel()
-//        imageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//        imageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        let view = HorizontalButtonStack(titles: ["Securities", "Favorities"])
-//        self.navigationItem.titleView = view
-        let index = 1
-//        let constraints = [
-//            self.navigationController!.navigationBar.subviews[index].leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            self.navigationController!.navigationBar.subviews[index].trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            self.navigationController!.navigationBar.subviews[index].topAnchor.constraint(equalTo: view.topAnchor),
-//            self.navigationController!.navigationBar.subviews[index].bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            view.widthAnchor.constraint(equalToConstant: 100),
-//            view.heightAnchor.constraint(equalToConstant: 30)
-//        ]
-//        NSLayoutConstraint.activate(constraints)
-
-        self.navigationController!.navigationBar.subviews[index].addSubview(view)
-        view.frame = self.navigationController!.navigationBar.subviews[index].frame
-        
     }
     
-    @objc
-    func buttonPressed(_ sender: UIButton) {
-        print("‼️")
-        
-        sender.setTitleColor(self.isPressed ? UIColor.red : UIColor.blue, for: .normal)
-        self.isPressed.toggle()
-//        sender.setTitleColor(UIColor.red, for: .selectednormal)
-    }
-
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
         updateSnapshot()
     }
 
@@ -106,12 +86,17 @@ final class MainViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.addSubview(self.tblView)
+        view.addSubview(self.navItem)
         view.addSubview(self.horizontalButtonStack)
+        view.addSubview(self.tblView)
         self.view.backgroundColor = .background
 
         NSLayoutConstraint.activate([
-            self.horizontalButtonStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.navItem.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.navItem.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.navItem.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            self.horizontalButtonStack.topAnchor.constraint(equalTo: self.navItem.bottomAnchor, constant: 5),
             self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             self.horizontalButtonStack.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),

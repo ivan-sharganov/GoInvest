@@ -6,8 +6,15 @@ final class HorizontalButtonStack: UIStackView {
 
     // MARK: - Constants
 
+    public enum Size {
+        case small
+        case large
+    }
+    
     private struct Constants {
         static let spacing: CGFloat = 8
+        static let largeFontSize: CGFloat = 17
+        static let smallFontSize: CGFloat = 38
         static let distribution: UIStackView.Distribution = .fillEqually
         static let axis: NSLayoutConstraint.Axis = .horizontal
     }
@@ -43,12 +50,11 @@ final class HorizontalButtonStack: UIStackView {
     }
 
     // MARK: - Initialization
-
-    init(titles: [String]) {
+    
+    init(titles: [String], size: Size) {
         self.titles = titles
         super.init(frame: .zero)
-        
-        prepareButtons()
+        prepareButtons(size: size)
         prepareUI()
     }
 
@@ -58,14 +64,34 @@ final class HorizontalButtonStack: UIStackView {
 
     // MARK: - Private methods
 
-    private func prepareButtons() {
+    private func prepareButtons(size: Size) {
         buttons = titles.map { title in
-            let button = ReusableButton(title: title)
+            let button: ReusableButton
+            switch size {
+            case .small:
+                button = ReusableButton(
+                    title: title,
+                    fontSize: 17,
+                    onBackgroundColor: .onTabBackground,
+                    offBackgroundColor: .offTabBackground,
+                    onTitleColor: .inversedLabel,
+                    offTitleColor: .label
+                )
+                
+            case .large:
+                button = ReusableButton(
+                    title: title,
+                    fontSize: 38,
+                    onBackgroundColor: .background,
+                    offBackgroundColor: .background,
+                    onTitleColor: .label,
+                    offTitleColor: .offLargeTabTitle
+                )
+            }
             button.addAction(buttonAction, for: .touchUpInside)
             
             return button
         }
-
         buttons.first?.isOn = true
     }
 

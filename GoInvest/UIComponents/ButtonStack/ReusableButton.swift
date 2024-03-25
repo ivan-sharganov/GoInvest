@@ -6,22 +6,21 @@ final class ReusableButton: UIButton {
     // MARK: - Constants
 
     private struct Constants {
-        static let font: UIFont = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        static let onBackgroundColor: UIColor = .systemGray
-        static let offBackgroundColor: UIColor = .systemGray5
-        static let onTitleColor: UIColor = .white
-        static let offTitleColor: UIColor = .black
         static let cornerRadius: CGFloat = 10
     }
 
     // MARK: - Public properties
+    private let onBackgroundColor: UIColor
+    private let offBackgroundColor: UIColor
+    private let onTitleColor: UIColor
+    private let offTitleColor: UIColor
 
     var isOn: Bool = false {
         didSet {
             backgroundColor = self.isOn ?
-                Constants.onBackgroundColor : Constants.offBackgroundColor
+                self.onBackgroundColor : self.offBackgroundColor
             setTitleColor(
-                self.isOn ? Constants.onTitleColor : Constants.offTitleColor,
+                self.isOn ? self.onTitleColor : self.offTitleColor,
                 for: .normal
             )
         }
@@ -29,10 +28,27 @@ final class ReusableButton: UIButton {
 
     // MARK: - Initialization
 
-    init(title: String) {
+    init(
+        title: String,
+        fontSize: CGFloat,
+        onBackgroundColor: UIColor,
+        offBackgroundColor: UIColor,
+        onTitleColor: UIColor,
+        offTitleColor: UIColor
+    ) {
+        self.onBackgroundColor = onBackgroundColor
+        self.offBackgroundColor = offBackgroundColor
+        self.onTitleColor = onTitleColor
+        self.offTitleColor = offTitleColor
         super.init(frame: .zero)
         setTitle(title, for: .normal)
-        setupView()
+
+        self.backgroundColor = offBackgroundColor
+        self.setTitleColor(offTitleColor, for: .normal)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .semibold)
+        self.layer.cornerRadius = Constants.cornerRadius
+        self.layer.masksToBounds = true
+        
     }
 
     required init?(coder: NSCoder) {
@@ -42,11 +58,7 @@ final class ReusableButton: UIButton {
     // MARK: - Private methods
 
     private func setupView() {
-        backgroundColor = Constants.offBackgroundColor
-        setTitleColor(Constants.offTitleColor, for: .normal)
-        titleLabel?.font = Constants.font
-        layer.cornerRadius = Constants.cornerRadius
-        layer.masksToBounds = true
+        
     }
 
 }
