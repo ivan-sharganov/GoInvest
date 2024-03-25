@@ -6,7 +6,7 @@ final class HorizontalButtonStack: UIStackView {
 
     // MARK: - Configuration
 
-    private struct Constants {
+    private struct Configuration {
         static let spacing: CGFloat = 8
         static let distribution: UIStackView.Distribution = .fillEqually
         static let axis: NSLayoutConstraint.Axis = .vertical
@@ -70,9 +70,9 @@ final class HorizontalButtonStack: UIStackView {
     }
 
     private func prepareUI() {
-        axis = Constants.axis
-        distribution = Constants.distribution
-        spacing = Constants.spacing
+        axis = Configuration.axis
+        distribution = Configuration.distribution
+        spacing = Configuration.spacing
         
         buttons.forEach { button in
             addArrangedSubview(button)
