@@ -7,7 +7,7 @@ protocol Routable {
 
 }
 
-final class MainRouter: Routable{
+final class MainRouter: Routable {
 
     // MARK: - Private properties
 
