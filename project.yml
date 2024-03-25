@@ -35,4 +35,3 @@ targets:
         platform: iOS
         sources:
             - path: GoInvestTests
-
