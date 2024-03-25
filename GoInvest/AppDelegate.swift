@@ -11,11 +11,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         let mainViewController = MainViewController(viewModel: MainViewModelImpl(useCase: MainUseCaseImpl()))
         let navigationController = UINavigationController(rootViewController: mainViewController)
-        
+
+        let tabBarController = UITabBarController()
+        tabBarController.setViewControllers([navigationController], animated: true)
+
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
 
         return true
     }
+
 }

@@ -26,11 +26,10 @@ final class MainViewController: UIViewController {
         return tbl
     }()
 
-    private lazy var segmentedController: GISegmentedControl = {
-        let control = GISegmentedControl(items: ["Индексы", "Фьючерсы", "Валюты"])
-        control.translatesAutoresizingMaskIntoConstraints = false
-        
-        return control
+    private lazy var horizontalButtonStack: HorizontalButtonStack = {
+        let stack = HorizontalButtonStack(titles: ["Indexes", "Futures", "Currences"])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
     }()
 
     // MARK: - Life cycle
@@ -49,20 +48,27 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
+        setupTabBarItem()
+
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
 
         setupBindings()
 
+        // just in purpose to show that horizintalButtonStack works, delete later
+        let _ = horizontalButtonStack.subject.subscribe { event in
+            // prints current selected button index
+            print(event)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         updateSnapshot()
     }
-    
+
     // MARK: - Private methods
-    
+
     private func setupBindings() {
         viewModel.cellTapped
             .subscribe(onNext: { [weak self] in
@@ -73,20 +79,34 @@ final class MainViewController: UIViewController {
 
     private func setupUI() {
         view.addSubview(self.tblView)
-        view.addSubview(self.segmentedController)
+        view.addSubview(self.horizontalButtonStack)
         self.view.backgroundColor = .background
 
         NSLayoutConstraint.activate([
-            self.segmentedController.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.segmentedController.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.segmentedController.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.segmentedController.bottomAnchor.constraint(equalTo: self.tblView.topAnchor),
-            self.segmentedController.heightAnchor.constraint(equalToConstant: 35),
+            self.horizontalButtonStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            self.horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            self.horizontalButtonStack.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
+            self.horizontalButtonStack.heightAnchor.constraint(equalToConstant: 36),
 
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    private func setupTabBarItem() {
+        let imageSize = CGSize(width: 29, height: 22)
+        let imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+
+        let image = UIImage(named: "list.bullet")?
+            .withSize(imageSize)
+        let selectedImage = UIImage(named: "list.bullet.selected")?
+            .withSize(imageSize)
+
+        tabBarItem = UITabBarItem(title: nil, image: image, tag: 0)
+        tabBarItem.selectedImage = selectedImage
+        tabBarItem.imageInsets = imageInsets
     }
 
 }
@@ -97,7 +117,7 @@ fileprivate extension MainViewController {
 
     func createDiffableDataSource() -> DiffableDataSource {
         let dataSource = DiffableDataSource(tableView: tblView) { tableView, indexPath, item in
-            
+
             guard let fullName = item.shortName, 
                     let shortName = item.ticker, 
                     let price = item.close,
@@ -105,7 +125,7 @@ fileprivate extension MainViewController {
             else {
                 return UITableViewCell()
             }
-            
+
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseId, for: indexPath)
             var configuration = cell.stocksCellContentViewConfiguration()
             
@@ -115,7 +135,7 @@ fileprivate extension MainViewController {
             configuration.priceChange = priceChange
             configuration.rate = Double.random(in: 0...10)      // TODO: Add actual data
             cell.contentConfiguration = configuration
-            
+
             return cell
         }
 
@@ -135,13 +155,13 @@ fileprivate extension MainViewController {
 // MARK: - UITableViewDelegate
 
 extension MainViewController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.handleItemSelection()
     }
-    
+
 }
