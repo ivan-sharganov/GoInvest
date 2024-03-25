@@ -3,8 +3,8 @@ import RxSwift
 
 final class MainViewController: UIViewController {
 
-    typealias DiffableDataSource = UITableViewDiffableDataSource<Int, StockModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, StockModel>
+    typealias DiffableDataSource = UITableViewDiffableDataSource<Int, StockDisplayItem>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, StockDisplayItem>
 
     // MARK: - Public properties
 
@@ -117,9 +117,9 @@ fileprivate extension MainViewController {
     func createDiffableDataSource() -> DiffableDataSource {
         let dataSource = DiffableDataSource(tableView: tblView) { tableView, indexPath, item in
             
-            guard let fullName = item.shortName,
-                  let shortName = item.ticker,
-                  let price = item.close,
+            guard let fullName = item.name,
+                  let shortName = item.shortName,
+                  let price = item.closePrice,
                   let priceChange = item.trendclspr
             else {
                 return UITableViewCell()

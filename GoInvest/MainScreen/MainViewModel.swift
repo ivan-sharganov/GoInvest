@@ -6,7 +6,7 @@ protocol MainViewModel {
 
     var cellTapped: PublishRelay<Void> { get }
 
-    var displayItems: [StockModel] { get }
+    var displayItems: [StockDisplayItem] { get }
 
     func handleItemSelection()
     func fetchData() async
@@ -19,7 +19,7 @@ final class MainViewModelImpl: MainViewModel {
 
     let cellTapped = PublishRelay<Void>()
 
-    var displayItems: [StockModel] = []
+    var displayItems: [StockDisplayItem] = []
 
     // MARK: - Private properties
 
@@ -37,16 +37,24 @@ final class MainViewModelImpl: MainViewModel {
         cellTapped.accept(())
     }
 
-    // MARK: - Private methods
-
     // сделать енум параметров (индексы, фьючерсы и тд)
     public func fetchData() async {
         do {
-            self.displayItems = try await self.useCase.get()
+            self.displayItems = try await prepareDisplayItems(stockModels: self.useCase.get())
         } catch {
             self.displayItems = []
         }
-
     }
-
+    
+    // MARK: - Private methods
+    
+    private func prepareDisplayItems(stockModels: [StockModel]) -> [StockDisplayItem] {
+        stockModels.map {
+            StockDisplayItem(name: $0.shortName,
+                             shortName: $0.ticker,
+                             closePrice: $0.close,
+                             trendclspr: $0.trendclspr)
+        }
+    }
+    
 }
