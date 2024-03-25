@@ -1,7 +1,7 @@
 import Foundation
 
 protocol MainUseCase {
-    func get() async -> [StockModel]
+    func get() async throws -> [StockModel]
 }
 
 final class MainUseCaseImpl: MainUseCase {
@@ -12,7 +12,7 @@ final class MainUseCaseImpl: MainUseCase {
         self.repository = repository
     }
 
-    public func get() async -> [StockModel] {
-        await self.repository.getStocks()
+    public func get() async throws -> [StockModel] {
+        try await self.repository.getStocks()
     }
 }

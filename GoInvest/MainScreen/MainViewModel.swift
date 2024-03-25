@@ -41,8 +41,12 @@ final class MainViewModelImpl: MainViewModel {
 
     // сделать енум параметров (индексы, фьючерсы и тд)
     public func fetchData() async {
-        self.displayItems = await self.useCase.get()
-        print("test ", self.displayItems)
+        do {
+            self.displayItems = try await self.useCase.get()
+        } catch {
+            self.displayItems = []
+        }
+
     }
 
 }

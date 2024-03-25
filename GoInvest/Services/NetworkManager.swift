@@ -137,6 +137,7 @@ class NetworkManager {
     }
 
     func getPricesForStock(completion: @escaping (StockData?) -> Void) {
+
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
         url +=
          ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
@@ -173,7 +174,12 @@ class NetworkManager {
              throw GIError.error
          }
 
-         return self.transformStockData(from: answer.history.data).stocksModels
+         return self.transformStockData(from: answer.history.data).stocksModels.filter {
+             $0.shortName != nil &&
+             $0.trendclspr != nil &&
+             $0.ticker != nil &&
+             $0.close != nil
+         }
     }
 
 }

@@ -2,7 +2,7 @@ import Foundation
 
 protocol MainRepository {
 
-    func getStocks() async -> [StockModel]
+    func getStocks() async throws -> [StockModel]
 
 }
 // VC -> VM -> UseCase -> Repo -> NetworkManager
@@ -11,15 +11,8 @@ final class MainRepositoryImpl: MainRepository {
 
     public init() {}
 
-    public func getStocks() async -> [StockModel] {
-//        NetworkManager.shared.getPricesForStock { stockData in
-//            stockData.stocksModels
-//        }
-        do {
-            return try await NetworkManager.shared.analogGetPricesForStock()
-        } catch {
-           return []
-        }
+    public func getStocks() async throws -> [StockModel] {
+        try await NetworkManager.shared.analogGetPricesForStock()
     }
 
 }

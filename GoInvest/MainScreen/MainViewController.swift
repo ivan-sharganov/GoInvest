@@ -69,7 +69,6 @@ final class MainViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         updateSnapshot()
-        print(#function)
     }
 
     // MARK: - Private methods
