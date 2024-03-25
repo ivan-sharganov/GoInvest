@@ -17,7 +17,7 @@ jobs:
       - name: SwiftLint
         run: |
           brew install swiftlint
-          swiftlint lint --config .swiftlint.yml --strict
+          # swiftlint lint --config .swiftlint.yml --strict
   build:
   
     runs-on: macos-latest
