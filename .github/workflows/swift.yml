@@ -10,20 +10,26 @@ on:
     branches: [ "**" ]
 
 jobs:
-  SwiftLint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: GitHub Action for SwiftLint
-        run: |
-          swiftlint lint --config .swiftlint.yml --strict
+  # SwiftLint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: GitHub Action for SwiftLint
+  #       uses: norio-nomura/action-swiftlint@3.2.1
   build:
   
     runs-on: macos-latest
-
+    
     steps:
     - uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: |
+          brew install swiftlint
 
+    - name: Fail if SwiftLint Warnings
+      run: |
+          swiftlint lint --config .swiftlint.yml --strict
+    
     - name: Install XcodeGen
       run: |
         brew update
