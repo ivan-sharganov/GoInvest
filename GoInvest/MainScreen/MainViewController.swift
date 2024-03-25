@@ -59,12 +59,6 @@ final class MainViewController: UIViewController {
             await self.viewModel.fetchData()
             self.updateSnapshot()
         }
-
-        // just in purpose to show that horizintalButtonStack works, delete later
-        let _ = horizontalButtonStack.subject.subscribe { event in
-            // prints current selected button index
-            print(event)
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
