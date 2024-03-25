@@ -12,14 +12,31 @@ targets:
         platform: iOS
         sources:
             - path: GoInvest/
+        settings:
+            base:
+                PRODUCT_BUNDLE_IDENTIFIER: com.yandex.sirius.GoInvest
 #        dependencies:
 #        - framework: UIComponents.framework
         scheme:
             testTargets:
             - GoInvestTests
+        preBuildScripts:
+            - script: |
+                #!/bin/bash
+                # Swiftlint
+    
+                export PATH="$PATH:/opt/homebrew/bin"
+                echo "sdfdsfsdfdsf"
+                if which swiftlint >/dev/null; then
+                    swiftlint lint --strict
+                else
+                    echo "error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint"
+                    exit 1
+                fi
+                
+                
     GoInvestTests:
         type: bundle.unit-test
         platform: iOS
         sources:
             - path: GoInvestTests
-
