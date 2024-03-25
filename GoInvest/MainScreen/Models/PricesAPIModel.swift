@@ -33,6 +33,7 @@ struct History: Decodable {
     let data: [[Datum]]
 
 }
+
 enum Datum: Decodable {
 
     case double(Double)

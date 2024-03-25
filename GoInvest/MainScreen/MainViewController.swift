@@ -93,8 +93,6 @@ final class MainViewController: UIViewController {
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-
-//        setupNavigationController()
     }
 
     private func setupTabBarItem() {

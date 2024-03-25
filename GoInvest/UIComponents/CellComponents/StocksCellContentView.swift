@@ -8,6 +8,7 @@ final class StocksCellContentView: UIView, UIContentView {
         var shortName: String = ""
         var rate: Double = 0
         var price: Double = 0
+        
         /// Percent price change.
         var priceChange: Double = 0
 
@@ -21,13 +22,15 @@ final class StocksCellContentView: UIView, UIContentView {
         
     }
 
-    // MARK: - Properties
+    // MARK: - Public properties
     
     var configuration: any UIContentConfiguration {
         didSet {
             configure(with: configuration)
         }
     }
+    
+    // MARK: - Private properties
 
     private let rateLabel = RateLabel()
     private let namesView = NamesView()
@@ -38,7 +41,7 @@ final class StocksCellContentView: UIView, UIContentView {
         return CGSize(width: 0, height: 64)
     }
 
-    // MARK: - Initialization
+    // MARK: - Life cycle
     
     init(_ configuration: any UIContentConfiguration) {
         self.configuration = configuration
@@ -53,7 +56,7 @@ final class StocksCellContentView: UIView, UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Methods
+    // MARK: - Public methods
     
     func configure(with: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
@@ -64,6 +67,8 @@ final class StocksCellContentView: UIView, UIContentView {
         priceView.price = configuration.price
         priceView.priceChange = configuration.priceChange
     }
+    
+    // MARK: - Private methods
 
     private func addSubviews() {
         addSubview(rateLabel)

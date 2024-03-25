@@ -1,7 +1,9 @@
 import UIKit
 
 final class MockGraph: UIView {
-    // MARK: - Initialization
+    
+    // MARK: - Life cycle
+    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
 
@@ -17,7 +19,7 @@ final class MockGraph: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Methods
+    // MARK: - Public methods
 
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath()
@@ -33,4 +35,5 @@ final class MockGraph: UIView {
         path.lineWidth = 4
         path.stroke()
     }
+    
 }
