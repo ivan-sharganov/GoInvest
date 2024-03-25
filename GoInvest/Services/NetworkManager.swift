@@ -1,9 +1,12 @@
 import Foundation
 
 class NetworkManager {
-    
+
+    private enum NetworkConstants {
+        static let responseItemsCount: Int = 20
+    }
     // MARK: - Singleton
-    
+
     static let shared = NetworkManager()
     
     // MARK: - Public methods
@@ -168,7 +171,6 @@ class NetworkManager {
 
          var request = URLRequest(url: URL)
          request.httpMethod = "GET"
-//         let smth = try await URLSession.shared.dataTask(with: request).da
          let (data, _) = try await URLSession.shared.data(for: request)
          guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
              throw GIError.error
