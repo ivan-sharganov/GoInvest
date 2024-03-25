@@ -15,8 +15,6 @@ targets:
         settings:
             base:
                 PRODUCT_BUNDLE_IDENTIFIER: com.yandex.sirius.GoInvest
-#        dependencies:
-#        - framework: UIComponents.framework
         scheme:
             testTargets:
             - GoInvestTests
