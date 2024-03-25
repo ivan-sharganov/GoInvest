@@ -32,7 +32,6 @@ targets:
                     exit 1
                 fi
                 
-                
     GoInvestTests:
         type: bundle.unit-test
         platform: iOS
