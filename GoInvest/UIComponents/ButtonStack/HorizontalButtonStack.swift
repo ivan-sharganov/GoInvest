@@ -47,7 +47,7 @@ final class HorizontalButtonStack: UIStackView {
     init(titles: [String]) {
         self.titles = titles
         super.init(frame: .zero)
-    
+        
         prepareButtons()
         prepareUI()
     }

@@ -29,6 +29,7 @@ final class MainViewController: UIViewController {
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(titles: ["Indexes", "Futures", "Currences"])
         stack.translatesAutoresizingMaskIntoConstraints = false
+        
         return stack
     }()
 
@@ -48,13 +49,13 @@ final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
 
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
-
+        
         setupBindings()
         Task {
             await self.viewModel.fetchData()
