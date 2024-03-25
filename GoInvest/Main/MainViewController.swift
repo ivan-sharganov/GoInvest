@@ -29,13 +29,14 @@ final class MainViewController: UIViewController {
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
-    
+
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = ""
+        searchBar.showsCancelButton = true
         searchBar.backgroundColor = .background
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return searchBar
     }()
 
@@ -57,7 +58,6 @@ final class MainViewController: UIViewController {
         setupUI()
         searchBar.delegate = self
         tblView.dataSource = diffableDataSource
-        self.hideKeyboardWhenTappedAround()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -67,15 +67,16 @@ final class MainViewController: UIViewController {
     private func setupUI() {
         view.addSubview(self.tblView)
         view.addSubview(self.segmentedController)
-        self.view.backgroundColor = .background
         view.addSubview(self.searchBar)
+        self.view.backgroundColor = .background
+        self.hideKeyboardWhenTappedAround()
 
         NSLayoutConstraint.activate([
             self.segmentedController.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.segmentedController.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.segmentedController.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.segmentedController.heightAnchor.constraint(equalToConstant: 35),
-            
+
             self.searchBar.topAnchor.constraint(equalTo: self.segmentedController.bottomAnchor, constant: 8),
             self.searchBar.heightAnchor.constraint(equalToConstant: 35),
             self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
@@ -122,12 +123,11 @@ fileprivate extension MainViewController {
 
 }
 
-extension MainViewController: UISearchBarDelegate{
-    @objc private func cancelTapped() {
-        self.searchBar.endEditing(false)
-        self.searchBar.text = ""
-    }
+// MARK: - SearchBar
+extension MainViewController: UISearchBarDelegate {
+    /// Обработка кнопки нажатия - поиск в клавиатуре
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
+
     }
 }
