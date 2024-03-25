@@ -20,6 +20,7 @@ final class MainViewController: UIViewController {
     private lazy var tblView: UITableView = {
         let tbl = UITableView()
         tbl.backgroundColor = .background
+        tbl.keyboardDismissMode = .onDrag
         tbl.translatesAutoresizingMaskIntoConstraints = false
         tbl.delegate = self
 
@@ -31,6 +32,16 @@ final class MainViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    
+    private lazy var searchBar: UISearchBar = {
+            let searchBar = UISearchBar()
+            searchBar.showsCancelButton = true
+            searchBar.placeholder = "Search"
+            searchBar.backgroundColor = .background
+            searchBar.translatesAutoresizingMaskIntoConstraints = false
+
+            return searchBar
+       }()
 
     // MARK: - Life cycle
 
@@ -53,7 +64,8 @@ final class MainViewController: UIViewController {
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
-
+        searchBar.delegate = self
+        
         setupBindings()
         Task {
             await self.viewModel.fetchData()
@@ -78,14 +90,20 @@ final class MainViewController: UIViewController {
     private func setupUI() {
         view.addSubview(self.tblView)
         view.addSubview(self.horizontalButtonStack)
+        view.addSubview(self.searchBar)
         self.view.backgroundColor = .background
-
+        hideKeyboardWhenTappedAround()
         NSLayoutConstraint.activate([
             self.horizontalButtonStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            self.horizontalButtonStack.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
             self.horizontalButtonStack.heightAnchor.constraint(equalToConstant: 36),
+            
+            self.searchBar.topAnchor.constraint(equalTo: self.horizontalButtonStack.bottomAnchor, constant: 8),
+            self.searchBar.heightAnchor.constraint(equalToConstant: 35),
+            self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            self.searchBar.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
 
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -162,4 +180,11 @@ extension MainViewController: UITableViewDelegate {
         viewModel.handleItemSelection()
     }
 
+}
+
+// MARK: - UISearchBarDelegate
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
 }
