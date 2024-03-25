@@ -2,6 +2,10 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
+    // MARK: - Private properties
+    
+    private var isFavorite: Bool = false
+    
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -19,35 +23,27 @@ final class DetailViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        let addToFavoritesButton = UIImage(named: "addToFavoritesButton")
-        let button = UIButton(type: .custom)
-        
-//        addToFavoritesButton.frame
-        button.setImage(addToFavoritesButton, for: .normal)
-        button.contentMode = .center
-//        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        
-        let rightBarButtonItem = UIBarButtonItem(customView: button)
-//        let rightBarButtonItem = UIBarButtonItem(image: addToFavoritesButton, style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
-        
-//        let sdsd = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
+        let favoritesBarButton = setupFavoriteButton(isFavorite: isFavorite)
+        let rightBarButtonItem = UIBarButtonItem(image: favoritesBarButton, style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
+        let backBarButtonItem = UIBarButtonItem()
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    private func setupFavoriteButton(isFavorite: Bool) -> UIImage? {
+        if isFavorite {
+            return UIImage(systemName: "heart.fill")
+        }
         
+        return UIImage(systemName: "heart")
     }
     
     // MARK: - Handlers
     
     @objc
     private func rightBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        sender.image = UIImage(named: "inFavoritesButton")?.withRenderingMode(.alwaysOriginal)
+        isFavorite = !isFavorite
+        sender.image = setupFavoriteButton(isFavorite: isFavorite)
     }
 
-}
-
-@propertyWrapper
-struct PhoneNumber {
-    var wrappedValue: String
-    
 }

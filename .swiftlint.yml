@@ -1,2 +1,20 @@
 excluded:
-  - Pods
+— Pods
+— MBUITest
+
+disabled_rules:
+— trailing_whitespace
+
+line_length:
+warning: 150
+
+function_parameter_count:
+warning: 10
+error: 15
+
+file_length:
+warning: 500
+
+type_body_length:
+warning: 400
+error: 450

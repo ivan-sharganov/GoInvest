@@ -11,9 +11,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         let mainViewController = MainViewController(viewModel: MainViewModelImpl(useCase: MainUseCaseImpl()))
         let navigationController = UINavigationController(rootViewController: mainViewController)
-
         let tabBarController = UITabBarController()
+        let backBarButtonItem = UIBarButtonItem()
+        
         tabBarController.setViewControllers([navigationController], animated: true)
+        
+        backBarButtonItem.title = ""
+        navigationController.navigationBar.topItem?.backBarButtonItem = backBarButtonItem
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController

@@ -29,6 +29,7 @@ final class MainViewController: UIViewController {
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(titles: ["Indexes", "Futures", "Currences"])
         stack.translatesAutoresizingMaskIntoConstraints = false
+        
         return stack
     }()
 
@@ -93,8 +94,6 @@ final class MainViewController: UIViewController {
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-
-//        setupNavigationController()
     }
 
     private func setupTabBarItem() {
@@ -121,7 +120,7 @@ fileprivate extension MainViewController {
         let dataSource = DiffableDataSource(tableView: tblView) { tableView, indexPath, item in
 
             guard let fullName = item.shortName, 
-                    let shortName = item.ticker, 
+                    let shortName = item.ticker,
                     let price = item.close,
                     let priceChange = item.trendclspr
             else {
