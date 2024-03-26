@@ -13,11 +13,11 @@ final class MainRepositoryImpl: MainRepository {
     public func getStocks(parameters: StockState) async throws -> [StockModel] {
         switch parameters {
         case .indexes:
-            try await NetworkManager.shared.analogGetPricesForStock(parameter: "index")
+            return try await NetworkManager.shared.analogGetPricesForStock(parameter: "index")
         case .futures:
-            try await NetworkManager.shared.analogGetPricesForStock(parameter: "shares")
+            return try await NetworkManager.shared.analogGetPricesForStock(parameter: "shares")
         case .currencies:
-            try await NetworkManager.shared.analogGetPricesForStock(parameter: "bonds")
+            return try await NetworkManager.shared.analogGetPricesForStock(parameter: "bonds")
         }
     }
 
