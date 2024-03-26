@@ -9,7 +9,8 @@ final class MainViewController: UIViewController {
     // MARK: - Public properties
 
     // MARK: - Private properties
-
+    
+    private var isPressed = false
     private var viewModel: MainViewModel
     private let bag = DisposeBag()
     private lazy var router: Routable = MainRouter(viewController: self)
@@ -27,7 +28,12 @@ final class MainViewController: UIViewController {
     }()
 
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
-        let stack = HorizontalButtonStack(titles: ["Indexes", "Shares", "Bonds"])
+        let stack = HorizontalButtonStack(titles: ["Indexes", "Shares", "Bonds"], size: .small)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    private lazy var navItem: HorizontalButtonStack = {
+        let stack = HorizontalButtonStack(titles: ["Securities", "Favorities"], size: .large)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -40,7 +46,6 @@ final class MainViewController: UIViewController {
         
         return searchBar
     }()
-
     // MARK: - Life cycle
 
     init(viewModel: MainViewModel) {
@@ -65,8 +70,10 @@ final class MainViewController: UIViewController {
         
         setupBindings()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
         updateSnapshot()
     }
 
@@ -93,9 +100,11 @@ final class MainViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.addSubview(self.tblView)
+        view.addSubview(self.navItem)
         view.addSubview(self.horizontalButtonStack)
+        view.addSubview(self.tblView)
         view.addSubview(self.searchBar)
+
         self.view.backgroundColor = .background
         hideKeyboardWhenTappedAround()
         
@@ -103,7 +112,11 @@ final class MainViewController: UIViewController {
         self.searchBar.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.horizontalButtonStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.navItem.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.navItem.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.navItem.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            self.horizontalButtonStack.topAnchor.constraint(equalTo: self.navItem.bottomAnchor, constant: 5),
             self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             self.horizontalButtonStack.heightAnchor.constraint(equalToConstant: 36),

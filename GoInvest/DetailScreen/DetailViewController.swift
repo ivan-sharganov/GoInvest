@@ -17,8 +17,8 @@ final class DetailViewController: UIViewController {
     // MARK: - Private methods
     
     private func setupUI() {
-        view.backgroundColor = .white
-        
+        view.backgroundColor = .background
+        self.navigationController?.isNavigationBarHidden = false
         configureNavigationBar()
     }
     
