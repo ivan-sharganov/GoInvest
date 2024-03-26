@@ -13,6 +13,8 @@ target 'GoInvest' do
     inherit! :search_paths
     # Pods for testing
     pod 'SwiftLint'
+    pod 'RxSwift'
+    pod 'RxCocoa'
   end
 
 end

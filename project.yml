@@ -35,3 +35,7 @@ targets:
         platform: iOS
         sources:
             - path: GoInvestTests
+        settings:
+            base:
+                PRODUCT_BUNDLE_IDENTIFIER: com.yandex.sirius.GoInvestTest
+                GENERATE_INFOPLIST_FILE: YES
