@@ -133,12 +133,18 @@ final class MainViewController: UIViewController {
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
+    
     private func setupTabBarItem() {
+        let imageSize = CGSize(width: 29, height: 22)
+        
+        let image = UIImage(named: "list.bullet")
+            // .withSize(imageSize)
+        let selectedImage = UIImage(named: "list.bullet.selected")
+            // .withSize(imageSize)
         let imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let imageScale = 1.6
         let imageName = "list.bullet"
-
+        
         let inactiveImage = UIImage(systemName: imageName)?
             .withRenderingMode(.alwaysTemplate)
             .withScale(imageScale)
@@ -146,12 +152,12 @@ final class MainViewController: UIViewController {
         let activeImage = UIImage(systemName: imageName)?
             .withRenderingMode(.alwaysTemplate)
             .withScale(imageScale)
-
+        
         tabBarItem = UITabBarItem(title: nil, image: inactiveImage, tag: 1)
         tabBarItem.selectedImage = activeImage
         tabBarItem.imageInsets = imageInsets
     }
-
+    
 }
 
 // MARK: - DiffableDataSource
@@ -215,6 +221,7 @@ extension MainViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.updateSnapshot() // TODO: переписать на rx.snapshot
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -225,10 +232,13 @@ extension MainViewController: UISearchBarDelegate {
         self.searchBar.searchTextField.text = ""
         self.searchBar.showsCancelButton.toggle()
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.updateSnapshot() // TODO: переписать на rx.snapshot
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.searchBar.showsCancelButton = true
+        DispatchQueue.main.async {
+            self.searchBar.showsCancelButton = true
+        }
     }
     
 }
