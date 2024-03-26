@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+ platform :ios, '16.0'
 
 target 'GoInvest' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -13,6 +13,8 @@ target 'GoInvest' do
     inherit! :search_paths
     # Pods for testing
     pod 'SwiftLint'
+    pod 'RxSwift'
+    pod 'RxCocoa'
   end
 
 end
