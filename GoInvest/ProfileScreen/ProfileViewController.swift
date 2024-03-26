@@ -23,16 +23,22 @@ final class ProfileViewController: UIViewController {
     // MARK: - Private methods
     
     private func setupTabBarItem() {
-        let imageSize = CGSize(width: 29, height: 27)
         let imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+        let imageScale = 1.6
+        let imageName = "case"
 
-        let image = UIImage(named: "case")?
-            .withSize(imageSize)
-        let selectedImage = UIImage(named: "case.selected")?
-            .withSize(imageSize)
+        let inactiveImage = UIImage(systemName: imageName)?
+            .withRenderingMode(.alwaysOriginal)
+            .withTintColor(.placeholderText)
+            .withScale(imageScale)
 
-        tabBarItem = UITabBarItem(title: nil, image: image, tag: 2)
-        tabBarItem.selectedImage = selectedImage
+        let activeImage = UIImage(systemName: imageName)?
+            .withRenderingMode(.alwaysOriginal)
+            .withTintColor(.systemRed)
+            .withScale(imageScale)
+
+        tabBarItem = UITabBarItem(title: nil, image: inactiveImage, tag: 2)
+        tabBarItem.selectedImage = activeImage
         tabBarItem.imageInsets = imageInsets
     }
     

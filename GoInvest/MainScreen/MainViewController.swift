@@ -135,16 +135,22 @@ final class MainViewController: UIViewController {
     }
 
     private func setupTabBarItem() {
-        let imageSize = CGSize(width: 29, height: 22)
         let imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
- 
-        let image = UIImage(named: "list.bullet")?
-            .withSize(imageSize)
-        let selectedImage = UIImage(named: "list.bullet.selected")?
-            .withSize(imageSize)
+        let imageScale = 1.6
+        let imageName = "list.bullet"
 
-        tabBarItem = UITabBarItem(title: nil, image: image, tag: 1)
-        tabBarItem.selectedImage = selectedImage
+        let inactiveImage = UIImage(systemName: imageName)?
+            .withRenderingMode(.alwaysOriginal)
+            .withTintColor(.placeholderText)
+            .withScale(imageScale)
+        
+        let activeImage = UIImage(systemName: imageName)?
+            .withRenderingMode(.alwaysOriginal)
+            .withTintColor(.systemRed)
+            .withScale(imageScale)
+
+        tabBarItem = UITabBarItem(title: nil, image: inactiveImage, tag: 1)
+        tabBarItem.selectedImage = activeImage
         tabBarItem.imageInsets = imageInsets
     }
 
