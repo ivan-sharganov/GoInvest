@@ -12,7 +12,7 @@ protocol MainViewModel {
 
     func handleItemSelection()
     func fetchData() async
-    func searchItems(for word: String?)
+    func searchItems(for query: String?)
 
 }
 
@@ -42,17 +42,17 @@ final class MainViewModelImpl: MainViewModel {
         cellTapped.accept(())
     }
     
-    func searchItems(for word: String?) {
-        guard let word else {
+    func searchItems(for query: String?) {
+        guard let query else {
             self.displayItems = self.responseItems
             
             return
         }
         
-        if word == "" {
+        if query.isEmpty {
             self.displayItems = self.responseItems
         } else {
-            self.displayItems = self.responseItems.filter { $0.shortName?.contains(word) ?? false }
+            self.displayItems = self.responseItems.filter { $0.shortName?.contains(query) ?? false }
         }
     }
 
