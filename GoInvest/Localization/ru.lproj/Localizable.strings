@@ -1,5 +1,14 @@
-"securities" = "Ценные бумаги";
+"securities" = "Бумаги";
 "favorities" = "Избранное";
 "indexes" = "Индексы";
 "bonds" = "Облигации";
 "shares" = "Акции";
+"search" = "Поиск";
+"buy" = "Купить";
+"day" = "д";
+"month" = "м";
+"year" = "г";
+"profile" = "Профиль";
+"portfolio" = "Портфель";
+"authorization" = "Авторизация";
+"error" = "Ошибка";

@@ -28,12 +28,25 @@ final class MainViewController: UIViewController {
     }()
 
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
-        let stack = HorizontalButtonStack(titles: ["Indexes", "Shares", "Bonds"], size: .small)
+        let stack = HorizontalButtonStack(
+            titles: [
+                NSLocalizedString("indexes", comment: ""),
+                NSLocalizedString("shares", comment: ""),
+                NSLocalizedString("bonds", comment: ""),
+            ],
+            size: .small
+        )
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     private lazy var navItem: HorizontalButtonStack = {
-        let stack = HorizontalButtonStack(titles: ["Securities", "Favorities"], size: .large)
+        let stack = HorizontalButtonStack(
+            titles: [
+                NSLocalizedString("securities", comment: ""),
+                NSLocalizedString("favorities", comment: ""),
+            ],
+            size: .large
+        )
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -41,7 +54,7 @@ final class MainViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchTextField.clearButtonMode = .never
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = NSLocalizedString("search", comment: "")
         searchBar.backgroundImage = UIImage()
         
         return searchBar
@@ -124,8 +137,8 @@ final class MainViewController: UIViewController {
             
             self.searchBar.topAnchor.constraint(equalTo: self.horizontalButtonStack.bottomAnchor, constant: 8),
             self.searchBar.heightAnchor.constraint(equalToConstant: 35),
-            self.searchBar.leadingAnchor.constraint(equalTo: self.horizontalButtonStack.leadingAnchor),
-            self.searchBar.trailingAnchor.constraint(equalTo: self.horizontalButtonStack.trailingAnchor),
+            self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 7),
+            self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -7),
             self.searchBar.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
 
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -236,9 +249,7 @@ extension MainViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        DispatchQueue.main.async {
-            self.searchBar.showsCancelButton = true
-        }
+        self.searchBar.showsCancelButton = true
     }
     
 }
