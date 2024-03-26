@@ -5,7 +5,7 @@ configs:
 options:
   minimumXcodeGenVersion: 2.39.1
   deploymentTarget:
-    iOS: 17.0
+    iOS: 16.0
 targets:
     GoInvest:
         type: application
@@ -35,3 +35,7 @@ targets:
         platform: iOS
         sources:
             - path: GoInvestTests
+        settings:
+            base:
+                PRODUCT_BUNDLE_IDENTIFIER: com.yandex.sirius.GoInvestTest
+                GENERATE_INFOPLIST_FILE: YES
