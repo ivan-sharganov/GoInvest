@@ -7,9 +7,12 @@ protocol MainViewModel {
     var cellTapped: PublishRelay<Void> { get }
 
     var displayItems: [StockModel] { get }
+    
+    var responseItems: [StockModel] { get }
 
     func handleItemSelection()
     func fetchData() async
+    func searchItems(for query: String?)
 
 }
 
@@ -20,6 +23,8 @@ final class MainViewModelImpl: MainViewModel {
     let cellTapped = PublishRelay<Void>()
 
     var displayItems: [StockModel] = []
+    
+    var responseItems: [StockModel] = []
 
     // MARK: - Private properties
 
@@ -36,17 +41,30 @@ final class MainViewModelImpl: MainViewModel {
     func handleItemSelection() {
         cellTapped.accept(())
     }
+    
+    func searchItems(for query: String?) {
+        guard let query else {
+            self.displayItems = self.responseItems
+            
+            return
+        }
+        
+        if query.isEmpty {
+            self.displayItems = self.responseItems
+        } else {
+            self.displayItems = self.responseItems.filter { $0.shortName?.contains(query) ?? false }
+        }
+    }
 
     // MARK: - Private methods
 
     // сделать енум параметров (индексы, фьючерсы и тд)
     public func fetchData() async {
         do {
-            self.displayItems = try await self.useCase.get()
+            self.responseItems = try await self.useCase.get()
+            self.displayItems = responseItems
         } catch {
-            self.displayItems = []
+            self.responseItems = []
         }
-
     }
-
 }
