@@ -6,6 +6,13 @@ final class DetailViewController: UIViewController {
     
     private var isFavorite: Bool = false
     
+    // MARK: - UI
+    private lazy var buyButton: UIButton = {
+        let button = ReusableButton()
+        
+        return button
+    }()
+    
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -19,6 +26,17 @@ final class DetailViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .background
         self.navigationController?.isNavigationBarHidden = false
+        view.addSubview(buyButton)
+        
+        self.buyButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 45),
+            self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -45),
+            self.buyButton.heightAnchor.constraint(equalToConstant: 50),
+            self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -14),
+        ])
+        
         configureNavigationBar()
     }
     
