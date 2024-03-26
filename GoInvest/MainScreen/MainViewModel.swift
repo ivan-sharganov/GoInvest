@@ -15,14 +15,13 @@ protocol MainViewModel {
     var cellTapped: PublishRelay<Void> { get }
     var updateSnapshot: PublishRelay<Bool> { get }
 
-    
-    var responseItems: [StockModel] { get }
+    var displayItems: [StockDisplayItem] { get }
+    var responseItems: [StockDisplayItem] { get }
 
     func handleItemSelection()
     func fetchData(parameters: StockState) async
     func chooseStockStateData(stockState: StockState)
     func searchItems(for query: String?)
-    var displayItems: [StockDisplayItem] { get }
 
 }
 
@@ -34,7 +33,7 @@ final class MainViewModelImpl: MainViewModel {
     var updateSnapshot = PublishRelay<Bool>()
 
     var displayItems: [StockDisplayItem] = []
-    var responseItems: [StockModel] = []
+    var responseItems: [StockDisplayItem] = []
 
     // MARK: - Private properties
 
@@ -61,6 +60,9 @@ final class MainViewModelImpl: MainViewModel {
         Task {
             await fetchData(parameters: stockState)
             updateSnapshot.accept((false))
+        }
+    }
+        
     func searchItems(for query: String?) {
         guard let query else {
             self.displayItems = self.responseItems
@@ -71,13 +73,14 @@ final class MainViewModelImpl: MainViewModel {
         if query.isEmpty {
             self.displayItems = self.responseItems
         } else {
-            self.displayItems = self.responseItems.filter { $0.shortName?.contains(query) ?? false }
+            self.displayItems = self.responseItems.filter { $0.shortName?.contains(query.uppercased()) ?? false }
+            updateSnapshot.accept(false)
         }
     }
 
     public func fetchData(parameters: StockState) async {
         do {
-            self.displayItems = try await prepareDisplayItems(stockModels: self.useCase.get(parameters: parameters))
+            self.responseItems = try await prepareDisplayItems(stockModels: self.useCase.get(parameters: parameters))
             self.displayItems = responseItems
         } catch {
             self.responseItems = []
