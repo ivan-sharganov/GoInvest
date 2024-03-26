@@ -3,8 +3,8 @@ import RxSwift
 
 final class MainViewController: UIViewController {
 
-    typealias DiffableDataSource = UITableViewDiffableDataSource<Int, StockModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, StockModel>
+    typealias DiffableDataSource = UITableViewDiffableDataSource<Int, StockDisplayItem>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, StockDisplayItem>
 
     // MARK: - Public properties
 
@@ -28,7 +28,7 @@ final class MainViewController: UIViewController {
     }()
 
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
-        let stack = HorizontalButtonStack(titles: ["Indexes", "Futures", "Currences"], size: .small)
+        let stack = HorizontalButtonStack(titles: ["Indexes", "Shares", "Bonds"], size: .small)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -69,10 +69,6 @@ final class MainViewController: UIViewController {
         searchBar.delegate = self
         
         setupBindings()
-        Task {
-            await self.viewModel.fetchData()
-            self.updateSnapshot()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,9 +80,21 @@ final class MainViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupBindings() {
+        horizontalButtonStack.subject
+            .subscribe(onNext: { [weak self] stockState in
+                self?.viewModel.chooseStockStateData(stockState: stockState)
+            })
+            .disposed(by: bag)
+        
         viewModel.cellTapped
             .subscribe(onNext: { [weak self] in
                 self?.router.pushNext()
+            })
+            .disposed(by: bag)
+        
+        viewModel.updateSnapshot
+            .subscribe(onNext: { [weak self] result in
+                self?.updateSnapshot(animatingDifferences: result)
             })
             .disposed(by: bag)
     }
@@ -148,10 +156,11 @@ fileprivate extension MainViewController {
     func createDiffableDataSource() -> DiffableDataSource {
         let dataSource = DiffableDataSource(tableView: tblView) { tableView, indexPath, item in
             
-            guard let fullName = item.shortName,
-                  let shortName = item.ticker,
-                  let price = item.close,
-                  let priceChange = item.trendclspr
+            guard let fullName = item.name,
+                  let shortName = item.shortName,
+                  let price = item.closePrice,
+                  let priceChange = Optional(Double(52.2)),
+                  let rate = item.rate
             else {
                 return UITableViewCell()
             }
@@ -163,7 +172,7 @@ fileprivate extension MainViewController {
             configuration.shortName = shortName
             configuration.price = price
             configuration.priceChange = priceChange
-            configuration.rate = Double.random(in: 0...10)
+            configuration.rate = rate
             cell.contentConfiguration = configuration
 
             return cell
@@ -172,13 +181,13 @@ fileprivate extension MainViewController {
         return dataSource
     }
 
-    func updateSnapshot() {
+    func updateSnapshot(animatingDifferences: Bool = false) {
         var snapshot = Snapshot()
 
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.displayItems, toSection: 0)
 
-        diffableDataSource.apply(snapshot)
+        diffableDataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }
 
