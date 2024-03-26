@@ -8,7 +8,8 @@ final class DetailViewController: UIViewController {
     
     // MARK: - UI
     private lazy var buyButton: UIButton = {
-        let button = ReusableButton(title: "Buy")
+        let button = ReusableButton(title: "Buy", fontSize: 17, onBackgroundColor: .buttonBackground, offBackgroundColor: .buttonBackground, onTitleColor: .buttonTitle, offTitleColor: .buttonTitle)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
@@ -27,8 +28,6 @@ final class DetailViewController: UIViewController {
         view.backgroundColor = .background
         self.navigationController?.isNavigationBarHidden = false
         view.addSubview(buyButton)
-        
-        self.buyButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 45),
