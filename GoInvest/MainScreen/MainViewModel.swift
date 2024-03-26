@@ -74,8 +74,8 @@ final class MainViewModelImpl: MainViewModel {
             self.displayItems = self.responseItems
         } else {
             self.displayItems = self.responseItems.filter { $0.shortName?.contains(query.uppercased()) ?? false }
-            updateSnapshot.accept(false)
         }
+        updateSnapshot.accept(false)
     }
 
     public func fetchData(parameters: StockState) async {

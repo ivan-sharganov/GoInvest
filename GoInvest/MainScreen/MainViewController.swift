@@ -210,7 +210,6 @@ extension MainViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
-        self.updateSnapshot() // TODO: переписать на rx.snapshot
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -221,13 +220,10 @@ extension MainViewController: UISearchBarDelegate {
         self.searchBar.searchTextField.text = ""
         self.searchBar.showsCancelButton.toggle()
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
-        self.updateSnapshot() // TODO: переписать на rx.snapshot
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        DispatchQueue.main.async {
-            self.searchBar.showsCancelButton = true
-        }
+        self.searchBar.showsCancelButton = true
     }
     
 }
