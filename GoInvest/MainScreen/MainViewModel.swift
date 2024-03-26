@@ -5,8 +5,8 @@ import RxCocoa
 enum StockState {
     
     case indexes
-    case futures
-    case currencies
+    case shares
+    case bonds
     
 }
 

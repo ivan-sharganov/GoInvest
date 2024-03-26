@@ -85,9 +85,9 @@ final class HorizontalButtonStack: UIStackView {
         case 0:
             return .indexes
         case 1:
-            return .futures
+            return .shares
         case 2:
-            return .currencies
+            return .bonds
         default:
             return nil
         }

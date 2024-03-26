@@ -14,9 +14,9 @@ final class MainRepositoryImpl: MainRepository {
         switch parameters {
         case .indexes:
             return try await NetworkManager.shared.analogGetPricesForStock(parameter: "index")
-        case .futures:
+        case .shares:
             return try await NetworkManager.shared.analogGetPricesForStock(parameter: "shares")
-        case .currencies:
+        case .bonds:
             return try await NetworkManager.shared.analogGetPricesForStock(parameter: "bonds")
         }
     }
