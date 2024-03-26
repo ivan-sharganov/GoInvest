@@ -9,6 +9,12 @@ final class DetailViewController: UIViewController {
     // MARK: - UI
     
     private let graphViewController = GraphViewController()
+    private lazy var buyButton: UIButton = {
+        let button = ReusableButton(title: "Buy", fontSize: 17, onBackgroundColor: .buttonBackground, offBackgroundColor: .buttonBackground, onTitleColor: .buttonTitle, offTitleColor: .buttonTitle)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     
     // MARK: - Life cycle
 
@@ -36,6 +42,14 @@ final class DetailViewController: UIViewController {
         addChild(graphViewController)
         view.addSubview(graphViewController.view)
         graphViewController.didMove(toParent: self)
+        view.addSubview(buyButton)
+        
+        NSLayoutConstraint.activate([
+            self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 45),
+            self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -45),
+            self.buyButton.heightAnchor.constraint(equalToConstant: 50),
+            self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -14),
+        ])
         
         configureNavigationBar()
     }

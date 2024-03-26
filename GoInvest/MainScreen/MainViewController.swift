@@ -52,6 +52,8 @@ final class MainViewController: UIViewController {
         self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
+        
+        setupTabBarItem()
     }
 
     required init?(coder: NSCoder) {
@@ -62,7 +64,6 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
-        setupTabBarItem()
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
@@ -134,16 +135,20 @@ final class MainViewController: UIViewController {
     }
 
     private func setupTabBarItem() {
-        let imageSize = CGSize(width: 29, height: 22)
-        let imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
- 
-        let image = UIImage(named: "list.bullet")?
-            .withSize(imageSize)
-        let selectedImage = UIImage(named: "list.bullet.selected")?
-            .withSize(imageSize)
+        let imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        let imageScale = 1.6
+        let imageName = "list.bullet"
 
-        tabBarItem = UITabBarItem(title: nil, image: image, tag: 0)
-        tabBarItem.selectedImage = selectedImage
+        let inactiveImage = UIImage(systemName: imageName)?
+            .withRenderingMode(.alwaysTemplate)
+            .withScale(imageScale)
+        
+        let activeImage = UIImage(systemName: imageName)?
+            .withRenderingMode(.alwaysTemplate)
+            .withScale(imageScale)
+
+        tabBarItem = UITabBarItem(title: nil, image: inactiveImage, tag: 1)
+        tabBarItem.selectedImage = activeImage
         tabBarItem.imageInsets = imageInsets
     }
 
@@ -210,7 +215,6 @@ extension MainViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
-        self.updateSnapshot() // TODO: переписать на rx.snapshot
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -221,13 +225,10 @@ extension MainViewController: UISearchBarDelegate {
         self.searchBar.searchTextField.text = ""
         self.searchBar.showsCancelButton.toggle()
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
-        self.updateSnapshot() // TODO: переписать на rx.snapshot
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        DispatchQueue.main.async {
-            self.searchBar.showsCancelButton = true
-        }
+        self.searchBar.showsCancelButton = true
     }
     
 }
