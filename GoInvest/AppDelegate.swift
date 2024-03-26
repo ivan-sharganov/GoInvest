@@ -12,16 +12,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainViewController = MainViewController(
             viewModel: MainViewModelImpl(useCase: MainUseCaseImpl(repository: MainRepositoryImpl()))
         )
-        
+        let profileViewController = ProfileViewController()
+
         let navigationController = UINavigationController(rootViewController: mainViewController)
-        let tabBarController = UITabBarController()
         let backBarButtonItem = UIBarButtonItem()
-        
-        tabBarController.setViewControllers([navigationController], animated: true)
-        
         backBarButtonItem.title = ""
         navigationController.navigationBar.topItem?.backBarButtonItem = backBarButtonItem
 
+        let tabBarController = UITabBarController()
+
+        tabBarController.setViewControllers([
+            navigationController,
+            profileViewController
+        ], animated: false)
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()

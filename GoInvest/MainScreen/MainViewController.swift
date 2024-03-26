@@ -52,6 +52,8 @@ final class MainViewController: UIViewController {
         self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
+        
+        setupTabBarItem()
     }
 
     required init?(coder: NSCoder) {
@@ -62,7 +64,6 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
-        setupTabBarItem()
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
@@ -142,7 +143,7 @@ final class MainViewController: UIViewController {
         let selectedImage = UIImage(named: "list.bullet.selected")?
             .withSize(imageSize)
 
-        tabBarItem = UITabBarItem(title: nil, image: image, tag: 0)
+        tabBarItem = UITabBarItem(title: nil, image: image, tag: 1)
         tabBarItem.selectedImage = selectedImage
         tabBarItem.imageInsets = imageInsets
     }
