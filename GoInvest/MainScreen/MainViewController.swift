@@ -21,7 +21,7 @@ final class MainViewController: UIViewController {
     private lazy var tblView: UITableView = {
         let tbl = UITableView()
         tbl.backgroundColor = .background
-        tbl.translatesAutoresizingMaskIntoConstraints = false
+        tbl.keyboardDismissMode = .onDrag
         tbl.delegate = self
 
         return tbl
@@ -30,16 +30,22 @@ final class MainViewController: UIViewController {
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(titles: ["Indexes", "Futures", "Currences"], size: .small)
         stack.translatesAutoresizingMaskIntoConstraints = false
-        
         return stack
     }()
-    
     private lazy var navItem: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(titles: ["Securities", "Favorities"], size: .large)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchTextField.clearButtonMode = .never
+        searchBar.placeholder = "Search"
+        searchBar.backgroundImage = UIImage()
+        
+        return searchBar
+    }()
     // MARK: - Life cycle
 
     init(viewModel: MainViewModel) {
@@ -54,13 +60,13 @@ final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupUI()
         setupTabBarItem()
-        
         tblView.dataSource = diffableDataSource
         tblView.delegate = self
         tblView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseId)
+        searchBar.delegate = self
         
         setupBindings()
         Task {
@@ -89,8 +95,14 @@ final class MainViewController: UIViewController {
         view.addSubview(self.navItem)
         view.addSubview(self.horizontalButtonStack)
         view.addSubview(self.tblView)
-        self.view.backgroundColor = .background
+        view.addSubview(self.searchBar)
 
+        self.view.backgroundColor = .background
+        hideKeyboardWhenTappedAround()
+        
+        self.tblView.translatesAutoresizingMaskIntoConstraints = false
+        self.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             self.navItem.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.navItem.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -99,8 +111,13 @@ final class MainViewController: UIViewController {
             self.horizontalButtonStack.topAnchor.constraint(equalTo: self.navItem.bottomAnchor, constant: 5),
             self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            self.horizontalButtonStack.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
             self.horizontalButtonStack.heightAnchor.constraint(equalToConstant: 36),
+            
+            self.searchBar.topAnchor.constraint(equalTo: self.horizontalButtonStack.bottomAnchor, constant: 8),
+            self.searchBar.heightAnchor.constraint(equalToConstant: 35),
+            self.searchBar.leadingAnchor.constraint(equalTo: self.horizontalButtonStack.leadingAnchor),
+            self.searchBar.trailingAnchor.constraint(equalTo: self.horizontalButtonStack.trailingAnchor),
+            self.searchBar.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
 
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -111,7 +128,7 @@ final class MainViewController: UIViewController {
     private func setupTabBarItem() {
         let imageSize = CGSize(width: 29, height: 22)
         let imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
-
+ 
         let image = UIImage(named: "list.bullet")?
             .withSize(imageSize)
         let selectedImage = UIImage(named: "list.bullet.selected")?
@@ -177,4 +194,31 @@ extension MainViewController: UITableViewDelegate {
         viewModel.handleItemSelection()
     }
 
+}
+
+// MARK: - UISearchBarDelegate
+extension MainViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.updateSnapshot() // TODO: переписать на rx.snapshot
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.searchTextField.text = ""
+        self.searchBar.showsCancelButton.toggle()
+        self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.updateSnapshot() // TODO: переписать на rx.snapshot
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        DispatchQueue.main.async {
+            self.searchBar.showsCancelButton = true
+        }
+    }
+    
 }

@@ -1,10 +1,3 @@
-//
-//  GoInvestTests.swift
-//  GoInvestTests
-//
-//  Created by Кирилл Бережной on 21.03.2024.
-//
-
 import XCTest
 
 final class GoInvestTests: XCTestCase {
@@ -18,7 +11,7 @@ final class GoInvestTests: XCTestCase {
     }
 
     func testExample() throws {
-
+        XCTAssertEqual(0, 0)
     }
 
 }
