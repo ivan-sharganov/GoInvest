@@ -1,10 +1,3 @@
-//
-//  StockDisplayItem.swift
-//  GoInvest
-//
-//  Created by Кирилл Бережной on 25.03.2024.
-//
-
 import Foundation
 
 struct StockDisplayItem: Hashable {

@@ -1,20 +1,20 @@
 import Foundation
 
 class NetworkManager {
-
+    
     private enum NetworkConstants {
         static let responseItemsCount: Int = 20
     }
     private enum GIError: Error {
-         case error
+        case error
     }
-        // MARK: - Singleton
-
+    
+    // MARK: - Singleton
+    
     static let shared = NetworkManager()
-
-        // MARK: - Public methods
-
-        /// Получить дату для всех "securities", передаваемы параметры board - тип торгов и ticker - название компаниив
+    
+    // MARK: - Public methods
+    
     func getPricesForTicker(
         ticker: String = "YNDX",
         board: String = "TQBR",
@@ -23,10 +23,10 @@ class NetworkManager {
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/\(board)/securities/\(ticker)"
         url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
         url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
-
+        
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
-
+        
         URLSession.shared.dataTask(with: request) { data, _, _ in
             DispatchQueue.main.async {
                 if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
@@ -38,12 +38,12 @@ class NetworkManager {
             }
         }.resume()
     }
-
+    
     func getPricesForStock(completion: @escaping (StockData?) -> Void) {
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
         url +=
         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
-
+        
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         URLSession.shared.dataTask(with: request) { data, _, _ in
@@ -57,8 +57,9 @@ class NetworkManager {
             }
         }.resume()
     }
+    
     // MARK: - Private methods
-
+    
     private func transformPriceData(from initialData: [[Datum]]) -> PricesData {
         var outD = [PricesModel]()
         let dateFormatter = DateFormatter()
@@ -75,14 +76,14 @@ class NetworkManager {
                 if case .string(let string) = element {
                     price.date = dateFormatter.date(from: string)
                 }
-
+                
             })
             outD.append(price)
         }
-
+        
         return PricesData(data: outD)
     }
-
+    
     private func transformStockData(from initialData: [[Datum]]) -> StockData {
         var outD = [StockModel]()
         let dateFormatter = DateFormatter()
@@ -115,7 +116,7 @@ class NetworkManager {
         return StockData(stocksModels: outD)
     }
     
-    func analogGetPricesForStock(parameter: String) async throws -> [StockModel] {
+    func getPricesForStock(parameter: String) async throws -> [StockModel] {
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/sessions/3/securities.json?iss"
         url +=
         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100&start=0"

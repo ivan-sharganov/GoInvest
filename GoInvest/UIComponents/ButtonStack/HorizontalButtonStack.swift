@@ -1,5 +1,5 @@
 import UIKit
-import RxSwift
+import RxCocoa
 
 /// Nonscrollable stack of buttons.
 final class HorizontalButtonStack: UIStackView {
@@ -15,7 +15,7 @@ final class HorizontalButtonStack: UIStackView {
     // MARK: - Public properties
 
     /// Sends current selected button index. Start value is zero.
-    let subject = BehaviorSubject<StockState>(value: .indexes)
+    let subject = BehaviorRelay<StockState>(value: .indexes)
     let titles: [String]
 
     // MARK: - Private properties
@@ -40,7 +40,7 @@ final class HorizontalButtonStack: UIStackView {
         self?.selectedButtonIndex = senderIndex
         
         guard let currentState = self?.prepareState(value: senderIndex) else { return }
-        self?.subject.onNext(currentState)
+        self?.subject.accept(currentState)
     }
 
     // MARK: - Initialization
