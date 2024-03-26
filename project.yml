@@ -5,7 +5,7 @@ configs:
 options:
   minimumXcodeGenVersion: 2.39.1
   deploymentTarget:
-    iOS: 17.0
+    iOS: 16.0
 targets:
     GoInvest:
         type: application
