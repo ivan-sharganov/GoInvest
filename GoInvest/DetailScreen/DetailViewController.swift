@@ -6,6 +6,10 @@ final class DetailViewController: UIViewController {
     
     private var isFavorite: Bool = false
     
+    // MARK: - UI
+    
+    private let graphViewController = GraphViewController()
+    
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -14,18 +18,31 @@ final class DetailViewController: UIViewController {
         setupUI()
     }
     
+    override func viewDidLayoutSubviews() {
+        graphViewController.view.frame = CGRect(
+            x: 0,
+            y: -90,
+            width: self.view.frame.width,
+            height: 345
+        )
+    }
+    
     // MARK: - Private methods
     
     private func setupUI() {
         view.backgroundColor = .background
         self.navigationController?.isNavigationBarHidden = false
+        
+        addChild(graphViewController)
+        view.addSubview(graphViewController.view)
+        graphViewController.didMove(toParent: self)
+        
         configureNavigationBar()
     }
     
     private func configureNavigationBar() {
         let favoritesBarButton = setupFavoriteButton(isFavorite: isFavorite)
         let rightBarButtonItem = UIBarButtonItem(image: favoritesBarButton, style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
-        let backBarButtonItem = UIBarButtonItem()
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
