@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.navigationBar.topItem?.backBarButtonItem = backBarButtonItem
 
         let tabBarController = UITabBarController()
+        tabBarController.tabBar.backgroundColor = .background
+        tabBarController.tabBar.tintColor = .label
+        tabBarController.tabBar.unselectedItemTintColor = .inactiveLabel
 
         tabBarController.setViewControllers([
             navigationController,
