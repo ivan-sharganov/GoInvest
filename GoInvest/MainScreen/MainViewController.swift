@@ -225,9 +225,7 @@ extension MainViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        DispatchQueue.main.async {
-            self.searchBar.showsCancelButton = true
-        }
+        self.searchBar.showsCancelButton = true
     }
     
 }

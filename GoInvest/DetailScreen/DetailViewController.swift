@@ -8,7 +8,7 @@ final class DetailViewController: UIViewController {
     
     // MARK: - UI
     private lazy var buyButton: UIButton = {
-        let button = ReusableButton()
+        let button = ReusableButton(title: "Buy")
         
         return button
     }()
