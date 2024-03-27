@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum StockState {
+enum StockState: String {
     
     case indexes
     case shares
@@ -17,6 +17,8 @@ protocol MainViewModel {
 
     var displayItems: [StockDisplayItem] { get }
     var responseItems: [StockDisplayItem] { get }
+    
+    var market: StockState { get set }
 
     func handleItemSelection()
     func fetchData(parameters: StockState) async
@@ -35,6 +37,8 @@ final class MainViewModelImpl: MainViewModel {
     var displayItems: [StockDisplayItem] = []
     var responseItems: [StockDisplayItem] = []
 
+    var market: StockState = .shares
+    
     // MARK: - Private properties
 
     let useCase: MainUseCase
@@ -59,6 +63,7 @@ final class MainViewModelImpl: MainViewModel {
     func chooseStockStateData(stockState: StockState) {
         Task {
             await fetchData(parameters: stockState)
+            
             updateSnapshot.accept((false))
         }
     }
@@ -73,7 +78,7 @@ final class MainViewModelImpl: MainViewModel {
         if query.isEmpty {
             self.displayItems = self.responseItems
         } else {
-            self.displayItems = self.responseItems.filter { $0.name?.uppercased().contains(query.uppercased()) ?? false }
+            self.displayItems = self.responseItems.filter { $0.name.uppercased().contains(query.uppercased()) }
         }
         updateSnapshot.accept(false)
     }
@@ -82,6 +87,8 @@ final class MainViewModelImpl: MainViewModel {
         do {
             self.responseItems = try await prepareDisplayItems(stockModels: self.useCase.get(parameters: parameters))
             self.displayItems = responseItems
+            
+            self.market = parameters
         } catch {
             self.responseItems = []
         }
@@ -90,13 +97,26 @@ final class MainViewModelImpl: MainViewModel {
     // MARK: - Private methods
     
     private func prepareDisplayItems(stockModels: [StockModel]) -> [StockDisplayItem] {
-        stockModels.map {
-            StockDisplayItem(name: $0.shortName,
-                             shortName: $0.ticker,
-                             openPrice: $0.open,
-                             closePrice: $0.close,
-                             highPrice: $0.high,
-                             lowPrice: $0.low) // trendclspr: $0.trendclspr
+        stockModels.compactMap {
+            guard let name = $0.shortName,
+                  let shortName = $0.ticker,
+                  let openPrice = $0.open,
+                  let closePrice = $0.close,
+                  let highPrice = $0.high,
+                  let lowPrice = $0.low,
+                  let boardID = $0.boardID
+            else {
+                return nil
+            }
+            
+            return StockDisplayItem(name: name,
+                             shortName: shortName,
+                             openPrice: openPrice,
+                             closePrice: closePrice,
+                             highPrice: highPrice,
+                             lowPrice: lowPrice,
+                             boardID: boardID
+                            ) // trendclspr: $0.trendclspr
         }
     }
     
