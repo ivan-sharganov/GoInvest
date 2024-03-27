@@ -44,7 +44,7 @@ final class DetailViewController: UIViewController {
             self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
             self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
             self.buyButton.heightAnchor.constraint(equalToConstant: 50),
-            self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -14),
+            self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
         
         configureNavigationBar()
