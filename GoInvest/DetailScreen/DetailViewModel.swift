@@ -27,21 +27,14 @@ class DetailViewModelImpl: DetailViewModel {
             await fetchDataForTicker(stockItem: StockDisplayItem() ) // получить из роутера stockItem - сделать поле во вью моделе???
         }
     }
-    
+    /// Функция перевода данных к виду для графиков
     func transformPricesToPointModels( data: [PricesModel], range: Int = 0 ) -> PointsModel {
-//        var max = Double(Int.min)
-//        var min = Double(Int.max)
         var pointsModel = PointsModel(points: [])
         for i in data {
             guard let x = i.date, let y = i.close else {
                 continue
             }
             pointsModel.points.append(PointModel(x: x, y: y))
-//            if x > max {
-//                max = x
-//            } else if x < min {
-//                min = x
-//            }
         }
             
         return pointsModel
@@ -49,7 +42,8 @@ class DetailViewModelImpl: DetailViewModel {
     
     public func fetchDataForTicker(stockItem: StockDisplayItem) async {
         do {
-            self.pricesData = try await self.useCase.get(stockItem: StockDisplayItem(), parameter: .shares, range: .oneDay, board: "TQBR", interval: 12)
+            let mockStockItem = StockDisplayItem(shortName: "YNDX")
+            self.pricesData = try await self.useCase.get(stockItem: mockStockItem, parameter: .shares, range: .oneDay, board: "TQBR", interval: 12)
         } catch {
             self.pricesData = [PricesModel]()
         }

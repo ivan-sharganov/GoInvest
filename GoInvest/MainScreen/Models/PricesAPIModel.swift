@@ -11,7 +11,7 @@ struct PricesModel: Hashable {
     var close: Double?
 
     /// Количество продаж
-    var volume: Int?
+    var volume: Double?
 
     /// Дата
     var date: Date?
@@ -21,6 +21,12 @@ struct PricesModel: Hashable {
 struct Response: Decodable {
 
     let history: History
+
+}
+
+struct ResponseCandles: Decodable {
+
+    let candles: History
 
 }
 
