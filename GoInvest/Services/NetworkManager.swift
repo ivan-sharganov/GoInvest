@@ -17,7 +17,6 @@ class NetworkManager {
     
     func getPricesForTicker(
         parameter: String,
-        board: String,
         ticker: String,
         from: String,
         till: String,

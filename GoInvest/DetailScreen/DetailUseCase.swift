@@ -1,7 +1,7 @@
 import Foundation
 
 protocol DetailUseCase {
-    func get(stockItem: StockDisplayItem, parameter: StockState, range: GraphRangeValues, board: String, interval: Int) async throws -> [PricesModel]
+    func get(ticker: String, parameter: StockState, range: GraphRangeValues, interval: Int) async throws -> [PricesModel]
 }
 
 final class DetailUseCaseImpl: DetailUseCase {
@@ -12,7 +12,7 @@ final class DetailUseCaseImpl: DetailUseCase {
         self.repository = repository
     }
 
-    public func get(stockItem: StockDisplayItem, parameter: StockState, range: GraphRangeValues, board: String, interval: Int) async throws -> [PricesModel] {
-        try await self.repository.getValues(stockItem: stockItem, parameter: parameter, range: range, board: board, interval: interval)
+    public func get(ticker: String, parameter: StockState, range: GraphRangeValues, interval: Int) async throws -> [PricesModel] {
+        try await self.repository.getValues(ticker: ticker, parameter: parameter, range: range, interval: interval)
     }
 }
