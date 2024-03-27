@@ -21,6 +21,13 @@ final class DetailViewController: UIViewController {
         return button
     }()
     
+    private lazy var priceView: HorizontalPriceView = {
+        let view = HorizontalPriceView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -44,12 +51,16 @@ final class DetailViewController: UIViewController {
         view.addSubview(hostingMainView)
         view.addSubview(hostingAdditionalView)
         view.addSubview(buyButton)
+        view.addSubview(priceView)
         
         NSLayoutConstraint.activate([
-            self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 45),
-            self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -45),
+            self.priceView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            self.priceView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            
+            self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
+            self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
             self.buyButton.heightAnchor.constraint(equalToConstant: 50),
-            self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -14),
+            self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
             hostingMainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             hostingMainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 5),
