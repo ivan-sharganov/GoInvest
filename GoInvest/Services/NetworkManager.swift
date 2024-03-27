@@ -15,47 +15,84 @@ class NetworkManager {
     
     // MARK: - Public methods
     
-    func getPricesForTicker(
-        ticker: String = "YNDX",
-        board: String = "TQBR",
-        completion: @escaping (PricesData?) -> Void
-    ) {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/\(board)/securities/\(ticker)"
-        url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
+//    func getPricesForTicker(
+//        ticker: String = "YNDX",
+//        board: String = "TQBR",
+//        completion: @escaping (PricesData?) -> Void
+//    ) {
+//        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/\(board)/securities/\(ticker)"
+//        url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
+//        url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
+//        
+//        var request = URLRequest(url: URL(string: url)!)
+//        request.httpMethod = "GET"
+//        
+//        URLSession.shared.dataTask(with: request) { data, _, _ in
+//            DispatchQueue.main.async {
+//                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
+//                    completion({[weak self] in
+//                        self?.transformPriceData(from: answer.history.data)}())
+//                } else {
+//                    completion(nil)
+//                }
+//            }
+//        }.resume()
+//    }
+    
+    func getPricesForTicker(parameter: String, board: String, ticker: String, from: Date, till: Date, interval: Int) async throws -> [PricesModel] {
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/\(board)/securities/\(ticker)/securities.json?iss"
+        url +=
+        ".only=securities&iss.meta=off&from=2024-03-11&till=2024-03-19&interval=2"
         url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
         
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "GET"
+        guard let URL = URL(string: url) else {
+            throw GIError.error
+        }
         
-        URLSession.shared.dataTask(with: request) { data, _, _ in
-            DispatchQueue.main.async {
-                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    completion({[weak self] in
-                        self?.transformPriceData(from: answer.history.data)}())
-                } else {
-                    completion(nil)
-                }
-            }
-        }.resume()
+        var request = URLRequest(url: URL)
+        request.httpMethod = "GET"
+        let (data, _) = try await URLSession.shared.data(for: request)
+        guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
+            throw GIError.error
+        }
+        
+        return self.transformPriceData(from: answer.history.data).pricesModel.filter {
+            $0.close != nil &&
+            $0.date != nil &&
+            $0.volume != nil
+//            $0.shortName != nil &&
+//            $0.ticker != nil &&
+//            $0.open != nil &&
+//            $0.close != nil &&
+//            $0.high != nil &&
+//            $0.low != nil
+        }
     }
     
-    func getPricesForStock(completion: @escaping (StockData?) -> Void) {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
+    func getPricesForStock(parameter: String) async throws -> [StockModel] {
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/sessions/3/securities.json?iss"
         url +=
-        ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
+        ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100&start=0"
         
-        var request = URLRequest(url: URL(string: url)!)
+        guard let URL = URL(string: url) else {
+            throw GIError.error
+        }
+        
+        var request = URLRequest(url: URL)
         request.httpMethod = "GET"
-        URLSession.shared.dataTask(with: request) { data, _, _ in
-            DispatchQueue.main.async {
-                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    completion({[weak self] in
-                        self?.transformStockData(from: answer.history.data)}())
-                } else {
-                    completion(nil)
-                }
-            }
-        }.resume()
+        let (data, _) = try await URLSession.shared.data(for: request)
+        guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
+            throw GIError.error
+        }
+        
+        return self.transformStockData(from: answer.history.data).stocksModels.filter {
+            $0.shortName != nil &&
+            $0.ticker != nil &&
+            $0.open != nil &&
+            $0.close != nil &&
+            $0.high != nil &&
+            $0.low != nil
+        }
     }
     
     // MARK: - Private methods
@@ -81,7 +118,7 @@ class NetworkManager {
             outD.append(price)
         }
         
-        return PricesData(data: outD)
+        return PricesData(pricesModel: outD)
     }
     
     private func transformStockData(from initialData: [[Datum]]) -> StockData {
@@ -116,29 +153,4 @@ class NetworkManager {
         return StockData(stocksModels: outD)
     }
     
-    func getPricesForStock(parameter: String) async throws -> [StockModel] {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/sessions/3/securities.json?iss"
-        url +=
-        ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100&start=0"
-        
-        guard let URL = URL(string: url) else {
-            throw GIError.error
-        }
-        
-        var request = URLRequest(url: URL)
-        request.httpMethod = "GET"
-        let (data, _) = try await URLSession.shared.data(for: request)
-        guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
-            throw GIError.error
-        }
-        
-        return self.transformStockData(from: answer.history.data).stocksModels.filter {
-            $0.shortName != nil &&
-            $0.ticker != nil &&
-            $0.open != nil &&
-            $0.close != nil &&
-            $0.high != nil &&
-            $0.low != nil
-        }
-    }
 }

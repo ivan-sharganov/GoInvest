@@ -2,10 +2,10 @@ import Foundation
 
 struct PricesData {
 
-    let data: [PricesModel]
+    let pricesModel: [PricesModel]
 
 }
-struct PricesModel {
+struct PricesModel: Hashable {
 
     /// Цена закрытия
     var close: Double?
