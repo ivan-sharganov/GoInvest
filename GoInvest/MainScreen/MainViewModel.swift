@@ -73,7 +73,7 @@ final class MainViewModelImpl: MainViewModel {
         if query.isEmpty {
             self.displayItems = self.responseItems
         } else {
-            self.displayItems = self.responseItems.filter { $0.shortName?.contains(query.uppercased()) ?? false }
+            self.displayItems = self.responseItems.filter { $0.name?.uppercased().contains(query.uppercased()) ?? false }
         }
         updateSnapshot.accept(false)
     }
