@@ -12,16 +12,10 @@ final class LoginViewController: UIViewController {
             return
         }
         
-        // vargunin.iv@gmail.com
-        
         FirebaseAuth.Auth.auth().signIn(
             withEmail: email,
             password: password, 
             completion: { _, error in
-                
-                let credential = EmailAuthProvider.credential(withEmail: email, password: password)
-                
-                UserDefaults.standard.setValue(credential, forKey: "user_credential")
                 
                 if error == nil {
                     print("auth success!!!")
