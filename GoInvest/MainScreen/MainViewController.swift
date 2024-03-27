@@ -181,23 +181,14 @@ fileprivate extension MainViewController {
     func createDiffableDataSource() -> DiffableDataSource {
         let dataSource = DiffableDataSource(tableView: tblView) { tableView, indexPath, item in
             
-            guard let fullName = item.name,
-                  let shortName = item.shortName,
-                  let price = item.closePrice,
-                  let priceChange = Optional(Double(52.2)),
-                  let rate = item.rate
-            else {
-                return UITableViewCell()
-            }
-
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseId, for: indexPath)
             var configuration = cell.stocksCellContentViewConfiguration()
 
-            configuration.fullName = fullName
-            configuration.shortName = shortName
-            configuration.price = price
-            configuration.priceChange = priceChange
-            configuration.rate = rate
+            configuration.fullName = item.name
+            configuration.shortName = item.shortName
+            configuration.price = item.closePrice
+            configuration.priceChange = 52.2
+            configuration.rate = item.rate
             cell.contentConfiguration = configuration
 
             return cell

@@ -24,7 +24,8 @@ class DetailViewModelImpl: DetailViewModel {
         self.useCase = useCase
         
         Task {
-            await fetchDataForTicker(stockItem: StockDisplayItem() ) // получить из роутера stockItem - сделать поле во вью моделе???
+            /// получить из роутера stockItem - сделать поле во вью моделе???/
+//            await fetchDataForTicker(stockItem: StockDisplayItem() )
         }
     }
     /// Функция перевода данных к виду для графиков
@@ -42,8 +43,8 @@ class DetailViewModelImpl: DetailViewModel {
     
     public func fetchDataForTicker(stockItem: StockDisplayItem) async {
         do {
-            let mockStockItem = StockDisplayItem(shortName: "YNDX")
-            self.pricesData = try await self.useCase.get(stockItem: mockStockItem, parameter: .shares, range: .oneDay, board: "TQBR", interval: 12)
+//            let mockStockItem = StockDisplayItem(shortName: "YNDX")
+            self.pricesData = try await self.useCase.get(stockItem: stockItem, parameter: .shares, range: .oneDay, board: "TQBR", interval: 12)
         } catch {
             self.pricesData = [PricesModel]()
         }

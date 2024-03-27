@@ -63,6 +63,7 @@ final class MainViewModelImpl: MainViewModel {
     func chooseStockStateData(stockState: StockState) {
         Task {
             await fetchData(parameters: stockState)
+            
             updateSnapshot.accept((false))
         }
     }
@@ -77,7 +78,7 @@ final class MainViewModelImpl: MainViewModel {
         if query.isEmpty {
             self.displayItems = self.responseItems
         } else {
-            self.displayItems = self.responseItems.filter { $0.name?.uppercased().contains(query.uppercased()) ?? false }
+            self.displayItems = self.responseItems.filter { $0.name.uppercased().contains(query.uppercased()) }
         }
         updateSnapshot.accept(false)
     }
@@ -86,6 +87,7 @@ final class MainViewModelImpl: MainViewModel {
         do {
             self.responseItems = try await prepareDisplayItems(stockModels: self.useCase.get(parameters: parameters))
             self.displayItems = responseItems
+            
             self.market = parameters
         } catch {
             self.responseItems = []
@@ -95,14 +97,25 @@ final class MainViewModelImpl: MainViewModel {
     // MARK: - Private methods
     
     private func prepareDisplayItems(stockModels: [StockModel]) -> [StockDisplayItem] {
-        stockModels.map {
-            StockDisplayItem(name: $0.shortName,
-                             shortName: $0.ticker,
-                             openPrice: $0.open,
-                             closePrice: $0.close,
-                             highPrice: $0.high,
-                             lowPrice: $0.low,
-                             boardID: $0.boardID
+        stockModels.compactMap {
+            guard let name = $0.shortName,
+                  let shortName = $0.ticker,
+                  let openPrice = $0.open,
+                  let closePrice = $0.close,
+                  let highPrice = $0.high,
+                  let lowPrice = $0.low,
+                  let boardID = $0.boardID
+            else {
+                return nil
+            }
+            
+            return StockDisplayItem(name: name,
+                             shortName: shortName,
+                             openPrice: openPrice,
+                             closePrice: closePrice,
+                             highPrice: highPrice,
+                             lowPrice: lowPrice,
+                             boardID: boardID
                             ) // trendclspr: $0.trendclspr
         }
     }
