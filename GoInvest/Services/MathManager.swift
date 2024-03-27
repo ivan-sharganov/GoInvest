@@ -22,7 +22,7 @@ struct MathManager {
         return averages
     }
     
-    static func ema_gpt(points: [Point], windowSize: Int = 20) -> [Point] {
+    static func ema(points: [Point], windowSize: Int = 20) -> [Point] {
         guard !points.isEmpty && windowSize > 0 else {
             return []
         }
@@ -43,7 +43,7 @@ struct MathManager {
         return emaValues
     }
 
-    static func calculateRSI(points: [Point], windowSize: Int = 20) -> [Point] {
+    static func rsi(points: [Point], windowSize: Int = 20) -> [Point] {
         guard windowSize > 0 && windowSize <= points.count else {
             return []
         }
@@ -79,5 +79,38 @@ struct MathManager {
         }
         
         return array
+    }
+    static func bollingerBands(points: [Point], windowSize: Int = 20) -> [Point] {
+        guard !points.isEmpty && windowSize > 0 else {
+            return []
+        }
+
+        var bollingerPoints = [Point]()
+
+        for i in 0..<points.count {
+            let lowerBound = max(0, i - windowSize + 1)
+            let window = points[lowerBound...i]
+
+            let prices = window.map { $0.price }
+
+            let middleBand = prices.reduce(0.0, +) / Double(window.count)
+            let squaredDeviations = prices.map { pow($0 - middleBand, 2) }
+            let standardDeviation = sqrt(squaredDeviations.reduce(0.0, +) / Double(window.count))
+
+            let upperBand = middleBand + (2 * standardDeviation)
+            let lowerBand = middleBand - (2 * standardDeviation)
+
+            // Create new point instances with Bollinger Bands data and original date
+            let bollingerPoint = Point(price: middleBand, date: points[i].date)
+            let upperBandPoint = Point(price: upperBand, date: points[i].date)
+            let lowerBandPoint = Point(price: lowerBand, date: points[i].date)
+
+            // Add new points to the result array
+            bollingerPoints.append(bollingerPoint)
+            bollingerPoints.append(upperBandPoint)
+            bollingerPoints.append(lowerBandPoint)
+        }
+
+        return bollingerPoints
     }
 }
