@@ -12,8 +12,8 @@ enum StockState {
 
 protocol MainViewModel {
 
-    var cellTapped: PublishRelay<Void> { get }
-    var updateSnapshot: PublishRelay<Bool> { get }
+    var cellTapped: Signal<Void> { get }
+    var updateSnapshot: Signal<Bool> { get }
 
     var displayItems: [StockDisplayItem] { get }
     var responseItems: [StockDisplayItem] { get }
@@ -29,11 +29,14 @@ final class MainViewModelImpl: MainViewModel {
 
     // MARK: - Public properties
 
-    let cellTapped = PublishRelay<Void>()
-    var updateSnapshot = PublishRelay<Bool>()
+    var cellTapped: Signal<Void> { _cellTapped.asSignal() }
+    var updateSnapshot: Signal<Bool> { _updateSnapshot.asSignal() }
 
     var displayItems: [StockDisplayItem] = []
     var responseItems: [StockDisplayItem] = []
+    
+    private let _updateSnapshot = PublishRelay<Bool>()
+    private let _cellTapped = PublishRelay<Void>()
 
     // MARK: - Private properties
 
@@ -46,20 +49,20 @@ final class MainViewModelImpl: MainViewModel {
         
         Task {
             await fetchData(parameters: .indexes)
-            updateSnapshot.accept((true))
+            _updateSnapshot.accept((true))
         }
     }
 
     // MARK: - Public methods
 
     func handleItemSelection() {
-        cellTapped.accept(())
+        _cellTapped.accept(())
     }
     
     func chooseStockStateData(stockState: StockState) {
         Task {
             await fetchData(parameters: stockState)
-            updateSnapshot.accept((false))
+            _updateSnapshot.accept((false))
         }
     }
         
@@ -75,7 +78,7 @@ final class MainViewModelImpl: MainViewModel {
         } else {
             self.displayItems = self.responseItems.filter { $0.name?.uppercased().contains(query.uppercased()) ?? false }
         }
-        updateSnapshot.accept(false)
+        _updateSnapshot.accept(false)
     }
 
     public func fetchData(parameters: StockState) async {
