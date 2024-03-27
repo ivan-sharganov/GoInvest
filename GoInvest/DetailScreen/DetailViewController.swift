@@ -10,7 +10,7 @@ final class DetailViewController: UIViewController {
     
     private let graphViewController = GraphViewController()
     private lazy var buyButton: UIButton = {
-        let button = ReusableButton(title: "Buy", fontSize: 17, onBackgroundColor: .buttonBackground, offBackgroundColor: .buttonBackground, onTitleColor: .buttonTitle, offTitleColor: .buttonTitle)
+        let button = ReusableButton(title: NSLocalizedString("buy", comment: ""), fontSize: 17, onBackgroundColor: .buttonBackground, offBackgroundColor: .buttonBackground, onTitleColor: .buttonTitle, offTitleColor: .buttonTitle)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
