@@ -25,5 +25,7 @@ struct StockModel: Hashable {
 
     /// Коэфициент разницы между последней ценой закрытия и текущей
     var trendclspr: Double?
+    
+    var boardID: String?
 
 }

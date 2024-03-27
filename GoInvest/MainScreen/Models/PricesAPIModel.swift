@@ -2,16 +2,16 @@ import Foundation
 
 struct PricesData {
 
-    let data: [PricesModel]
+    let pricesModel: [PricesModel]
 
 }
-struct PricesModel {
+struct PricesModel: Hashable {
 
     /// Цена закрытия
     var close: Double?
 
     /// Количество продаж
-    var volume: Int?
+    var volume: Double?
 
     /// Дата
     var date: Date?
@@ -21,6 +21,12 @@ struct PricesModel {
 struct Response: Decodable {
 
     let history: History
+
+}
+
+struct ResponseCandles: Decodable {
+
+    let candles: History
 
 }
 

@@ -16,104 +16,34 @@ class NetworkManager {
     // MARK: - Public methods
     
     func getPricesForTicker(
-        ticker: String = "YNDX",
-        board: String = "TQBR",
-        completion: @escaping (PricesData?) -> Void
-    ) {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/\(board)/securities/\(ticker)"
-        url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
-        url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
+        parameter: String,
+        board: String,
+        ticker: String,
+        from: String,
+        till: String,
+        interval: Int
+    ) async throws -> [PricesModel] {
         
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "GET"
-        
-        URLSession.shared.dataTask(with: request) { data, _, _ in
-            DispatchQueue.main.async {
-                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    completion({[weak self] in
-                        self?.transformPriceData(from: answer.history.data)}())
-                } else {
-                    completion(nil)
-                }
-            }
-        }.resume()
-    }
-    
-    func getPricesForStock(completion: @escaping (StockData?) -> Void) {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
+        var url = "https://iss.moex.com/iss/engines/stock/markets/\(parameter)/securities/\(ticker)/candles.json?iss"
         url +=
-        ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,CLOSE,TRENDCLSPR,BOARDID&limit=20&start=0"
+        ".only=securities&from=\(from)&till=\(till)"
+        url += "&iss.meta=off&candles.columns=close,volume,end"
         
-        var request = URLRequest(url: URL(string: url)!)
+        guard let URL = URL(string: url) else {
+            throw GIError.error
+        }
+        var request = URLRequest(url: URL)
         request.httpMethod = "GET"
-        URLSession.shared.dataTask(with: request) { data, _, _ in
-            DispatchQueue.main.async {
-                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
-                    completion({[weak self] in
-                        self?.transformStockData(from: answer.history.data)}())
-                } else {
-                    completion(nil)
-                }
-            }
-        }.resume()
-    }
-    
-    // MARK: - Private methods
-    
-    private func transformPriceData(from initialData: [[Datum]]) -> PricesData {
-        var outD = [PricesModel]()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yy-MM-dd"
-        for data in initialData {
-            var price = PricesModel()
-            data.forEach({ (element) in
-                if case .integer(let integer) = element {
-                    price.volume = integer
-                }
-                if case .double(let double) = element {
-                    price.close = double
-                }
-                if case .string(let string) = element {
-                    price.date = dateFormatter.date(from: string)
-                }
-                
-            })
-            outD.append(price)
+        let (data, _) = try await URLSession.shared.data(for: request)
+        guard let answer = try? JSONDecoder().decode(ResponseCandles.self, from: data) else {
+            throw GIError.error
         }
         
-        return PricesData(data: outD)
-    }
-    
-    private func transformStockData(from initialData: [[Datum]]) -> StockData {
-        var outD = [StockModel]()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yy-MM-dd"
-        initialData.forEach { (data) in
-            var price = StockModel()
-            for (index, element) in data.enumerated() {
-                if case .double(let double) = element {
-                    if index == 2 {
-                        price.open = double
-                    } else if index == 3 {
-                        price.close = double
-                    } else if index == 4 {
-                        price.high = double
-                    } else if index == 5 {
-                        price.low = double
-                    }
-                }
-                if case .string(let string) = element {
-                    if index == 0 {
-                        price.shortName = string
-                    } else if index == 1 {
-                        price.ticker = string
-                    }
-                }
-            }
-            outD.append(price)
+        return self.transformPriceData(from: answer.candles.data).pricesModel.filter {
+            $0.close != nil &&
+            $0.date != nil &&
+            $0.volume != nil
         }
-        
-        return StockData(stocksModels: outD)
     }
     
     func getPricesForStock(parameter: String) async throws -> [StockModel] {
@@ -138,7 +68,88 @@ class NetworkManager {
             $0.open != nil &&
             $0.close != nil &&
             $0.high != nil &&
-            $0.low != nil
+            $0.low != nil &&
+            $0.boardID != nil
         }
     }
+    
+    // MARK: - Private methods
+    
+    private func transformPriceData(from initialData: [[Datum]]) -> PricesData {
+        var outD = [PricesModel]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyy-MM-dd HH:mm:ss"
+        for data in initialData {
+            var price = PricesModel()
+            for (index, element) in data.enumerated() {
+                if case .double(let double) = element {
+                    switch index {
+                    case 0:
+                        price.close = double
+                    case 1:
+                        price.volume = double
+                    default:
+                        continue
+                    }
+                }
+                if case .integer(let int) = element {
+                    switch index {
+                    case 0:
+                        price.close = Double(int)
+                    case 1:
+                        price.volume = Double(int)
+                    default:
+                        continue
+                    }
+                }
+                if case .string(let string) = element {
+                    price.date = dateFormatter.date(from: string)
+                }
+                
+            }
+            outD.append(price)
+        }
+        return PricesData(pricesModel: outD)
+    }
+    
+    private func transformStockData(from initialData: [[Datum]]) -> StockData {
+        var outD = [StockModel]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy-MM-dd"
+        initialData.forEach { (data) in
+            var price = StockModel()
+            for (index, element) in data.enumerated() {
+                if case .double(let double) = element {
+                    switch index {
+                    case 2:
+                        price.open = double
+                    case 3:
+                        price.close = double
+                    case 4:
+                        price.high = double
+                    case 5:
+                        price.low = double
+                    default:
+                        continue
+                    }
+                }
+                if case .string(let string) = element {
+                    switch index {
+                    case 0:
+                        price.shortName = string
+                    case 1:
+                        price.ticker = string
+                    case 6:
+                        price.boardID = string
+                    default:
+                        continue
+                    }
+                }
+            }
+            outD.append(price)
+        }
+        
+        return StockData(stocksModels: outD)
+    }
+    
 }
