@@ -48,7 +48,9 @@ final class ReusableButton: UIButton {
         self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .semibold)
         self.layer.cornerRadius = Constants.cornerRadius
         self.layer.masksToBounds = true
-        
+        self.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.titleLabel?.minimumScaleFactor = 0.5
+
     }
 
     required init?(coder: NSCoder) {

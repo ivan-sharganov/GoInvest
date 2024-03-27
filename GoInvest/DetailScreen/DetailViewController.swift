@@ -8,7 +8,7 @@ final class DetailViewController: UIViewController {
     
     // MARK: - UI
     private lazy var buyButton: UIButton = {
-        let button = ReusableButton(title: "Buy", fontSize: 17, onBackgroundColor: .buttonBackground, offBackgroundColor: .buttonBackground, onTitleColor: .buttonTitle, offTitleColor: .buttonTitle)
+        let button = ReusableButton(title: NSLocalizedString("buy", comment: ""), fontSize: 17, onBackgroundColor: .buttonBackground, offBackgroundColor: .buttonBackground, onTitleColor: .buttonTitle, offTitleColor: .buttonTitle)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -42,7 +42,6 @@ final class DetailViewController: UIViewController {
     private func configureNavigationBar() {
         let favoritesBarButton = setupFavoriteButton(isFavorite: isFavorite)
         let rightBarButtonItem = UIBarButtonItem(image: favoritesBarButton, style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
-        let backBarButtonItem = UIBarButtonItem()
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }

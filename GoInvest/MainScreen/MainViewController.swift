@@ -28,12 +28,25 @@ final class MainViewController: UIViewController {
     }()
 
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
-        let stack = HorizontalButtonStack(titles: ["Indexes", "Shares", "Bonds"], size: .small)
+        let stack = HorizontalButtonStack(
+            titles: [
+                NSLocalizedString("indexes", comment: ""),
+                NSLocalizedString("shares", comment: ""),
+                NSLocalizedString("bonds", comment: ""),
+            ],
+            size: .small
+        )
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     private lazy var navItem: HorizontalButtonStack = {
-        let stack = HorizontalButtonStack(titles: ["Securities", "Favorities"], size: .large)
+        let stack = HorizontalButtonStack(
+            titles: [
+                NSLocalizedString("securities", comment: ""),
+                NSLocalizedString("favorities", comment: ""),
+            ],
+            size: .large
+        )
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -41,7 +54,7 @@ final class MainViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchTextField.clearButtonMode = .never
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = NSLocalizedString("search", comment: "")
         searchBar.backgroundImage = UIImage()
         
         return searchBar
@@ -124,8 +137,8 @@ final class MainViewController: UIViewController {
             
             self.searchBar.topAnchor.constraint(equalTo: self.horizontalButtonStack.bottomAnchor, constant: 8),
             self.searchBar.heightAnchor.constraint(equalToConstant: 35),
-            self.searchBar.leadingAnchor.constraint(equalTo: self.horizontalButtonStack.leadingAnchor),
-            self.searchBar.trailingAnchor.constraint(equalTo: self.horizontalButtonStack.trailingAnchor),
+            self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 7),
+            self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -7),
             self.searchBar.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
 
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -133,12 +146,18 @@ final class MainViewController: UIViewController {
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
+    
     private func setupTabBarItem() {
+        let imageSize = CGSize(width: 29, height: 22)
+        
+        let image = UIImage(named: "list.bullet")
+            // .withSize(imageSize)
+        let selectedImage = UIImage(named: "list.bullet.selected")
+            // .withSize(imageSize)
         let imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let imageScale = 1.6
         let imageName = "list.bullet"
-
+        
         let inactiveImage = UIImage(systemName: imageName)?
             .withRenderingMode(.alwaysTemplate)
             .withScale(imageScale)
@@ -146,12 +165,12 @@ final class MainViewController: UIViewController {
         let activeImage = UIImage(systemName: imageName)?
             .withRenderingMode(.alwaysTemplate)
             .withScale(imageScale)
-
+        
         tabBarItem = UITabBarItem(title: nil, image: inactiveImage, tag: 1)
         tabBarItem.selectedImage = activeImage
         tabBarItem.imageInsets = imageInsets
     }
-
+    
 }
 
 // MARK: - DiffableDataSource
@@ -215,6 +234,7 @@ extension MainViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.updateSnapshot() // TODO: переписать на rx.snapshot
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -225,6 +245,7 @@ extension MainViewController: UISearchBarDelegate {
         self.searchBar.searchTextField.text = ""
         self.searchBar.showsCancelButton.toggle()
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.updateSnapshot() // TODO: переписать на rx.snapshot
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
