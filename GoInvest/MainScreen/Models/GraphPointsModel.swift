@@ -4,17 +4,22 @@ struct PointsModel{
     
     var points: [PointModel]
     
-    let max: Double
+    // TODO: проверить что массив всегда не пустой
+    var max: Double {
+        self.points.map { $0.y }.max()! //  ?? Double(Int.max)
+    }
     
-    let min: Double
+    var min: Double {
+        self.points.map { $0.y }.min()! // ?? Double(Int.min)
+    }
     
 }
 
 struct PointModel{
     
-    let x: Double
+    let x: Date
     
-    let y: Date
+    let y: Double
     
 }
 
