@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:329271610181:ios:2b49bf774007758ef48c2c</string>
+	<key>DATABASE_URL</key>
+	<string>https://goinvest-201b6-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>
