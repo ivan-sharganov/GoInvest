@@ -59,6 +59,7 @@ final class MainViewController: UIViewController {
         
         return searchBar
     }()
+    
     // MARK: - Life cycle
 
     init(viewModel: MainViewModel) {

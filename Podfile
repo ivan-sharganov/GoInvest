@@ -8,6 +8,12 @@ target 'GoInvest' do
   # Pods for GoInvest
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'Firebase/Analytics'
+  pod 'FirebaseStorage'
+  pod 'Firebase/Auth'
+#  pod 'Firebase/Storage'
+#  pod 'FirebaseDatabase'
+#  pod 'Firebase/Firestore'
 
   target 'GoInvestTests' do
     inherit! :search_paths
@@ -15,6 +21,13 @@ target 'GoInvest' do
     pod 'SwiftLint'
     pod 'RxSwift'
     pod 'RxCocoa'
+    pod 'Firebase/Analytics'
+    pod 'FirebaseStorage'
+    pod 'Firebase/Auth'
+  #  pod 'Firebase/Storage'
+  #  pod 'FirebaseDatabase'
+  #  pod 'Firebase/Firestore'
+
   end
 
 end
