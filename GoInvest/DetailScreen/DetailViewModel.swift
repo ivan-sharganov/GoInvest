@@ -2,9 +2,9 @@ import Foundation
 
 protocol DetailViewModel {
     
-    func transformPricesToPointModels(data: [PricesModel], range: Int) -> PointsModel
+    func transformPricesToPointModels(data: [PricesModel] ) -> PointsModel
     
-    func fetchDataForTicker(stockItem: StockDisplayItem) async
+    func fetchDataForTicker(ticker: String, parameter: StockState, interval: Int) async
     
 }
 
@@ -24,12 +24,11 @@ class DetailViewModelImpl: DetailViewModel {
         self.useCase = useCase
         
         Task {
-            /// получить из роутера stockItem - сделать поле во вью моделе???/
-//            await fetchDataForTicker(stockItem: StockDisplayItem() )
+            await fetchDataForTicker(ticker: "YNDX", parameter: .shares) // TODO: Кирилл, пробрось данные сюда
         }
     }
     /// Функция перевода данных к виду для графиков
-    func transformPricesToPointModels( data: [PricesModel], range: Int = 0 ) -> PointsModel {
+    func transformPricesToPointModels( data: [PricesModel] ) -> PointsModel {
         var pointsModel = PointsModel(points: [])
         for i in data {
             guard let x = i.date, let y = i.close else {
@@ -41,10 +40,9 @@ class DetailViewModelImpl: DetailViewModel {
         return pointsModel
     }
     
-    public func fetchDataForTicker(stockItem: StockDisplayItem) async {
+    public func fetchDataForTicker(ticker: String, parameter: StockState, interval: Int = 20 ) async {
         do {
-//            let mockStockItem = StockDisplayItem(shortName: "YNDX")
-            self.pricesData = try await self.useCase.get(stockItem: stockItem, parameter: .shares, range: .oneDay, board: "TQBR", interval: 12)
+            self.pricesData = try await self.useCase.get(ticker: ticker, parameter: parameter, range: .oneDay, interval: interval)
         } catch {
             self.pricesData = [PricesModel]()
         }
