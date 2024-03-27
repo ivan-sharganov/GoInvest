@@ -74,13 +74,13 @@ final class DetailViewController: UIViewController {
             self.buyButton.heightAnchor.constraint(equalToConstant: 50),
             self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
-            hostingMainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
-            hostingMainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 5),
+            hostingMainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            hostingMainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             hostingMainView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 45),
             hostingMainView.heightAnchor.constraint(equalToConstant: 250),
             
-            hostingAdditionalView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
-            hostingAdditionalView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 5),
+            hostingAdditionalView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            hostingAdditionalView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             hostingAdditionalView.topAnchor.constraint(equalTo: hostingMainView.bottomAnchor, constant: 10),
             hostingAdditionalView.heightAnchor.constraint(equalToConstant: 100)
         ])

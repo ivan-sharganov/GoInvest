@@ -102,13 +102,13 @@ final class MainViewController: UIViewController {
             .disposed(by: bag)
         
         viewModel.cellTapped
-            .subscribe(onNext: { [weak self] in
+            .emit(onNext: { [weak self] in
                 self?.router.pushNext()
             })
             .disposed(by: bag)
         
         viewModel.updateSnapshot
-            .subscribe(onNext: { [weak self] result in
+            .emit(onNext: { [weak self] result in
                 self?.updateSnapshot(animatingDifferences: result)
             })
             .disposed(by: bag)
