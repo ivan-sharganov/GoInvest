@@ -45,7 +45,3 @@ struct GraphSUIView: View {
     }
     
 }
-
-#Preview {
-    GraphSUIView()
-}
