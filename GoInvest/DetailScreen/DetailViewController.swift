@@ -12,7 +12,6 @@ final class DetailViewController: UIViewController {
     private lazy var hostingMainViewController = UIHostingController(rootView: self.suiViewMain)
     private lazy var hostingAdditionalViewController = UIHostingController(rootView: self.suiViewAdditional)
     private var viewModel: DetailViewModel
-    private var isFavorite: Bool = false
     
     // MARK: - UI
     
