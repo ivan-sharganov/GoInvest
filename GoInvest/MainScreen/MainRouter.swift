@@ -22,7 +22,9 @@ final class MainRouter: Routable {
     // MARK: - Public methods
 
     func pushNext() {
-        let detailViewController = DetailViewController()
+        let detailViewController = DetailViewController(
+            viewModel: DetailViewModelImpl(useCase: DetailUseCaseImpl(repository: DetailRepositoryImpl()))
+        )
 
         viewController?.navigationController?.pushViewController(detailViewController, animated: true)
     }

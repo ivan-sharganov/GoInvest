@@ -1,6 +1,6 @@
 import Foundation
 
-struct PointsModel{
+struct PointsModel {
     
     var points: [PointModel]
     
@@ -15,7 +15,7 @@ struct PointsModel{
     
 }
 
-struct PointModel{
+struct PointModel {
     
     let x: Date
     
@@ -23,12 +23,13 @@ struct PointModel{
     
 }
 
-enum GraphRangeValues: Int{
+enum GraphRangeValues: Int {
     case oneDay = 1
     case threeDays = 3
     case week = 7
     case oneMonth = 30
     case threeMonths = 90
     case sixMonths = 180
-    case year = 9
+    case year = 365
+    
 }

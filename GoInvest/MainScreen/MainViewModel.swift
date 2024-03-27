@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum StockState {
+enum StockState: String {
     
     case indexes
     case shares
@@ -17,6 +17,8 @@ protocol MainViewModel {
 
     var displayItems: [StockDisplayItem] { get }
     var responseItems: [StockDisplayItem] { get }
+    
+    var market: StockState { get set }
 
     func handleItemSelection()
     func fetchData(parameters: StockState) async
@@ -35,6 +37,8 @@ final class MainViewModelImpl: MainViewModel {
     var displayItems: [StockDisplayItem] = []
     var responseItems: [StockDisplayItem] = []
 
+    var market: StockState = .shares
+    
     // MARK: - Private properties
 
     let useCase: MainUseCase
@@ -82,6 +86,7 @@ final class MainViewModelImpl: MainViewModel {
         do {
             self.responseItems = try await prepareDisplayItems(stockModels: self.useCase.get(parameters: parameters))
             self.displayItems = responseItems
+            self.market = parameters
         } catch {
             self.responseItems = []
         }
@@ -96,7 +101,9 @@ final class MainViewModelImpl: MainViewModel {
                              openPrice: $0.open,
                              closePrice: $0.close,
                              highPrice: $0.high,
-                             lowPrice: $0.low) // trendclspr: $0.trendclspr
+                             lowPrice: $0.low,
+                             boardID: $0.boardID
+                            ) // trendclspr: $0.trendclspr
         }
     }
     

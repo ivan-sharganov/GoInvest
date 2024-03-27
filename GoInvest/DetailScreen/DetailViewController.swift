@@ -11,6 +11,8 @@ final class DetailViewController: UIViewController {
     
     private lazy var hostingMainViewController = UIHostingController(rootView: self.suiViewMain)
     private lazy var hostingAdditionalViewController = UIHostingController(rootView: self.suiViewAdditional)
+    private var viewModel: DetailViewModel
+    private var isFavorite: Bool = false
     
     // MARK: - UI
     
@@ -34,6 +36,17 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+    }
+    
+    init(viewModel: DetailViewModel) {
+        self.viewModel = viewModel
+
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Private methods

@@ -10,14 +10,13 @@ protocol DetailViewModel {
 
 class DetailViewModelImpl: DetailViewModel {
     
-    var allPoints: [String:PointsModel]?
+    var allPoints: [String: PointsModel]?
     
     var pointsModel: PointsModel?
     
-    var pricesData: PricesData?
+    var pricesData = [PricesModel]()
     
-    
-    let useCase: MainUseCase
+    let useCase: DetailUseCase
     
     // MARK: - Life cycle
 
@@ -25,14 +24,13 @@ class DetailViewModelImpl: DetailViewModel {
         self.useCase = useCase
         
         Task {
-            await fetchDataForTicker(stockItem: <#T##StockDisplayItem#>) // получить из роутера stockItem - сделать поле во вью моделе???
+            await fetchDataForTicker(stockItem: StockDisplayItem() ) // получить из роутера stockItem - сделать поле во вью моделе???
         }
     }
     
-    
-    func transformPricesToPointModels(data: [PricesModel], range: Int = 0) -> PointsModel{
-        var max = Double(Int.min)
-        var min = Double(Int.max)
+    func transformPricesToPointModels( data: [PricesModel], range: Int = 0 ) -> PointsModel {
+//        var max = Double(Int.min)
+//        var min = Double(Int.max)
         var pointsModel = PointsModel(points: [])
         for i in data {
             guard let x = i.date, let y = i.close else {
@@ -51,10 +49,9 @@ class DetailViewModelImpl: DetailViewModel {
     
     public func fetchDataForTicker(stockItem: StockDisplayItem) async {
         do {
-            self.responseItems = try await prepareDisplayItems(stockModels: self.useCase.get(stockItem: stockItem))
-            self.displayItems = responseItems
+            self.pricesData = try await self.useCase.get(stockItem: StockDisplayItem(), parameter: .shares, range: .oneDay, board: "TQBR", interval: 12)
         } catch {
-            self.responseItems = []
+            self.pricesData = [PricesModel]()
         }
     }
 }

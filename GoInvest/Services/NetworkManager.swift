@@ -39,10 +39,13 @@ class NetworkManager {
 //        }.resume()
 //    }
     
-    func getPricesForTicker(parameter: String, board: String, ticker: String, from: Date, till: Date, interval: Int) async throws -> [PricesModel] {
+    /// parameter = shares
+    /// board = TQBR
+    
+    func getPricesForTicker(parameter: String, board: String, ticker: String, from: String, till: String, interval: Int) async throws -> [PricesModel] {
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/\(board)/securities/\(ticker)/securities.json?iss"
         url +=
-        ".only=securities&iss.meta=off&from=2024-03-11&till=2024-03-19&interval=2"
+        ".only=securities&iss.meta=off&from=\(from)&till=\(till)&interval=\(interval)"
         url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
         
         guard let URL = URL(string: url) else {
@@ -70,6 +73,7 @@ class NetworkManager {
     }
     
     func getPricesForStock(parameter: String) async throws -> [StockModel] {
+        print("CALLED")
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/sessions/3/securities.json?iss"
         url +=
         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100&start=0"
@@ -91,7 +95,8 @@ class NetworkManager {
             $0.open != nil &&
             $0.close != nil &&
             $0.high != nil &&
-            $0.low != nil
+            $0.low != nil &&
+            $0.boardID != nil
         }
     }
     
@@ -117,7 +122,7 @@ class NetworkManager {
             })
             outD.append(price)
         }
-        
+        print(outD)
         return PricesData(pricesModel: outD)
     }
     
@@ -144,6 +149,8 @@ class NetworkManager {
                         price.shortName = string
                     } else if index == 1 {
                         price.ticker = string
+                    } else if index == 6 {
+                        price.boardID = string
                     }
                 }
             }
