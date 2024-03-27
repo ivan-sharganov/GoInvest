@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBFXkhXV4zPZTmqrNt9JavYFfTpKOEBF-c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>329271610181</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.yandex.sirius.GoInvest</string>
+	<key>PROJECT_ID</key>
+	<string>goinvest-201b6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>goinvest-201b6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:329271610181:ios:2b49bf774007758ef48c2c</string>
+</dict>
+</plist>
