@@ -14,7 +14,7 @@ targets:
             - path: GoInvest/
         settings:
             base:
-                PRODUCT_BUNDLE_IDENTIFIER: com.yandex.sirius.GoInvest
+                PRODUCT_BUNDLE_IDENTIFIER: com.shares.GoInvest
         scheme:
             testTargets:
             - GoInvestTests
