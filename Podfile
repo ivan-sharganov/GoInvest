@@ -9,9 +9,9 @@ target 'GoInvest' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'Firebase/Analytics'
-  pod 'Firebase/Storage'
-  pod 'FirebaseDatabase'
-  pod 'Firebase/Firestore'
+#  pod 'Firebase/Storage'
+#  pod 'FirebaseDatabase'
+#  pod 'Firebase/Firestore'
   pod 'FirebaseStorage'
   pod 'Firebase/Auth'
 

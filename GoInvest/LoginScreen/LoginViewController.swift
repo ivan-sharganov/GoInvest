@@ -1,135 +1,68 @@
 import UIKit
-import FirebaseAuth
+import RxSwift
 
 final class LoginViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private lazy var loginButtonAction: UIAction = UIAction { [weak self] _ in
-        guard let email = self?.emailField.text,
-              let password = self?.passwordField.text
-        else {
-            return
-        }
-        
-        FirebaseAuth.Auth.auth().signIn(
-            withEmail: email,
-            password: password, 
-            completion: { _, error in
-                
-                if error == nil {
-                    print("auth success!!!")
-                } else {
-                    print("auth failure!!!")
-                }
-            }
-        )
-    }
-    
-    // MARK: - UI
-    
-    private let label: UILabel = {
-        let label = UILabel()
-        label.text = NSLocalizedString("Login", comment: "Login label text")
-        label.font = UIFont.systemFont(ofSize: 48, weight: .semibold)
-        label.textColor = .label
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
-    private let emailField: TextField = {
-        let placeholder = NSLocalizedString(
-            "Email",
-            comment: "Login email field placeholder text"
-        )
-        let field = TextField(placeholder: placeholder, isSecure: false)
-        field.translatesAutoresizingMaskIntoConstraints = false
-        
-        return field
-    }()
-    
-    private let passwordField: TextField = {
-        let placeholder = NSLocalizedString(
-            "Password",
-            comment: "Login password field placeholder text"
-        )
-        let field = TextField(placeholder: placeholder, isSecure: true)
-        field.translatesAutoresizingMaskIntoConstraints = false
-        
-        return field
-    }()
-    
-    private lazy var loginButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.setTitle(NSLocalizedString("Login", comment: "Login button title text"), for: .normal)
-        button.backgroundColor = .buttonBackground
-        button.layer.cornerRadius = 10
-        button.layer.masksToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.addAction(loginButtonAction, for: .touchUpInside)
-        
-        return button
-    }()
-    
-    private let createAccountButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        button.setTitle(NSLocalizedString("Create account", comment: "Create account button title text"), for: .normal)
-        button.backgroundColor = .systemGray2
-        button.layer.cornerRadius = 10
-        button.layer.masksToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
+    private let loginView = LoginView()
+    private let disposeBag = DisposeBag()
+    private let loginViewModel: LoginViewModel
     
     // MARK: - Lifecycle
+    
+    init(loginViewModel: LoginViewModel) {
+        self.loginViewModel = loginViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        view = loginView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .background
-        
-        setupSubviews()
-        setupContraints()
+        setupBindings()
     }
     
     // MARK: Private methods
     
-    private func setupSubviews() {
-        view.addSubview(label)
-        view.addSubview(emailField)
-        view.addSubview(passwordField)
-        view.addSubview(loginButton)
-        view.addSubview(createAccountButton)
+    private func setupBindings() {
+        loginView.loginButtonTapped.subscribe { [weak self] _ in
+            guard let email = self?.loginView.email,
+                  let password = self?.loginView.password,
+                  let strongSelf = self
+            else {
+                return
+            }
+            
+            let isSuccesfulLogin = strongSelf.loginViewModel.logIn(email: email, password: password)
+            
+            if !isSuccesfulLogin {
+                // написать, что не получилось, предложить сделать еще раз
+            }
+        }.disposed(by: disposeBag)
+        
+        loginView.createAccountButtonTapped.subscribe { [weak self] _ in
+            guard let email = self?.loginView.email,
+                  let password = self?.loginView.password,
+                  let strongSelf = self
+            else {
+                return
+            }
+            
+            let isSuccessfulCreateAccount = strongSelf.loginViewModel.createAccount(email: email, password: password)
+            
+            if isSuccessfulCreateAccount {
+                // ...
+            } else {
+                // ...
+            }
+        }.disposed(by: disposeBag)
     }
-    
-    private func setupContraints() {
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 400),
-            
-            emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emailField.widthAnchor.constraint(equalToConstant: 300),
-            emailField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 36),
-            
-            passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            passwordField.widthAnchor.constraint(equalToConstant: 300),
-            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 16),
-            
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalToConstant: 300),
-            loginButton.heightAnchor.constraint(equalToConstant: 48),
-            loginButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 24),
-            
-            createAccountButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            createAccountButton.widthAnchor.constraint(equalToConstant: 300),
-            createAccountButton.heightAnchor.constraint(equalToConstant: 48),
-            createAccountButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
-        ])
-    }
-    
 }
