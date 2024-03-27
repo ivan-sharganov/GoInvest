@@ -29,6 +29,7 @@ final class MainViewModelImpl: MainViewModel {
 
     // MARK: - Public properties
 
+    /// Эти проперти кастятся к Signal, чтобы работать в main потоке на ViewController
     var cellTapped: Signal<Void> { _cellTapped.asSignal() }
     var updateSnapshot: Signal<Bool> { _updateSnapshot.asSignal() }
 
