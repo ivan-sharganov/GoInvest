@@ -31,9 +31,9 @@ final class DetailViewModelImpl: DetailViewModel {
                                                  price: transferModel.price)
         
         Task {
-            for i in GraphRangeValues.allCases {
+            for range in GraphRangeValues.allCases {
                 await fetchDataForTicker(ticker: transferModel.ticker,
-                                         parameter: transferModel.stockState, range: i)
+                                         parameter: transferModel.stockState, range: range)
             }
         }
     }
