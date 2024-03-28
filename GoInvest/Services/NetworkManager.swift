@@ -8,7 +8,7 @@ class NetworkManager {
     private enum GIError: Error {
         case error
     }
-    private let baseURL = "https://iss.moex.com/iss/engines/stock/markets/"
+    private let baseURL = "https://iss.moex.com/iss/history/engines/stock/markets/"
     private let columnsForTicker = "&iss.meta=off&candles.columns=close,volume,end"
     private let candles = "/candles.json?iss.only=securities&"
     private let sessions = "/sessions/3/securities.json?iss.only=securities&iss.meta=off"
@@ -38,8 +38,6 @@ class NetworkManager {
             throw GIError.error
         }
         
-        print(answer.candles.data)
-        
         return self.transformPriceData(from: answer.candles.data).pricesModel.filter {
             $0.close != nil &&
             $0.date != nil &&
@@ -53,7 +51,7 @@ class NetworkManager {
         guard let URL = URL(string: url) else {
             throw GIError.error
         }
-        
+        print(url)
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
         let (data, _) = try await URLSession.shared.data(for: request)
