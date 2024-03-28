@@ -33,7 +33,13 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.view
+        let array = [backgroundConfettiLayer(view: self.view), createConfettiLayer(view: self.view)]
+        for layer in array {
+            view.layer.addSublayer(layer)
+            addBehaviors(to: layer)
+            addAnimations(to: layer)
+        }
         setupUI()
     }
     

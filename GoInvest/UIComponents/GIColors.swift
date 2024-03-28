@@ -13,5 +13,5 @@ public extension UIColor {
     static var label = UIColor(named: "label")! // onLargeTabTitle
     static var inversedLabel = UIColor(named: "inversedLabel")! // onLargeTabTitle
     static var inactiveLabel = UIColor(named: "inactiveLabel")!
-    
+    static var tint = UIColor(named: "tint")!
 }
