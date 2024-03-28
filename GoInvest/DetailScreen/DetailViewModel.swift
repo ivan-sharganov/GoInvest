@@ -2,7 +2,7 @@ import Foundation
 
 protocol DetailViewModel {
     
-    var allPoints: [String: PointsModel]? { get }
+    var allPoints: [GraphRangeValues: PointsModel] {get set}
     var pointsModel: PointsModel? { get }
     var pricesData: [PricesModel] { get }
     var displayItem: SecuritiesDisplayItem { get }
@@ -14,7 +14,7 @@ protocol DetailViewModel {
 
 final class DetailViewModelImpl: DetailViewModel {
     
-    var allPoints: [String: PointsModel]?
+    var allPoints = [GraphRangeValues: PointsModel]()
     var pointsModel: PointsModel?
     var pricesData = [PricesModel]()
     var displayItem: SecuritiesDisplayItem
@@ -31,8 +31,10 @@ final class DetailViewModelImpl: DetailViewModel {
                                                  price: transferModel.price)
         
         Task {
-            await fetchDataForTicker(ticker: transferModel.ticker,
-                                     parameter: transferModel.stockState)
+            for range in GraphRangeValues.allCases {
+                await fetchDataForTicker(ticker: transferModel.ticker,
+                                         parameter: transferModel.stockState, range: range)
+            }
         }
     }
     
@@ -53,8 +55,10 @@ final class DetailViewModelImpl: DetailViewModel {
         do {
             self.pricesData = try await self.useCase.get(ticker: ticker,
                                                          parameter: parameter,
-                                                         range: .oneDay,
+                                                         range: range,
                                                          interval: interval)
+            let points = transformPricesToPointModels(data: self.pricesData)
+            self.allPoints[range] = points
         } catch {
             print(error.localizedDescription)
             self.pricesData = [PricesModel]()
