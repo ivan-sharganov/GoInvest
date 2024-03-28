@@ -2,20 +2,20 @@ import Foundation
 
 protocol DetailViewModel {
     
-    var allPoints: [GraphRangeValues: PointsModel] {get set}
-    var pointsModel: PointsModel? { get }
+    var allPoints: PointModels? { get }
+    var pointsModel: PointModel? { get }
     var pricesData: [PricesModel] { get }
     var displayItem: SecuritiesDisplayItem { get }
     
-    func transformPricesToPointModels(data: [PricesModel] ) -> PointsModel
+    func transformPricesToPointModels(data: [PricesModel] ) -> PointModels
     func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues, interval: Int) async
     
 }
 
 final class DetailViewModelImpl: DetailViewModel {
     
-    var allPoints = [GraphRangeValues: PointsModel]()
-    var pointsModel: PointsModel?
+    var allPoints: PointModels?
+    var pointsModel: PointModel?
     var pricesData = [PricesModel]()
     var displayItem: SecuritiesDisplayItem
     
@@ -39,13 +39,13 @@ final class DetailViewModelImpl: DetailViewModel {
     }
     
     /// Функция перевода данных к виду для графиков
-    func transformPricesToPointModels( data: [PricesModel] ) -> PointsModel {
-        var pointsModel = PointsModel(points: [])
+    func transformPricesToPointModels(data: [PricesModel] ) -> PointModels {
+        var pointsModel = PointModels(points: [])
         for i in data {
             guard let x = i.date, let y = i.close else {
                 continue
             }
-            pointsModel.points.append(PointModel(x: x, y: y))
+            pointsModel.points.append(PointModel(x: x, y: y, id: UUID()))
         }
             
         return pointsModel
@@ -57,10 +57,10 @@ final class DetailViewModelImpl: DetailViewModel {
                                                          parameter: parameter,
                                                          range: range,
                                                          interval: interval)
-            let points = transformPricesToPointModels(data: self.pricesData)
-            self.allPoints[range] = points
+            // let points = transformPricesToPointModels(data: self.pricesData)
+            // self.allPoints[range] = points
+            self.allPoints = transformPricesToPointModels(data: self.pricesData)
         } catch {
-            print(error.localizedDescription)
             self.pricesData = [PricesModel]()
         }
     }

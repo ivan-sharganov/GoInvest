@@ -9,8 +9,8 @@ final class DetailViewController: UIViewController {
     private let suiViewAdditional = GraphSUIViewMain()
     private var isFavorite: Bool = false
     
-    private lazy var hostingMainViewController = UIHostingController(rootView: self.suiViewMain)
-    private lazy var hostingAdditionalViewController = UIHostingController(rootView: self.suiViewAdditional)
+    private lazy var hostingMainViewController = UIHostingController(rootView: self.suiViewAdditional)
+//    private lazy var hostingAdditionalViewController = UIHostingController(rootView: self.suiViewAdditional)
     private var viewModel: DetailViewModel
     
     // MARK: - UI
@@ -69,6 +69,12 @@ final class DetailViewController: UIViewController {
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
+        
+        let pointsData = viewModel.transformPricesToPointModels(data: viewModel.pricesData)
+        
+        self.suiViewAdditional = GraphSUIViewMain(pointsData: pointsData)
+        print(viewModel.pricesData)
+
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -87,7 +93,7 @@ final class DetailViewController: UIViewController {
         hostingMainViewController.view.backgroundColor = .background
         hostingAdditionalViewController.view.backgroundColor = .background
         hostingMainView.translatesAutoresizingMaskIntoConstraints = false
-        hostingAdditionalView.translatesAutoresizingMaskIntoConstraints = false
+//        hostingAdditionalView.translatesAutoresizingMaskIntoConstraints = false
         buyButton.translatesAutoresizingMaskIntoConstraints = false
         priceView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -95,7 +101,7 @@ final class DetailViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         
         view.addSubview(hostingMainView)
-        view.addSubview(hostingAdditionalView)
+//        view.addSubview(hostingAdditionalView)
         view.addSubview(buyButton)
         view.addSubview(priceView)
         view.addSubview(nameLabel)

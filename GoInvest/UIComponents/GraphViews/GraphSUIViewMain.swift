@@ -3,20 +3,25 @@ import Charts
 
 struct GraphSUIViewMain: View {
     
-    let catData: [PetDataMOCK] = [PetDataMOCK(year: 2000, population: 6.8),
-                                  PetDataMOCK(year: 2010, population: 8.2),
-                                  PetDataMOCK(year: 2015, population: 12.9),
-                                  PetDataMOCK(year: 2022, population: 15.2)]
+    let pointsData: [PointModel]
+    let maxY: Double
+    let minY: Double
     
-    var data: [(type: String, petData: [PetDataMOCK])] {
-        [(type: "", petData: catData)]
+    init(pointsData: PointModels) {
+        self.pointsData = pointsData.points
+        self.maxY = pointsData.maxY
+        self.minY = pointsData.minY
+    }
+    
+    var data: [(type: String, pointsData: [PointModel])] {
+        [(type: "", pointsData: pointsData)]
     }
     
     var body: some View {
         Chart(data, id: \.type) { dataSeries in
-            ForEach(dataSeries.petData) { data in
-                LineMark(x: .value("Year", data.year),
-                         y: .value("Population", data.population))
+            ForEach(dataSeries.pointsData) { data in
+                LineMark(x: .value("Date", data.x),
+                         y: .value("Result", data.y))
             }
             .symbol(by: .value("Pet type", dataSeries.type))
         }
@@ -25,8 +30,8 @@ struct GraphSUIViewMain: View {
         }
         .chartXAxis { AxisMarks(stroke: StrokeStyle(lineWidth: 0)) } // AxisGridLine() AxisTick()
         .chartYAxis { AxisMarks(stroke: StrokeStyle(lineWidth: 0)) } // AxisGridLine() AxisTick()
-        .chartXScale(domain: 1998...2031)
-        .chartYScale(domain: 0...30)
+//        .chartXScale(domain: 1998...2031)
+//        .chartYScale(domain: minY...maxY)
         .cornerRadius(15)
         .edgesIgnoringSafeArea(.all)
     }
