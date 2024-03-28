@@ -13,6 +13,7 @@ final class MainUseCaseImpl: MainUseCase {
     }
 
     public func get(parameters: StockState) async throws -> [StockModel] {
-        try await self.repository.getStocks(parameters: parameters)
+        let response = try await self.repository.getStocks(parameters: parameters)
+        return response
     }
 }

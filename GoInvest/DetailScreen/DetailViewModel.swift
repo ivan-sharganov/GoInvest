@@ -24,7 +24,7 @@ class DetailViewModelImpl: DetailViewModel {
         self.useCase = useCase
         
         Task {
-            await fetchDataForTicker(ticker: "YNDX", parameter: .shares) // TODO: Кирилл, пробрось данные сюда
+            await fetchDataForTicker(ticker: "AFLT", parameter: .shares) // TODO: Кирилл, пробрось данные сюда
         }
     }
     /// Функция перевода данных к виду для графиков

@@ -69,7 +69,9 @@ class NetworkManager {
             $0.close != nil &&
             $0.high != nil &&
             $0.low != nil &&
-            $0.boardID != nil
+            $0.boardID != nil &&
+            $0.open != $0.close &&
+            $0.high != $0.low
         }
     }
     
