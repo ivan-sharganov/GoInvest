@@ -38,7 +38,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
-        FirebaseManager.shared.addItems([StockDisplayItem(name: "AAAA", shortName: "BBBBB", openPrice: 1.123, closePrice: 231.12, highPrice: 12.1, lowPrice: 21.1, boardID: "Adsdsd")])
+        let testItem = StockDisplayItem(name: "test2", shortName: "TEST2", openPrice: 1.1, closePrice: 1.2, highPrice: 2.1, lowPrice: 2.2, boardID: "test")
+        
+//        FirebaseManager.shared.addItems([testItem])
+        
+        DispatchQueue.global().async {
+            FirebaseManager.shared.getItem(shortName: "TEST") { result in
+                switch result {
+                case .success(let item):
+                    print(item)
+                case .failure(let error):
+                    debugPrint(error)
+                }
+            }
+        }
 
         return true
     }
