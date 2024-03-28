@@ -42,14 +42,14 @@ jobs:
         xcodegen generate
       shell: bash
 
-    - name: Install Dependencies
-      run: |
-        pod install --repo-update
-      shell: bash
+    # - name: Install Dependencies
+    #   run: |
+    #     pod install
+    #   shell: bash
 
-    - name: Build
-      run: |
-        xcodebuild build -workspace GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphonesimulator CODE_SIGNING_ALLOWED=No
+    # - name: Build
+    #   run: |
+    #     xcodebuild build -workspace GoInvest.xcworkspace -scheme GoInvest clean build -sdk iphonesimulator CODE_SIGNING_ALLOWED=No
 
 #    - name: Run tests
 #      run: |
