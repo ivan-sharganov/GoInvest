@@ -3,15 +3,18 @@ import Foundation
 final class CachingClass {
     static let shared = CachingClass()
     let filePrefix = "GoInvestCache"
-    func getDocumentDirectory() -> URL {
+    func getDocumentDirectory() -> URL? {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+        return paths.first
     }
     
     func saveCache(records: StockData, key: String) {
         let fileName = filePrefix + key
         /// Задаем путь к файлы с кэшем
-        let filePath = getDocumentDirectory().appendingPathComponent(fileName)
+        guard let filePath = self.getDocumentDirectory()?.appendingPathComponent(fileName) else {
+            return
+        }
+            
         do {
             /// Архивируем дату
             let archiver = NSKeyedArchiver(requiringSecureCoding: false)
@@ -27,8 +30,9 @@ final class CachingClass {
     
     func getCache(for key: String) -> StockData? {
         let fileName = filePrefix + key
-        let filePath = self.getDocumentDirectory().appendingPathComponent(fileName)
-        
+        guard let filePath = self.getDocumentDirectory()?.appendingPathComponent(fileName) else {
+            return nil
+        }
         guard let data = try? Data(contentsOf: filePath) else {
             print("Failed to get  cache") // TODO: Обработать ошибку в UI
             
