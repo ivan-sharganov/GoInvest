@@ -26,6 +26,12 @@ final class FirebaseManager {
     
     static let shared = FirebaseManager()
     
+    // MARK: - Public properties
+    
+    var isLogin: Bool {
+        FirebaseAuth.Auth.auth().currentUser != nil
+    }
+    
     // MARK: Private properties
     
     private let database = Firestore.firestore()
