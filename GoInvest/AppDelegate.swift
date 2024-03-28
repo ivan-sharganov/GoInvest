@@ -37,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
+        
+        FirebaseManager.shared.addItems([StockDisplayItem(name: "AAAA", shortName: "BBBBB", openPrice: 1.123, closePrice: 231.12, highPrice: 12.1, lowPrice: 21.1, boardID: "Adsdsd")])
 
         return true
     }

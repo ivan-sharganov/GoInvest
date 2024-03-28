@@ -29,7 +29,7 @@ final class FirebaseManager {
             guard let currentUserId = FirebaseAuth.Auth.auth().currentUser?.uid else {
                 throw FirebaseError.noCurrentUser
             }
-            return "users/\(currentUserId)/"
+            return "users/\(currentUserId)/items/"
         }
     }
     
@@ -40,26 +40,30 @@ final class FirebaseManager {
     // MARK: - Public methods
     
     func addItems(_ items: [StockDisplayItem]) {
-        
         items.forEach { item in
-            if let name = item.name,
-               let shortName = item.shortName,
-               let openPrice = item.openPrice,
-               let closePrice = item.closePrice,
-               let highPrice = item.highPrice,
-               let lowPrice = item.lowPrice,
-               let rate = item.rate 
-            {
-                
-            }
+            let reference = referenceToItem(shortName: item.shortName)
+            let documentData: [String: Any] = [
+                "name": item.name,
+                "shortName": item.shortName,
+                "openPrice": item.openPrice,
+                "closePrice": item.closePrice,
+                "highPrice": item.highPrice,
+                "lowPrice": item.lowPrice,
+                "rate": item.rate
+            ]
+            reference?.setData(documentData)
         }
     }
-    
-    
+
     // MARK: - Private methods
-    
-    private func referenceToItem(shortName: String) throws -> DocumentReference {
-        let reference = try database.document(pathToUser + shortName)
+
+    private func referenceToItem(shortName: String) -> DocumentReference? {
+        var reference: DocumentReference?
+        do {
+            reference = try database.document(pathToUser + shortName)
+        } catch {
+            print(error.localizedDescription)
+        }
         
         return reference
     }

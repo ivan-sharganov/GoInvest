@@ -826,7 +826,6 @@ PODS:
     - FirebaseAuth (~> 10.23.0)
   - Firebase/CoreOnly (10.23.0):
     - FirebaseCore (= 10.23.0)
-<<<<<<< HEAD
   - Firebase/Crashlytics (10.23.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 10.23.0)
@@ -848,11 +847,6 @@ PODS:
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30911.0, >= 2.30908.0)
-=======
-  - Firebase/Firestore (10.23.0):
-    - Firebase/CoreOnly
-    - FirebaseFirestore (~> 10.23.0)
->>>>>>> caa3bc9 (77 add firebaseManager)
   - FirebaseAppCheckInterop (10.23.0)
   - FirebaseAuth (10.23.0):
     - FirebaseAppCheckInterop (~> 10.17)
@@ -869,7 +863,6 @@ PODS:
     - FirebaseCore (~> 10.0)
   - FirebaseCoreInternal (10.23.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-<<<<<<< HEAD
   - FirebaseCrashlytics (10.23.0):
     - FirebaseCore (~> 10.5)
     - FirebaseInstallations (~> 10.0)
@@ -896,9 +889,6 @@ PODS:
   - FirebaseStorage (10.23.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseAuthInterop (~> 10.0)
-=======
-  - FirebaseFirestore (10.23.0):
->>>>>>> caa3bc9 (77 add firebaseManager)
     - FirebaseCore (~> 10.0)
     - FirebaseCoreExtension (~> 10.0)
     - FirebaseFirestoreInternal (~> 10.17)
@@ -918,14 +908,10 @@ PODS:
     - gRPC-Core (~> 1.62.0)
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30911.0, >= 2.30908.0)
-<<<<<<< HEAD
   - GoogleDataTransport (9.4.1):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-=======
-  - FirebaseSharedSwift (10.23.0)
->>>>>>> caa3bc9 (77 add firebaseManager)
   - GoogleUtilities/AppDelegateSwizzler (7.13.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -1047,12 +1033,8 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Auth
-<<<<<<< HEAD
   - Firebase/Crashlytics
   - FirebaseStorage
-=======
-  - Firebase/Firestore
->>>>>>> caa3bc9 (77 add firebaseManager)
   - RxCocoa
   - RxSwift
   - SwiftLint
@@ -1067,7 +1049,6 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
-<<<<<<< HEAD
     - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseRemoteConfigInterop
@@ -1075,11 +1056,6 @@ SPEC REPOS:
     - FirebaseStorage
     - GoogleAppMeasurement
     - GoogleDataTransport
-=======
-    - FirebaseFirestore
-    - FirebaseFirestoreInternal
-    - FirebaseSharedSwift
->>>>>>> caa3bc9 (77 add firebaseManager)
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -1103,7 +1079,6 @@ SPEC CHECKSUMS:
   FirebaseCore: 63efb128decaebb04c4033ed4e05fb0bb1cccef1
   FirebaseCoreExtension: cb88851781a24e031d1b58e0bd01eb1f46b044b5
   FirebaseCoreInternal: 6a292e6f0bece1243a737e81556e56e5e19282e3
-<<<<<<< HEAD
   FirebaseCrashlytics: b7aca2d52dd2440257a13741d2909ad80745ac6c
   FirebaseInstallations: 42d6ead4605d6eafb3b6683674e80e18eb6f2c35
   FirebaseRemoteConfigInterop: cbc87ffa4932719a7911a08e94510f18f026f5a7
@@ -1111,11 +1086,6 @@ SPEC CHECKSUMS:
   FirebaseStorage: 96fd765b2ef632c53b214057691e257538b8c496
   GoogleAppMeasurement: 453eb0de99fcf2bdec9403e9ac5d7871fdba3e3f
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
-=======
-  FirebaseFirestore: 3478b0580f6c16d895460611b4fcec93955f4717
-  FirebaseFirestoreInternal: 627b23f682c1c2aad38ba1345ed3ca6574c5a89c
-  FirebaseSharedSwift: c92645b392db3c41a83a0aa967de16f8bad25568
->>>>>>> caa3bc9 (77 add firebaseManager)
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
   "gRPC-C++": 12f33a422dcab88dcd0c53e52cd549a929f0f244
   gRPC-Core: 6ec9002832e1e22c5bb8c54994b050b0ee4205c6
