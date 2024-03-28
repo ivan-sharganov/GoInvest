@@ -86,17 +86,9 @@ final class DetailViewController: UIViewController {
         
         configureNavigationBar()
     }
-    private func firework() {
-        let array = [backgroundConfettiLayer(view: self.view), createConfettiLayer(view: self.view)]
-        for layer in array {
-            view.layer.addSublayer(layer)
-            addBehaviors(to: layer)
-            addAnimations(to: layer)
-        }
-    }
     
     @objc private func tapped() {
-        self.firework()
+        Fireworks.fireworks(view: self.view)
     }
     
     private func configureNavigationBar() {
