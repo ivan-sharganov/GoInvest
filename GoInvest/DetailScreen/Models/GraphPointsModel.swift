@@ -23,7 +23,7 @@ struct PointModel {
     
 }
 
-enum GraphRangeValues: Int {
+enum GraphRangeValues: Int, CaseIterable {
     
     case oneDay = 1
     case threeDays = 3
