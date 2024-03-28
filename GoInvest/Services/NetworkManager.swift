@@ -1,5 +1,39 @@
 import Foundation
 
+enum StockRequest {
+    case price(market: String, ticker: String, from: String, till: String)
+    case stock(market: String)
+    
+    var url: URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "iss.moex.com"
+        
+        switch self {
+        case .price(let market, let ticker, let from, let till):
+            components.path = "/iss/engines/stock/markets/\(market)/securities/\(ticker)/candles.json"
+            components.queryItems = [
+                URLQueryItem(name: "iss.only", value: "securities"),
+                URLQueryItem(name: "from", value: from),
+                URLQueryItem(name: "till", value: till),
+                URLQueryItem(name: "iss.meta", value: "off"),
+                URLQueryItem(name: "candles.columns", value: "open,close,volume,end")
+            ]
+        case .stock(let market):
+            components.path = "/iss/history/engines/stock/markets/\(market)/securities.json"
+            components.queryItems = [
+                URLQueryItem(name: "iss.only", value: "securities"),
+                URLQueryItem(name: "iss.meta", value: "off"),
+                URLQueryItem(name: "history.columns", value: "SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID"),
+                URLQueryItem(name: "limit", value: "100"),
+                URLQueryItem(name: "start", value: "0")
+            ]
+        }
+        
+        return components.url
+    }
+}
+
 class NetworkManager {
     
     private enum NetworkConstants {
@@ -8,11 +42,6 @@ class NetworkManager {
     private enum GIError: Error {
         case error
     }
-    private let baseURL = "https://iss.moex.com/iss/history/engines/stock/markets/"
-    private let columnsForTicker = "&iss.meta=off&candles.columns=close,volume,end"
-    private let candles = "/candles.json?iss.only=securities&"
-    private let sessions = "/sessions/3/securities.json?iss.only=securities&iss.meta=off"
-    private let columnsForStock = "&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100"
     // MARK: - Singleton
     
     static let shared = NetworkManager()
@@ -26,9 +55,9 @@ class NetworkManager {
         till: String,
         interval: Int
     ) async throws -> [PricesModel] {
-        let url = self.baseURL + parameter + "/securities/\(ticker)" + self.candles + "from=\(from)&till=\(till)" + self.columnsForTicker
         
-        guard let URL = URL(string: url) else {
+        let url = StockRequest.price(market: parameter, ticker: ticker, from: from, till: till)
+        guard let URL = url.url else {
             throw GIError.error
         }
         var request = URLRequest(url: URL)
@@ -46,12 +75,10 @@ class NetworkManager {
     }
     
     func getPricesForStock(parameter: String) async throws -> [StockModel] {
-        let url = self.baseURL + parameter + self.sessions + self.columnsForStock
-        
-        guard let URL = URL(string: url) else {
+        let url = StockRequest.stock(market: parameter)
+        guard let URL = url.url else {
             throw GIError.error
         }
-        print(url)
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
         let (data, _) = try await URLSession.shared.data(for: request)
