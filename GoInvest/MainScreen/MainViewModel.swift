@@ -4,23 +4,23 @@ import RxCocoa
 
 enum StockState: String {
     
-    case indexes
     case shares
+    case index
     case bonds
     
 }
 
 protocol MainViewModel {
 
-    var cellTapped: Signal<Void> { get }
+    var cellTapped: Signal<SecuritiesTransferModel> { get }
     var updateSnapshot: Signal<Bool> { get }
 
     var displayItems: [StockDisplayItem] { get }
     var responseItems: [StockDisplayItem] { get }
     
-    var market: StockState { get set }
+    var stockState: StockState { get set }
 
-    func handleItemSelection()
+    func handleItemSelection(item: StockDisplayItem, stockState: StockState)
     func fetchData(parameters: StockState) async
     func chooseStockStateData(stockState: StockState)
     func searchItems(for query: String?)
@@ -32,16 +32,16 @@ final class MainViewModelImpl: MainViewModel {
     // MARK: - Public properties
 
     /// Эти проперти кастятся к Signal, чтобы работать в main потоке на ViewController
-    var cellTapped: Signal<Void> { _cellTapped.asSignal() }
+    var cellTapped: Signal<SecuritiesTransferModel> { _cellTapped.asSignal() }
     var updateSnapshot: Signal<Bool> { _updateSnapshot.asSignal() }
 
     var displayItems: [StockDisplayItem] = []
     var responseItems: [StockDisplayItem] = []
     
     private let _updateSnapshot = PublishRelay<Bool>()
-    private let _cellTapped = PublishRelay<Void>()
+    private let _cellTapped = PublishRelay<SecuritiesTransferModel>()
 
-    var market: StockState = .shares
+    var stockState: StockState = .shares
     
     // MARK: - Private properties
 
@@ -53,15 +53,22 @@ final class MainViewModelImpl: MainViewModel {
         self.useCase = useCase
         
         Task {
-            await fetchData(parameters: .indexes)
+            await fetchData(parameters: .shares)
             _updateSnapshot.accept((true))
         }
     }
 
     // MARK: - Public methods
 
-    func handleItemSelection() {
-        _cellTapped.accept(())
+    func handleItemSelection(item: StockDisplayItem, stockState: StockState) {
+        let securitiesTranferModel = SecuritiesTransferModel(title: item.name, 
+                                                             subtitle: item.shortName,
+                                                             ticker: item.shortName,
+                                                             stockState: stockState,
+                                                             isFavorite: item.isFavorite,
+                                                             priceChange: item.priceChange,
+                                                             price: item.closePrice)
+        _cellTapped.accept((securitiesTranferModel))
     }
     
     func chooseStockStateData(stockState: StockState) {
@@ -91,7 +98,7 @@ final class MainViewModelImpl: MainViewModel {
             self.responseItems = try await prepareDisplayItems(stockModels: self.useCase.get(parameters: parameters))
             self.displayItems = responseItems
             
-            self.market = parameters
+            self.stockState = parameters
         } catch {
             self.responseItems = []
         }
@@ -118,8 +125,7 @@ final class MainViewModelImpl: MainViewModel {
                              closePrice: closePrice,
                              highPrice: highPrice,
                              lowPrice: lowPrice,
-                             boardID: boardID
-                            ) // trendclspr: $0.trendclspr
+                             boardID: boardID)
         }
     }
     

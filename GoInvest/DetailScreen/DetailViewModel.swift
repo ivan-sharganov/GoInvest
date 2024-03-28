@@ -2,31 +2,40 @@ import Foundation
 
 protocol DetailViewModel {
     
-    func transformPricesToPointModels(data: [PricesModel] ) -> PointsModel
+    var allPoints: [String: PointsModel]? { get }
+    var pointsModel: PointsModel? { get }
+    var pricesData: [PricesModel] { get }
+    var displayItem: SecuritiesDisplayItem { get }
     
-    func fetchDataForTicker(ticker: String, parameter: StockState, interval: Int) async
+    func transformPricesToPointModels(data: [PricesModel] ) -> PointsModel
+    func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues, interval: Int) async
     
 }
 
-class DetailViewModelImpl: DetailViewModel {
+final class DetailViewModelImpl: DetailViewModel {
     
     var allPoints: [String: PointsModel]?
-    
     var pointsModel: PointsModel?
-    
     var pricesData = [PricesModel]()
+    var displayItem: SecuritiesDisplayItem
     
     let useCase: DetailUseCase
     
     // MARK: - Life cycle
 
-    init(useCase: DetailUseCase) {
+    init(transferModel: SecuritiesTransferModel, useCase: DetailUseCase) {
         self.useCase = useCase
+        self.displayItem = SecuritiesDisplayItem(title: transferModel.title,
+                                                 subtitle: transferModel.subtitle,
+                                                 priceChange: transferModel.priceChange,
+                                                 price: transferModel.price)
         
         Task {
-            await fetchDataForTicker(ticker: "YNDX", parameter: .shares) // TODO: Кирилл, пробрось данные сюда
+            await fetchDataForTicker(ticker: transferModel.ticker,
+                                     parameter: transferModel.stockState)
         }
     }
+    
     /// Функция перевода данных к виду для графиков
     func transformPricesToPointModels( data: [PricesModel] ) -> PointsModel {
         var pointsModel = PointsModel(points: [])
@@ -40,11 +49,21 @@ class DetailViewModelImpl: DetailViewModel {
         return pointsModel
     }
     
-    public func fetchDataForTicker(ticker: String, parameter: StockState, interval: Int = 20 ) async {
+    public func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues = .oneDay, interval: Int = 20) async {
+        print(ticker)
+        print(parameter.rawValue)
+        print(range.rawValue)
+        print(interval)
         do {
-            self.pricesData = try await self.useCase.get(ticker: ticker, parameter: parameter, range: .oneDay, interval: interval)
+            self.pricesData = try await self.useCase.get(ticker: ticker,
+                                                         parameter: parameter,
+                                                         range: .oneDay,
+                                                         interval: interval)
+            print(self.pricesData)
         } catch {
+            print(error.localizedDescription)
             self.pricesData = [PricesModel]()
         }
     }
+    
 }

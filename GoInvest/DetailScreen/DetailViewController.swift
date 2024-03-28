@@ -17,14 +17,15 @@ final class DetailViewController: UIViewController {
     
     private lazy var buyButton: UIButton = {
         let button = ReusableButton(title: NSLocalizedString("buy", comment: ""), fontSize: 17, onBackgroundColor: .buttonBackground, offBackgroundColor: .buttonBackground, onTitleColor: .buttonTitle, offTitleColor: .buttonTitle)
-        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
     private lazy var priceView: HorizontalPriceView = {
         let view = HorizontalPriceView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.price = viewModel.displayItem.price
+        view.priceDifference = viewModel.displayItem.priceChange
         
         return view
     }()
@@ -54,10 +55,14 @@ final class DetailViewController: UIViewController {
         guard let hostingMainView = hostingMainViewController.view,
               let hostingAdditionalView = hostingAdditionalViewController.view else { return }
         
+        self.title = "\(viewModel.displayItem.title) (\(viewModel.displayItem.subtitle))"
+        
         hostingMainView.translatesAutoresizingMaskIntoConstraints = false
         hostingAdditionalView.translatesAutoresizingMaskIntoConstraints = false
+        buyButton.translatesAutoresizingMaskIntoConstraints = false
+        priceView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.backgroundColor = .background
+        self.view.backgroundColor = .background
         self.navigationController?.isNavigationBarHidden = false
         
         view.addSubview(hostingMainView)
@@ -93,6 +98,7 @@ final class DetailViewController: UIViewController {
         let rightBarButtonItem = UIBarButtonItem(image: favoritesBarButton, style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setupFavoriteButton(isFavorite: Bool) -> UIImage? {

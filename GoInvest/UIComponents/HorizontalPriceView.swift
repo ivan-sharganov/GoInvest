@@ -23,8 +23,8 @@ final class HorizontalPriceView: UIView {
     var priceDifference: Double = 0 {
         didSet {
             var differenceString = priceDifference >= 0 ? "+" : ""
-            differenceString += String(format: "%.2f", priceDifference)
-            differenceString += " (" + String(format: "%.2f", differencePercentage) + "%)"
+            differenceString += String(format: "%.2f", differencePercentage)
+            differenceString += " (" + String(format: "%.2f", priceDifference) + "%)"
             priceDifferenceLabel.text = differenceString
             priceDifferenceLabel.textColor = priceDifference >= 0 ? .systemGreen : .systemRed
         }
@@ -36,8 +36,7 @@ final class HorizontalPriceView: UIView {
     private let priceDifferenceLabel = UILabel()
     
     private var differencePercentage: Double {
-        let previousPrice = price - priceDifference
-        return priceDifference / previousPrice * 100
+        priceDifference >= 0 ? price * (priceDifference / 100) : price * (priceDifference / 100)
     }
 
     // MARK: - Life cycle
