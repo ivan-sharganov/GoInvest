@@ -221,7 +221,10 @@ func createConfettiLayer(view: UIView) -> CAEmitterLayer {
     
     emitterLayer.birthRate = 0
     emitterLayer.emitterCells = createConfettiCells()
-    emitterLayer.emitterPosition = CGPoint(x: view.bounds.midX, y: view.bounds.minY - 100)
+    // снизу вверх
+    // emitterLayer.emitterPosition = CGPoint(x: view.bounds.midX, y: view.bounds.minY - 100)
+    // снизу вверх
+    emitterLayer.emitterPosition = CGPoint(x: view.bounds.midX, y: view.bounds.maxY + 20)
     emitterLayer.emitterSize = CGSize(width: 100, height: 100)
     emitterLayer.emitterShape = .sphere
     emitterLayer.frame = view.bounds

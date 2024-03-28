@@ -25,7 +25,6 @@ final class DetailViewController: UIViewController {
     private lazy var priceView: HorizontalPriceView = {
         let view = HorizontalPriceView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         return view
     }()
     
@@ -33,13 +32,6 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.view
-        let array = [backgroundConfettiLayer(view: self.view), createConfettiLayer(view: self.view)]
-        for layer in array {
-            view.layer.addSublayer(layer)
-            addBehaviors(to: layer)
-            addAnimations(to: layer)
-        }
         setupUI()
     }
     
@@ -70,6 +62,7 @@ final class DetailViewController: UIViewController {
         view.addSubview(hostingAdditionalView)
         view.addSubview(buyButton)
         view.addSubview(priceView)
+        self.buyButton.addTarget(nil, action: #selector(tapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             self.priceView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
@@ -92,6 +85,18 @@ final class DetailViewController: UIViewController {
         ])
         
         configureNavigationBar()
+    }
+    private func firework() {
+        let array = [backgroundConfettiLayer(view: self.view), createConfettiLayer(view: self.view)]
+        for layer in array {
+            view.layer.addSublayer(layer)
+            addBehaviors(to: layer)
+            addAnimations(to: layer)
+        }
+    }
+    
+    @objc private func tapped() {
+        self.firework()
     }
     
     private func configureNavigationBar() {
