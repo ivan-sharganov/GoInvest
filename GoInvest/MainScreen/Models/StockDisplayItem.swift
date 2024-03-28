@@ -1,6 +1,6 @@
 import Foundation
 
-struct StockDisplayItem: Hashable {
+struct StockDisplayItem: Hashable, Decodable {
     
     var name: String
     var shortName: String
