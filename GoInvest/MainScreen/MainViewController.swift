@@ -96,12 +96,13 @@ final class MainViewController: UIViewController {
     // MARK: - Private methods
 
     private func setupBindings() {
+        // подписка на нажатия стека
         horizontalButtonStack.subject
             .drive(onNext: { [weak self] stockState in
-                self?.viewModel.chooseStockStateData(stockState: stockState)
+                self?.viewModel.didChooseStockStateData(stockState: stockState)
             })
 //            .subscribe(onNext: { [weak self] stockState in
-//                self?.viewModel.chooseStockStateData(stockState: stockState)
+//                self?.viewModel.didChooseStockStateData(stockState: stockState)
 //            })
             .disposed(by: bag)
         
@@ -112,8 +113,8 @@ final class MainViewController: UIViewController {
             .disposed(by: bag)
         
         viewModel.updateSnapshot
-            .emit(onNext: { [weak self] result in
-                self?.updateSnapshot(animatingDifferences: result)
+            .emit(onNext: { [weak self] isAnimated in
+                self?.updateSnapshot(animatingDifferences: isAnimated)
             })
             .disposed(by: bag)
     }
@@ -200,7 +201,7 @@ fileprivate extension MainViewController {
 
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.displayItems, toSection: 0)
-
+        // обновляет UIесли новое ест
         diffableDataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }

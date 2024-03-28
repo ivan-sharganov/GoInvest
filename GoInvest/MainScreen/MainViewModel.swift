@@ -22,7 +22,7 @@ protocol MainViewModel {
 
     func handleItemSelection(item: StockDisplayItem, stockState: StockState)
     func fetchData(parameters: StockState) async
-    func chooseStockStateData(stockState: StockState)
+    func didChooseStockStateData(stockState: StockState)
     func searchItems(for query: String?)
 
 }
@@ -71,10 +71,10 @@ final class MainViewModelImpl: MainViewModel {
         _cellTapped.accept((securitiesTranferModel))
     }
     
-    func chooseStockStateData(stockState: StockState) {
+    func didChooseStockStateData(stockState: StockState) {
         Task {
             await fetchData(parameters: stockState) // TODO: Сделать еще 5 запросов после этого
-            _updateSnapshot.accept((false))
+            _updateSnapshot.accept((false)) // анимация
         }
     }
         
