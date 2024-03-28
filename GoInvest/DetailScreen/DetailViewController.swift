@@ -30,6 +30,28 @@ final class DetailViewController: UIViewController {
         return view
     }()
     
+    private lazy var rangesHStack: HorizontalButtonStack = {
+        let stack = HorizontalButtonStack(
+            titles:
+                GraphRangeValues.allCases.map {$0.stringValue}
+            ,
+            size: .small
+        )
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private lazy var functionsHStack: HorizontalButtonStack = {
+        let stack = HorizontalButtonStack(
+            titles:
+                MathFunctions.allCases.map {$0.rawValue}
+            ,
+            size: .small
+        )
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -39,7 +61,7 @@ final class DetailViewController: UIViewController {
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
-
+        print(viewModel.allPoints)
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -69,26 +91,39 @@ final class DetailViewController: UIViewController {
         view.addSubview(hostingAdditionalView)
         view.addSubview(buyButton)
         view.addSubview(priceView)
+        view.addSubview(rangesHStack)
+        view.addSubview(functionsHStack)
         self.buyButton.addTarget(nil, action: #selector(tapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             self.priceView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.priceView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
             
-            self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
-            self.buyButton.heightAnchor.constraint(equalToConstant: 50),
-            self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            self.rangesHStack.topAnchor.constraint(equalTo: self.priceView.bottomAnchor, constant: 4 ),
+            self.rangesHStack.leadingAnchor.constraint(equalTo: self.priceView.leadingAnchor),
+            self.rangesHStack.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.rangesHStack.heightAnchor.constraint(equalToConstant: 36),
             
             hostingMainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
             hostingMainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
-            hostingMainView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 45),
+            hostingMainView.topAnchor.constraint(equalTo: self.rangesHStack.bottomAnchor, constant: 8),
             hostingMainView.heightAnchor.constraint(equalToConstant: 250),
             
             hostingAdditionalView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
             hostingAdditionalView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             hostingAdditionalView.topAnchor.constraint(equalTo: hostingMainView.bottomAnchor, constant: 10),
-            hostingAdditionalView.heightAnchor.constraint(equalToConstant: 100)
+            hostingAdditionalView.heightAnchor.constraint(equalToConstant: 100),
+            
+            self.functionsHStack.topAnchor.constraint(equalTo: hostingAdditionalView.bottomAnchor, constant: 20),
+            self.functionsHStack.leadingAnchor.constraint(equalTo: rangesHStack.leadingAnchor),
+            self.functionsHStack.trailingAnchor.constraint(equalTo: rangesHStack.trailingAnchor),
+            self.functionsHStack.heightAnchor.constraint(equalTo: rangesHStack.heightAnchor),
+            
+            self.buyButton.topAnchor.constraint(greaterThanOrEqualTo: functionsHStack.bottomAnchor, constant: -16),
+            self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
+            self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
+            self.buyButton.heightAnchor.constraint(equalToConstant: 50),
+            self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
         
         configureNavigationBar()
