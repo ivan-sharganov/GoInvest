@@ -1,6 +1,6 @@
 import Foundation
 
-struct StockDisplayItem: Hashable {
+struct StockDisplayItem: Hashable, Decodable {
     
     var name: String
     var shortName: String
@@ -9,7 +9,8 @@ struct StockDisplayItem: Hashable {
     var highPrice: Double
     var lowPrice: Double
     var boardID: String
-    var isFavorite: Bool = false
+//    var trendclspr: Double?
+    var isFavourite: Bool = false
     
     var priceChange: Double {
         Double(100) - (openPrice / closePrice) * Double(100)
