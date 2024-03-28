@@ -12,7 +12,7 @@ final class FirebaseManager {
     
     enum ItemKind {
         case bought
-        case favourite
+        case favorite
     }
     
     private enum Fields: String {
@@ -23,7 +23,7 @@ final class FirebaseManager {
         case highPrice
         case lowPrice
         case boardID
-        case isFavourite
+        case isFavorite
         case rate
     }
     
@@ -40,12 +40,12 @@ final class FirebaseManager {
     // MARK: Private properties
     
     private let database = Firestore.firestore()
-    private var pathToFavourites: String {
+    private var pathToFavorites: String {
         get throws {
             guard let currentUserId = FirebaseAuth.Auth.auth().currentUser?.uid else {
                 throw FirebaseError.noCurrentUser
             }
-            return "favourites/\(currentUserId)/"
+            return "favorites/\(currentUserId)/"
         }
     }
     private var pathToBought: String {
@@ -97,7 +97,7 @@ final class FirebaseManager {
                 Fields.highPrice.rawValue: item.highPrice,
                 Fields.lowPrice.rawValue: item.lowPrice,
                 Fields.boardID.rawValue: item.boardID,
-                Fields.isFavourite.rawValue: item.isFavourite,
+                Fields.isFavorite.rawValue: item.isFavorite,
             ]
             reference?.setData(documentData)
         }
@@ -115,8 +115,8 @@ final class FirebaseManager {
         var reference: CollectionReference?
         do {
             switch kind {
-            case .favourite:
-                reference = try database.collection(pathToFavourites + "items")
+            case .favorite:
+                reference = try database.collection(pathToFavorites + "items")
             case .bought:
                 reference = try database.collection(pathToBought + "items")
             }
@@ -131,8 +131,8 @@ final class FirebaseManager {
         var reference: DocumentReference?
         do {
             switch kind {
-            case .favourite:
-                reference = try database.document(pathToFavourites +  "items/" + shortName)
+            case .favorite:
+                reference = try database.document(pathToFavorites +  "items/" + shortName)
             case .bought:
                 reference = try database.document(pathToBought +  "items/" + shortName)
             }
