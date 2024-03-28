@@ -1,12 +1,12 @@
 import Foundation
 
-struct StockData {
+struct StockData: Codable {
 
     let stocksModels: [StockModel]
 
 }
 
-struct StockModel: Hashable {
+struct StockModel: Hashable, Codable {
 
     /// Название компании
     var shortName: String?
@@ -28,4 +28,8 @@ struct StockModel: Hashable {
     
     var boardID: String?
 
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ticker)
+    }
+    
 }

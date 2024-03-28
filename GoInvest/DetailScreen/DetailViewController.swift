@@ -34,7 +34,6 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     
@@ -69,6 +68,7 @@ final class DetailViewController: UIViewController {
         view.addSubview(hostingAdditionalView)
         view.addSubview(buyButton)
         view.addSubview(priceView)
+        self.buyButton.addTarget(nil, action: #selector(tapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             self.priceView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
@@ -91,6 +91,10 @@ final class DetailViewController: UIViewController {
         ])
         
         configureNavigationBar()
+    }
+    
+    @objc private func tapped() {
+        Fireworks.fireworks(view: self.tabBarController?.view ?? UIView())
     }
     
     private func configureNavigationBar() {

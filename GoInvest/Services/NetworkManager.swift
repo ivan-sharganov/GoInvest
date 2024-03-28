@@ -22,7 +22,7 @@ class NetworkManager {
         till: String,
         interval: Int
     ) async throws -> [PricesModel] {
-        
+        // TODO: по красоте сделать
         var url = "https://iss.moex.com/iss/engines/stock/markets/\(parameter)/securities/\(ticker)/candles.json?iss"
         url +=
         ".only=securities&from=\(from)&till=\(till)"
@@ -48,6 +48,7 @@ class NetworkManager {
     }
     
     func getPricesForStock(parameter: String) async throws -> [StockModel] {
+        // TODO: по красоте сделать
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/sessions/3/securities.json?iss"
         url +=
         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100&start=0"
@@ -71,7 +72,9 @@ class NetworkManager {
             $0.close != nil &&
             $0.high != nil &&
             $0.low != nil &&
-            $0.boardID != nil
+            $0.boardID != nil &&
+            $0.open != $0.close &&
+            $0.high != $0.low
         }
     }
     

@@ -73,7 +73,7 @@ final class MainViewModelImpl: MainViewModel {
     
     func chooseStockStateData(stockState: StockState) {
         Task {
-            await fetchData(parameters: stockState)
+            await fetchData(parameters: stockState) // TODO: Сделать еще 5 запросов после этого
             _updateSnapshot.accept((false))
         }
     }
