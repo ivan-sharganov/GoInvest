@@ -44,7 +44,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pod install --repo-update
+        pod install
       shell: bash
 
     - name: Build
