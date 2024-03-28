@@ -1,13 +1,13 @@
 import UIKit
 
-protocol Routable {
+protocol MainRoutable {
 
-    func pushNext()
+    func pushNext(transferModel: SecuritiesTransferModel)
     func back()
 
 }
 
-final class MainRouter: Routable {
+final class MainRouter: MainRoutable {
 
     // MARK: - Private properties
 
@@ -21,10 +21,9 @@ final class MainRouter: Routable {
 
     // MARK: - Public methods
 
-    func pushNext() {
-        let detailViewController = DetailViewController(
-            viewModel: DetailViewModelImpl(useCase: DetailUseCaseImpl(repository: DetailRepositoryImpl()))
-        )
+    func pushNext(transferModel: SecuritiesTransferModel) {
+        let viewModel = DetailViewModelImpl(transferModel: transferModel, useCase: DetailUseCaseImpl(repository: DetailRepositoryImpl()))
+        let detailViewController = DetailViewController(viewModel: viewModel)
 
         viewController?.navigationController?.pushViewController(detailViewController, animated: true)
     }

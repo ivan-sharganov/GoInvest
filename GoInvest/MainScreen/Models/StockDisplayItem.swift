@@ -12,6 +12,10 @@ struct StockDisplayItem: Hashable, Decodable {
 //    var trendclspr: Double?
     var isFavourite: Bool = false
     
+    var priceChange: Double {
+        Double(100) - (openPrice / closePrice) * Double(100)
+    }
+    
     var rate: Double {
         abs((openPrice - closePrice) / (highPrice - lowPrice)) * 10
     }

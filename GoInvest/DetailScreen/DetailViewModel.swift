@@ -2,34 +2,42 @@ import Foundation
 
 protocol DetailViewModel {
     
-    func transformPricesToPointModels(data: [PricesModel], range: Int) -> PointsModel
+    var allPoints: [String: PointsModel]? { get }
+    var pointsModel: PointsModel? { get }
+    var pricesData: [PricesModel] { get }
+    var displayItem: SecuritiesDisplayItem { get }
     
-    func fetchDataForTicker(stockItem: StockDisplayItem) async
+    func transformPricesToPointModels(data: [PricesModel] ) -> PointsModel
+    func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues, interval: Int) async
     
 }
 
-class DetailViewModelImpl: DetailViewModel {
+final class DetailViewModelImpl: DetailViewModel {
     
     var allPoints: [String: PointsModel]?
-    
     var pointsModel: PointsModel?
-    
     var pricesData = [PricesModel]()
+    var displayItem: SecuritiesDisplayItem
     
     let useCase: DetailUseCase
     
     // MARK: - Life cycle
 
-    init(useCase: DetailUseCase) {
+    init(transferModel: SecuritiesTransferModel, useCase: DetailUseCase) {
         self.useCase = useCase
+        self.displayItem = SecuritiesDisplayItem(title: transferModel.title,
+                                                 subtitle: transferModel.subtitle,
+                                                 priceChange: transferModel.priceChange,
+                                                 price: transferModel.price)
         
         Task {
-            /// получить из роутера stockItem - сделать поле во вью моделе???/
-//            await fetchDataForTicker(stockItem: StockDisplayItem() )
+            await fetchDataForTicker(ticker: transferModel.ticker,
+                                     parameter: transferModel.stockState)
         }
     }
+    
     /// Функция перевода данных к виду для графиков
-    func transformPricesToPointModels( data: [PricesModel], range: Int = 0 ) -> PointsModel {
+    func transformPricesToPointModels( data: [PricesModel] ) -> PointsModel {
         var pointsModel = PointsModel(points: [])
         for i in data {
             guard let x = i.date, let y = i.close else {
@@ -41,12 +49,21 @@ class DetailViewModelImpl: DetailViewModel {
         return pointsModel
     }
     
-    public func fetchDataForTicker(stockItem: StockDisplayItem) async {
+    public func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues = .oneDay, interval: Int = 20) async {
+        print(ticker)
+        print(parameter.rawValue)
+        print(range.rawValue)
+        print(interval)
         do {
-//            let mockStockItem = StockDisplayItem(shortName: "YNDX")
-            self.pricesData = try await self.useCase.get(stockItem: stockItem, parameter: .shares, range: .oneDay, board: "TQBR", interval: 12)
+            self.pricesData = try await self.useCase.get(ticker: ticker,
+                                                         parameter: parameter,
+                                                         range: .oneDay,
+                                                         interval: interval)
+            print(self.pricesData)
         } catch {
+            print(error.localizedDescription)
             self.pricesData = [PricesModel]()
         }
     }
+    
 }

@@ -1,6 +1,13 @@
 import UIKit
 
-final class LoginRouter: Routable {
+protocol LoginRoutable {
+    
+    func pushNext()
+    func back()
+    
+}
+
+final class LoginRouter: LoginRoutable {
     
     // MARK: - Private properties
 

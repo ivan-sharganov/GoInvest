@@ -13,7 +13,7 @@ final class MainViewController: UIViewController {
     private var isPressed = false
     private var viewModel: MainViewModel
     private let bag = DisposeBag()
-    private lazy var router: Routable = MainRouter(viewController: self)
+    private lazy var router: MainRoutable = MainRouter(viewController: self)
     private lazy var diffableDataSource = createDiffableDataSource()
 
     // MARK: - UI
@@ -30,8 +30,8 @@ final class MainViewController: UIViewController {
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(
             titles: [
-                NSLocalizedString("indexes", comment: ""),
                 NSLocalizedString("shares", comment: ""),
+                NSLocalizedString("indexes", comment: ""),
                 NSLocalizedString("bonds", comment: ""),
             ],
             size: .small
@@ -39,6 +39,7 @@ final class MainViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    
     private lazy var navItem: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(
             titles: [
@@ -96,19 +97,22 @@ final class MainViewController: UIViewController {
 
     private func setupBindings() {
         horizontalButtonStack.subject
-            .subscribe(onNext: { [weak self] stockState in
+            .drive(onNext: { [weak self] stockState in
                 self?.viewModel.chooseStockStateData(stockState: stockState)
             })
+//            .subscribe(onNext: { [weak self] stockState in
+//                self?.viewModel.chooseStockStateData(stockState: stockState)
+//            })
             .disposed(by: bag)
         
         viewModel.cellTapped
-            .subscribe(onNext: { [weak self] in
-                self?.router.pushNext()
+            .emit(onNext: { [weak self] securitiesTranferModel in
+                self?.router.pushNext(transferModel: securitiesTranferModel)
             })
             .disposed(by: bag)
         
         viewModel.updateSnapshot
-            .subscribe(onNext: { [weak self] result in
+            .emit(onNext: { [weak self] result in
                 self?.updateSnapshot(animatingDifferences: result)
             })
             .disposed(by: bag)
@@ -128,18 +132,18 @@ final class MainViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             self.navItem.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.navItem.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.navItem.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.navItem.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 4),
+            self.navItem.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -4),
             
-            self.horizontalButtonStack.topAnchor.constraint(equalTo: self.navItem.bottomAnchor, constant: 5),
-            self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            self.horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            self.horizontalButtonStack.topAnchor.constraint(equalTo: self.navItem.bottomAnchor, constant: -5),
+            self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 14),
+            self.horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -14),
             self.horizontalButtonStack.heightAnchor.constraint(equalToConstant: 36),
             
             self.searchBar.topAnchor.constraint(equalTo: self.horizontalButtonStack.bottomAnchor, constant: 8),
             self.searchBar.heightAnchor.constraint(equalToConstant: 35),
-            self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 7),
-            self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -7),
+            self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
+            self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
             self.searchBar.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
 
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -151,7 +155,7 @@ final class MainViewController: UIViewController {
     private func setupTabBarItem() {
         let imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let imageScale = 1.6
-        let imageName = "list.bullet"
+        let imageName = "newspaper"
         
         let inactiveImage = UIImage(systemName: imageName)?
             .withRenderingMode(.alwaysTemplate)
@@ -181,7 +185,7 @@ fileprivate extension MainViewController {
             configuration.fullName = item.name
             configuration.shortName = item.shortName
             configuration.price = item.closePrice
-            configuration.priceChange = 52.2
+            configuration.priceChange = item.priceChange
             configuration.rate = item.rate
             cell.contentConfiguration = configuration
 
@@ -210,12 +214,14 @@ extension MainViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.handleItemSelection()
+        viewModel.handleItemSelection(item: viewModel.displayItems[indexPath.row],
+                                      stockState: viewModel.stockState)
     }
 
 }
 
 // MARK: - UISearchBarDelegate
+
 extension MainViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

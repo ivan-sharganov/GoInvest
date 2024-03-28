@@ -13,16 +13,18 @@ final class HorizontalButtonStack: UIStackView {
     
     private struct Constants {
         static let spacing: CGFloat = 8
-        static let largeFontSize: CGFloat = 17
-        static let smallFontSize: CGFloat = 38
-        static let distribution: UIStackView.Distribution = .fillEqually
+        static let largeFontSize: CGFloat = 38
+        static let smallFontSize: CGFloat = 17 
+        static let distribution: UIStackView.Distribution = .fillProportionally
         static let axis: NSLayoutConstraint.Axis = .horizontal
     }
 
     // MARK: - Public properties
 
     /// Sends current selected button index. Start value is zero.
-    let subject = BehaviorRelay<StockState>(value: .indexes)
+    /// 
+    var subject: Driver<StockState> { _subject.asDriver() }
+    let _subject = BehaviorRelay<StockState>(value: .shares)
     let titles: [String]
 
     // MARK: - Private properties
@@ -47,7 +49,7 @@ final class HorizontalButtonStack: UIStackView {
         self?.selectedButtonIndex = senderIndex
         
         guard let currentState = self?.prepareState(value: senderIndex) else { return }
-        self?.subject.accept(currentState)
+        self?._subject.accept(currentState)
     }
 
     // MARK: - Initialization
@@ -72,22 +74,24 @@ final class HorizontalButtonStack: UIStackView {
             case .small:
                 button = ReusableButton(
                     title: title,
-                    fontSize: 17,
+                    fontSize: Constants.smallFontSize,
                     onBackgroundColor: .onTabBackground,
                     offBackgroundColor: .offTabBackground,
                     onTitleColor: .inversedLabel,
                     offTitleColor: .label
                 )
+                self.distribution = .fillEqually
                 
             case .large:
                 button = ReusableButton(
                     title: title,
-                    fontSize: 38,
+                    fontSize: Constants.largeFontSize,
                     onBackgroundColor: .background,
                     offBackgroundColor: .background,
                     onTitleColor: .label,
                     offTitleColor: .offLargeTabTitle
                 )
+                self.distribution = .fillProportionally
             }
             button.addAction(buttonAction, for: .touchUpInside)
             
@@ -98,7 +102,6 @@ final class HorizontalButtonStack: UIStackView {
 
     private func prepareUI() {
         axis = Constants.axis
-        distribution = Constants.distribution
         spacing = Constants.spacing
         
         buttons.forEach { button in
@@ -109,9 +112,9 @@ final class HorizontalButtonStack: UIStackView {
     private func prepareState(value: Int) -> StockState? {
         switch value {
         case 0:
-            return .indexes
-        case 1:
             return .shares
+        case 1:
+            return .index
         case 2:
             return .bonds
         default:

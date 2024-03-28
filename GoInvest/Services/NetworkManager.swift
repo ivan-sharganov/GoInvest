@@ -8,7 +8,11 @@ class NetworkManager {
     private enum GIError: Error {
         case error
     }
-    
+    private let baseURL = "https://iss.moex.com/iss/engines/stock/markets/"
+    private let columnsForTicker = "&iss.meta=off&candles.columns=close,volume,end"
+    private let candles = "/candles.json?iss.only=securities&"
+    private let sessions = "/sessions/3/securities.json?iss.only=securities&iss.meta=off"
+    private let columnsForStock = "&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100"
     // MARK: - Singleton
     
     static let shared = NetworkManager()
@@ -17,17 +21,12 @@ class NetworkManager {
     
     func getPricesForTicker(
         parameter: String,
-        board: String,
         ticker: String,
         from: String,
         till: String,
         interval: Int
     ) async throws -> [PricesModel] {
-        
-        var url = "https://iss.moex.com/iss/engines/stock/markets/\(parameter)/securities/\(ticker)/candles.json?iss"
-        url +=
-        ".only=securities&from=\(from)&till=\(till)"
-        url += "&iss.meta=off&candles.columns=close,volume,end"
+        let url = self.baseURL + parameter + "/securities/\(ticker)" + self.candles + "from=\(from)&till=\(till)" + self.columnsForTicker
         
         guard let URL = URL(string: url) else {
             throw GIError.error
@@ -39,6 +38,8 @@ class NetworkManager {
             throw GIError.error
         }
         
+        print(answer.candles.data)
+        
         return self.transformPriceData(from: answer.candles.data).pricesModel.filter {
             $0.close != nil &&
             $0.date != nil &&
@@ -47,9 +48,7 @@ class NetworkManager {
     }
     
     func getPricesForStock(parameter: String) async throws -> [StockModel] {
-        var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/sessions/3/securities.json?iss"
-        url +=
-        ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100&start=0"
+        let url = self.baseURL + parameter + self.sessions + self.columnsForStock
         
         guard let URL = URL(string: url) else {
             throw GIError.error
@@ -58,6 +57,7 @@ class NetworkManager {
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
         let (data, _) = try await URLSession.shared.data(for: request)
+        
         guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
             throw GIError.error
         }
@@ -69,7 +69,9 @@ class NetworkManager {
             $0.close != nil &&
             $0.high != nil &&
             $0.low != nil &&
-            $0.boardID != nil
+            $0.boardID != nil &&
+            $0.open != $0.close &&
+            $0.high != $0.low
         }
     }
     
@@ -109,6 +111,7 @@ class NetworkManager {
             }
             outD.append(price)
         }
+        
         return PricesData(pricesModel: outD)
     }
     
