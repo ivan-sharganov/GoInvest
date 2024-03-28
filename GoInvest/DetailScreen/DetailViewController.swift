@@ -5,12 +5,12 @@ final class DetailViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private let suiViewMain = GraphSUIViewMain()
-    private let suiViewAdditional = GraphSUIViewMain()
+//    private let suiViewMain = GraphSUIViewMain(pointsData: viewModel.)
+    private let suiViewAdditional: GraphSUIViewMain
     private var isFavorite: Bool = false // MARK: - TODO: УДАЛИТЬ КОГДА МОДУЛЬ БУДЕТ
     
-    private lazy var hostingMainViewController = UIHostingController(rootView: self.suiViewMain)
-    private lazy var hostingAdditionalViewController = UIHostingController(rootView: self.suiViewAdditional)
+    private lazy var hostingMainViewController = UIHostingController(rootView: self.suiViewAdditional)
+//    private lazy var hostingAdditionalViewController = UIHostingController(rootView: self.suiViewAdditional)
     private var viewModel: DetailViewModel
     
     // MARK: - UI
@@ -39,6 +39,11 @@ final class DetailViewController: UIViewController {
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
+        
+        let pointsData = viewModel.transformPricesToPointModels(data: viewModel.pricesData)
+        
+        self.suiViewAdditional = GraphSUIViewMain(pointsData: pointsData)
+        print(viewModel.pricesData)
 
         super.init(nibName: nil, bundle: nil)
         
@@ -51,13 +56,13 @@ final class DetailViewController: UIViewController {
     // MARK: - Private methods
     
     private func setupUI() {
-        guard let hostingMainView = hostingMainViewController.view,
-              let hostingAdditionalView = hostingAdditionalViewController.view else { return }
+        guard let hostingMainView = hostingMainViewController.view
+              /*let hostingAdditionalView = hostingAdditionalViewController.view*/ else { return }
         
         self.title = "\(viewModel.displayItem.title) (\(viewModel.displayItem.subtitle))"
         
         hostingMainView.translatesAutoresizingMaskIntoConstraints = false
-        hostingAdditionalView.translatesAutoresizingMaskIntoConstraints = false
+//        hostingAdditionalView.translatesAutoresizingMaskIntoConstraints = false
         buyButton.translatesAutoresizingMaskIntoConstraints = false
         priceView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -65,7 +70,7 @@ final class DetailViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         
         view.addSubview(hostingMainView)
-        view.addSubview(hostingAdditionalView)
+//        view.addSubview(hostingAdditionalView)
         view.addSubview(buyButton)
         view.addSubview(priceView)
         self.buyButton.addTarget(nil, action: #selector(tapped), for: .touchUpInside)
@@ -84,10 +89,10 @@ final class DetailViewController: UIViewController {
             hostingMainView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 45),
             hostingMainView.heightAnchor.constraint(equalToConstant: 250),
             
-            hostingAdditionalView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
-            hostingAdditionalView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
-            hostingAdditionalView.topAnchor.constraint(equalTo: hostingMainView.bottomAnchor, constant: 10),
-            hostingAdditionalView.heightAnchor.constraint(equalToConstant: 100)
+//            hostingAdditionalView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+//            hostingAdditionalView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
+//            hostingAdditionalView.topAnchor.constraint(equalTo: hostingMainView.bottomAnchor, constant: 10),
+//            hostingAdditionalView.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         configureNavigationBar()
