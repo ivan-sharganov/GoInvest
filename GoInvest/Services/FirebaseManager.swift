@@ -10,6 +10,11 @@ enum FirebaseError: Error {
 
 final class FirebaseManager {
     
+    enum ItemKind {
+        case bought
+        case favourite
+    }
+    
     private enum Fields: String {
         case name
         case shortName
@@ -35,12 +40,20 @@ final class FirebaseManager {
     // MARK: Private properties
     
     private let database = Firestore.firestore()
-    private var pathToUser: String {
+    private var pathToFavourites: String {
         get throws {
             guard let currentUserId = FirebaseAuth.Auth.auth().currentUser?.uid else {
                 throw FirebaseError.noCurrentUser
             }
-            return "users/\(currentUserId)/"
+            return "favourites/\(currentUserId)/"
+        }
+    }
+    private var pathToBought: String {
+        get throws {
+            guard let currentUserId = FirebaseAuth.Auth.auth().currentUser?.uid else {
+                throw FirebaseError.noCurrentUser
+            }
+            return "bought/\(currentUserId)/"
         }
     }
     
@@ -51,8 +64,8 @@ final class FirebaseManager {
     // MARK: - Public methods
     
     /// Asks firestore for collection of StockDisplayItem's for current user.
-    func getItems(completition: @escaping (Result<[StockDisplayItem], any Error>) -> Void) {
-        referenceToItems()?.getDocuments { snapshot, error in
+    func getItems(kind: ItemKind, completition: @escaping (Result<[StockDisplayItem], any Error>) -> Void) {
+        referenceToItems(kind: kind)?.getDocuments { snapshot, error in
             guard error == nil, let snapshot = snapshot else {
                 completition(Result.failure(error ?? FirebaseError.getSnapshotError))
                 return
@@ -73,9 +86,9 @@ final class FirebaseManager {
         }
     }
 
-    func addItems(_ items: [StockDisplayItem]) {
+    func addItems(_ items: [StockDisplayItem], kind: ItemKind) {
         items.forEach { item in
-            let reference = referenceToItem(shortName: item.shortName)
+            let reference = referenceToItem(shortName: item.shortName, kind: kind)
             let documentData: [String: Any] = [
                 Fields.name.rawValue: item.name,
                 Fields.shortName.rawValue: item.shortName,
@@ -85,24 +98,28 @@ final class FirebaseManager {
                 Fields.lowPrice.rawValue: item.lowPrice,
                 Fields.boardID.rawValue: item.boardID,
                 Fields.isFavourite.rawValue: item.isFavourite,
-                Fields.rate.rawValue: item.rate
             ]
             reference?.setData(documentData)
         }
     }
     
     /// Asks firestore for SINGLE item specified by it's shortName for current user
-    func getItem(shortName: String, completion: @escaping (Result<StockDisplayItem, any Error>) -> Void) {
-        let reference = referenceToItem(shortName: shortName)
+    func getItem(shortName: String, kind: ItemKind, completion: @escaping (Result<StockDisplayItem, any Error>) -> Void) {
+        let reference = referenceToItem(shortName: shortName, kind: kind)
         reference?.getDocument(as: StockDisplayItem.self, completion: completion)
     }
 
     // MARK: - Private methods
     
-    private func referenceToItems() -> CollectionReference? {
+    private func referenceToItems(kind: ItemKind) -> CollectionReference? {
         var reference: CollectionReference?
         do {
-            reference = try database.collection(pathToUser + "items")
+            switch kind {
+            case .favourite:
+                reference = try database.collection(pathToFavourites + "items")
+            case .bought:
+                reference = try database.collection(pathToBought + "items")
+            }
         } catch {
             print(error.localizedDescription)
         }
@@ -110,10 +127,15 @@ final class FirebaseManager {
         return reference
     }
 
-    private func referenceToItem(shortName: String) -> DocumentReference? {
+    private func referenceToItem(shortName: String, kind: ItemKind) -> DocumentReference? {
         var reference: DocumentReference?
         do {
-            reference = try database.document(pathToUser +  "items/" + shortName)
+            switch kind {
+            case .favourite:
+                reference = try database.document(pathToFavourites +  "items/" + shortName)
+            case .bought:
+                reference = try database.document(pathToBought +  "items/" + shortName)
+            }
         } catch {
             print(error.localizedDescription)
         }
