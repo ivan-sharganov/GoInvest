@@ -14,7 +14,8 @@ final class FirebaseManager {
         case closePrice
         case highPrice
         case lowPrice
-        case rate
+        case boardID
+        case isFavourite
     }
     
     // MARK: - Singletone
@@ -29,7 +30,7 @@ final class FirebaseManager {
             guard let currentUserId = FirebaseAuth.Auth.auth().currentUser?.uid else {
                 throw FirebaseError.noCurrentUser
             }
-            return "users/\(currentUserId)/items/"
+            return "users/\(currentUserId)/"
         }
     }
     
@@ -38,6 +39,17 @@ final class FirebaseManager {
     private init() {}
     
     // MARK: - Public methods
+    
+    func getItems() -> [StockDisplayItem] {
+//        let shortNames = referenceToItems()?.getDocuments(completion: { snapshot, error in
+//            if error == nil {
+//                snapshot?.documents.first?.data()
+//            } else {
+//                print(error?.localizedDescription)
+//            }
+//        })
+        []
+    }
     
     func addItems(_ items: [StockDisplayItem]) {
         items.forEach { item in
@@ -49,6 +61,8 @@ final class FirebaseManager {
                 "closePrice": item.closePrice,
                 "highPrice": item.highPrice,
                 "lowPrice": item.lowPrice,
+                "boardID": item.boardID,
+                "isFavourite": item.isFavourite,
                 "rate": item.rate
             ]
             reference?.setData(documentData)
@@ -56,15 +70,31 @@ final class FirebaseManager {
     }
 
     // MARK: - Private methods
-
-    private func referenceToItem(shortName: String) -> DocumentReference? {
-        var reference: DocumentReference?
+    
+    private func referenceToItems() -> CollectionReference? {
+        var reference: CollectionReference?
         do {
-            reference = try database.document(pathToUser + shortName)
+            reference = try database.collection(pathToUser + "items")
         } catch {
             print(error.localizedDescription)
         }
         
         return reference
+    }
+
+    private func referenceToItem(shortName: String) -> DocumentReference? {
+        var reference: DocumentReference?
+        do {
+            reference = try database.document(pathToUser +  "items/" + shortName)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return reference
+    }
+    
+    func getItem(shortName: String, completion: @escaping (Result<StockDisplayItem, any Error>) -> Void) {
+        let reference = referenceToItem(shortName: shortName)
+        reference?.getDocument(as: StockDisplayItem.self, completion: completion)
     }
 }
