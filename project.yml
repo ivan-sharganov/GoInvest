@@ -15,6 +15,11 @@ targets:
         settings:
             base:
                 PRODUCT_BUNDLE_IDENTIFIER: com.shares.GoInvest
+                DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+                LAUNCH_ARGUMENTS: -FIRDebugEnabled
+            debug:
+                DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+                LAUNCH_ARGUMENTS: -FIRDebugEnabled
         scheme:
             testTargets:
             - GoInvestTests
@@ -30,6 +35,15 @@ targets:
                     echo "error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint"
                     exit 1
                 fi
+        postBuildScripts:
+            - path: hooks/fbscript
+              name: FirebaseAnalyst
+              inputFiles:
+                - ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}
+                - ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}
+                - ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist
+                - $(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist
+                - $(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)
     GoInvestTests:
         type: bundle.unit-test
         platform: iOS
