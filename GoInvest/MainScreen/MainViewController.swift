@@ -13,7 +13,7 @@ final class MainViewController: UIViewController {
     private var isPressed = false
     private var viewModel: MainViewModel
     private let bag = DisposeBag()
-    private lazy var router: Routable = MainRouter(viewController: self)
+    private lazy var router: MainRoutable = MainRouter(viewController: self)
     private lazy var diffableDataSource = createDiffableDataSource()
 
     // MARK: - UI
@@ -30,8 +30,8 @@ final class MainViewController: UIViewController {
     private lazy var horizontalButtonStack: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(
             titles: [
-                NSLocalizedString("indexes", comment: ""),
                 NSLocalizedString("shares", comment: ""),
+                NSLocalizedString("indexes", comment: ""),
                 NSLocalizedString("bonds", comment: ""),
             ],
             size: .small
@@ -39,6 +39,7 @@ final class MainViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    
     private lazy var navItem: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(
             titles: [
@@ -96,14 +97,17 @@ final class MainViewController: UIViewController {
 
     private func setupBindings() {
         horizontalButtonStack.subject
-            .subscribe(onNext: { [weak self] stockState in
+            .drive(onNext: { [weak self] stockState in
                 self?.viewModel.chooseStockStateData(stockState: stockState)
             })
+//            .subscribe(onNext: { [weak self] stockState in
+//                self?.viewModel.chooseStockStateData(stockState: stockState)
+//            })
             .disposed(by: bag)
         
         viewModel.cellTapped
-            .emit(onNext: { [weak self] in
-                self?.router.pushNext()
+            .emit(onNext: { [weak self] securitiesTranferModel in
+                self?.router.pushNext(transferModel: securitiesTranferModel)
             })
             .disposed(by: bag)
         
@@ -181,7 +185,7 @@ fileprivate extension MainViewController {
             configuration.fullName = item.name
             configuration.shortName = item.shortName
             configuration.price = item.closePrice
-            configuration.priceChange = 52.2
+            configuration.priceChange = item.priceChange
             configuration.rate = item.rate
             cell.contentConfiguration = configuration
 
@@ -210,12 +214,14 @@ extension MainViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.handleItemSelection()
+        viewModel.handleItemSelection(item: viewModel.displayItems[indexPath.row],
+                                      stockState: viewModel.stockState)
     }
 
 }
 
 // MARK: - UISearchBarDelegate
+
 extension MainViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

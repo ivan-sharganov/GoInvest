@@ -20,8 +20,14 @@ struct GraphSUIViewMain: View {
             }
             .symbol(by: .value("Pet type", dataSeries.type))
         }
+        .chartBackground { _ in
+            Color(UIColor.offTabBackground)
+        }
+        .chartXAxis { AxisMarks(stroke: StrokeStyle(lineWidth: 0)) } // AxisGridLine() AxisTick()
+        .chartYAxis { AxisMarks(stroke: StrokeStyle(lineWidth: 0)) } // AxisGridLine() AxisTick()
         .chartXScale(domain: 1998...2031)
         .chartYScale(domain: 0...30)
+        .cornerRadius(15)
         .edgesIgnoringSafeArea(.all)
     }
     

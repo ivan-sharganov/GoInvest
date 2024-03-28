@@ -38,6 +38,8 @@ class NetworkManager {
             throw GIError.error
         }
         
+        print(answer.candles.data)
+        
         return self.transformPriceData(from: answer.candles.data).pricesModel.filter {
             $0.close != nil &&
             $0.date != nil &&
@@ -55,6 +57,7 @@ class NetworkManager {
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
         let (data, _) = try await URLSession.shared.data(for: request)
+        
         guard let answer = try? JSONDecoder().decode(Response.self, from: data) else {
             throw GIError.error
         }
@@ -108,6 +111,7 @@ class NetworkManager {
             }
             outD.append(price)
         }
+        
         return PricesData(pricesModel: outD)
     }
     
