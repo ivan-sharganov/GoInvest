@@ -13,9 +13,9 @@ final class HorizontalButtonStack: UIStackView {
     
     private struct Constants {
         static let spacing: CGFloat = 8
-        static let largeFontSize: CGFloat = 17
-        static let smallFontSize: CGFloat = 38
-        static let distribution: UIStackView.Distribution = .fillEqually
+        static let largeFontSize: CGFloat = 38
+        static let smallFontSize: CGFloat = 17 
+        static let distribution: UIStackView.Distribution = .fillProportionally
         static let axis: NSLayoutConstraint.Axis = .horizontal
     }
 
@@ -72,22 +72,24 @@ final class HorizontalButtonStack: UIStackView {
             case .small:
                 button = ReusableButton(
                     title: title,
-                    fontSize: 17,
+                    fontSize: Constants.smallFontSize,
                     onBackgroundColor: .onTabBackground,
                     offBackgroundColor: .offTabBackground,
                     onTitleColor: .inversedLabel,
                     offTitleColor: .label
                 )
+                self.distribution = .fillEqually
                 
             case .large:
                 button = ReusableButton(
                     title: title,
-                    fontSize: 38,
+                    fontSize: Constants.largeFontSize,
                     onBackgroundColor: .background,
                     offBackgroundColor: .background,
                     onTitleColor: .label,
                     offTitleColor: .offLargeTabTitle
                 )
+                self.distribution = .fillProportionally
             }
             button.addAction(buttonAction, for: .touchUpInside)
             
@@ -98,7 +100,6 @@ final class HorizontalButtonStack: UIStackView {
 
     private func prepareUI() {
         axis = Constants.axis
-        distribution = Constants.distribution
         spacing = Constants.spacing
         
         buttons.forEach { button in

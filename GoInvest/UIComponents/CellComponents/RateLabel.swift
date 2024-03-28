@@ -4,25 +4,26 @@ final class RateLabel: UILabel {
     
     // MARK: - Public properties
     
+    /// Честный ноль из математики - красный
+    /// Если делим на ноль, то  - пишем 2 минуса и серый
     var rate: Double = 0 {
         didSet {
             switch rate {
-            case 0...3:
+            case 0.1...3:
                 backgroundColor = .systemRed
-            case 0...7:
+            case 3...7:
                 backgroundColor = .systemOrange
             case 7...10:
                 backgroundColor = .systemGreen
             default:
-                backgroundColor = .systemGray
+                backgroundColor = .systemGray3
                 rate = 0
             }
-            text = String(format: "%.1f", rate)
+            self.text = rate != 0 ? String(format: "%.1f", rate) : "--"
         }
     }
 
     // MARK: - Life cycle
-    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
 
