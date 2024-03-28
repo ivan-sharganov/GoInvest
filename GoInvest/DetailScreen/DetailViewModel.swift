@@ -50,16 +50,11 @@ final class DetailViewModelImpl: DetailViewModel {
     }
     
     public func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues = .oneDay, interval: Int = 20) async {
-        print(ticker)
-        print(parameter.rawValue)
-        print(range.rawValue)
-        print(interval)
         do {
             self.pricesData = try await self.useCase.get(ticker: ticker,
                                                          parameter: parameter,
                                                          range: .oneDay,
                                                          interval: interval)
-            print(self.pricesData)
         } catch {
             print(error.localizedDescription)
             self.pricesData = [PricesModel]()
