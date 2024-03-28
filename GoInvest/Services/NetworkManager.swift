@@ -38,7 +38,6 @@ class NetworkManager {
             throw GIError.error
         }
         
-        
         return self.transformPriceData(from: answer.candles.data).pricesModel.filter {
             $0.close != nil &&
             $0.date != nil &&
