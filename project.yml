@@ -14,7 +14,7 @@ targets:
             - path: GoInvest/
         settings:
             base:
-                PRODUCT_BUNDLE_IDENTIFIER: com.shares.GoInvest
+                PRODUCT_BUNDLE_IDENTIFIER: com.yandex.sirius.GoInvest
                 DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
                 LAUNCH_ARGUMENTS: -FIRDebugEnabled
             debug:
