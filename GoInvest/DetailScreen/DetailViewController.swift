@@ -49,6 +49,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Private methods
     
     private func setupUI() {
+        
         guard let hostingMainView = hostingMainViewController.view,
               let hostingAdditionalView = hostingAdditionalViewController.view else { return }
         
