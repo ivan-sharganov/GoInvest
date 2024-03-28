@@ -16,6 +16,7 @@ class NetworkManager {
     // MARK: - Public methods
     
     func getPricesForTicker(
+<<<<<<< HEAD
         parameter: String,
         ticker: String,
         from: String,
@@ -24,6 +25,35 @@ class NetworkManager {
     ) async throws -> [PricesModel] {
         
         var url = "https://iss.moex.com/iss/engines/stock/markets/\(parameter)/securities/\(ticker)/candles.json?iss"
+=======
+        ticker: String,
+        board: String,
+        completion: @escaping (PricesData?) -> Void
+    ) {
+        // TODO: по красоте сделать
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/\(board)/securities/\(ticker)"
+        url += "/securities.json?iss.only=securities&from=2024-03-11&till=2024-03-19&interval=2"
+        url += "&iss.meta=off&history.columns=CLOSE,VOLUME,TRADEDATE"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            DispatchQueue.main.async {
+                if let data = data, let answer = try? JSONDecoder().decode(Response.self, from: data) {
+                    completion({[weak self] in
+                        self?.transformPriceData(from: answer.history.data)}())
+                } else {
+                    completion(nil)
+                }
+            }
+        }.resume()
+    }
+    
+    func getPricesForStock(completion: @escaping (StockData?) -> Void) {
+        // TODO: по красоте
+        var url = "https://iss.moex.com/iss/history/engines/stock/markets/shares/sessions/3/securities.json?iss"
+>>>>>>> 81ee819 (114 fix rate label)
         url +=
         ".only=securities&from=\(from)&till=\(till)"
         url += "&iss.meta=off&candles.columns=close,volume,end"
@@ -46,6 +76,7 @@ class NetworkManager {
     }
     
     func getPricesForStock(parameter: String) async throws -> [StockModel] {
+        // TODO: по красоте сделать
         var url = "https://iss.moex.com/iss/history/engines/stock/markets/\(parameter)/sessions/3/securities.json?iss"
         url +=
         ".only=securities&iss.meta=off&history.columns=SHORTNAME,SECID,OPEN,CLOSE,HIGH,LOW,BOARDID&limit=100&start=0"

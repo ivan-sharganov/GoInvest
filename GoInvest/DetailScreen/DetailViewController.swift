@@ -88,7 +88,7 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func tapped() {
-        Fireworks.fireworks(view: self.view)
+        Fireworks.fireworks(view: self.tabBarController?.view ?? UIView())
     }
     
     private func configureNavigationBar() {
