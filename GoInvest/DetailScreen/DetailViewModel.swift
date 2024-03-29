@@ -8,6 +8,7 @@ protocol DetailViewModel {
     var didChangeFunc: Signal<PointModels> { get }
     
     var allRequestsPoints: [GraphRangeValues: PointModels] { get set }
+    var pointsForExtraGraph: PointModels { get set }
     var allPoints: PointModels { get }
     var pointsModel: PointModel? { get }
     var pricesData: [PricesModel] { get }
@@ -29,6 +30,7 @@ final class DetailViewModelImpl: DetailViewModel {
     var didFetchPoints: Signal<PointModels> { _didFetchPoints.asSignal() }
     var didChangeFunc: Signal<PointModels> { _didChangeFunc.asSignal() }
     
+    var pointsForExtraGraph = PointModels(points: [])
     var allPoints = PointModels(points: [])
     var pointsModel: PointModel?
     var pricesData = [PricesModel]()
@@ -68,7 +70,7 @@ final class DetailViewModelImpl: DetailViewModel {
         if let allPoints = self.allRequestsPoints[GraphRangeValues.allCases[value]] {
             self.allPoints = allPoints
         }
-        _didFetchPoints.accept(self.allPoints)
+//        _didFetchPoints.accept(self.allPoints)
     }
     
     /// Функция перевода данных к виду для графиков
@@ -109,18 +111,15 @@ final class DetailViewModelImpl: DetailViewModel {
     func didChooseFunction(value: Int) {
         guard let function = prepareFunc(value: value) else { return }
         
-        var points = PointModels(points: [])
-        
         self.function = function
-         
         switch function {
         case .SMA:
-            points.points = MathManager.sma(points: self.allPoints.points)
+            self.pointsForExtraGraph.points = MathManager.sma(points: self.allPoints.points)
         case .EMA:
-            points.points = MathManager.ema(points: self.allPoints.points)
+            self.pointsForExtraGraph.points = MathManager.ema(points: self.allPoints.points)
         }
-        print("WORKED")
-        _didChangeFunc.accept((points))
+//        _didFetchPoints.accept(self.allPoints)
+        _didChangeFunc.accept(self.pointsForExtraGraph)
     }
     
 }

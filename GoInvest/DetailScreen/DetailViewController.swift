@@ -114,11 +114,11 @@ final class DetailViewController: UIViewController {
             })
             .disposed(by: bag)
         
-        rangesHStack.subject
-            .drive(onNext: { [weak self] value in
-                self?.viewModel.didChooseRangeData(value: value)
-            })
-            .disposed(by: bag)
+//        rangesHStack.subject
+//            .drive(onNext: { [weak self] value in
+//                self?.viewModel.didChooseRangeData(value: value)
+//            })
+//            .disposed(by: bag)
     }
     
     private func setupUI() {
