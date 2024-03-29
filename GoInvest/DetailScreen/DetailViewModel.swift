@@ -70,7 +70,8 @@ final class DetailViewModelImpl: DetailViewModel {
         if let allPoints = self.allRequestsPoints[GraphRangeValues.allCases[value]] {
             self.allPoints = allPoints
         }
-//        _didFetchPoints.accept(self.allPoints)
+        _didChangeFunc.accept(self.pointsForExtraGraph)
+        _didFetchPoints.accept(self.allPoints)
     }
     
     /// Функция перевода данных к виду для графиков
@@ -118,7 +119,7 @@ final class DetailViewModelImpl: DetailViewModel {
         case .EMA:
             self.pointsForExtraGraph.points = MathManager.ema(points: self.allPoints.points)
         }
-//        _didFetchPoints.accept(self.allPoints)
+        _didFetchPoints.accept(self.allPoints)
         _didChangeFunc.accept(self.pointsForExtraGraph)
     }
     

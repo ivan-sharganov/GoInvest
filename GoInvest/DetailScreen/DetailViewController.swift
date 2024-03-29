@@ -114,11 +114,22 @@ final class DetailViewController: UIViewController {
             })
             .disposed(by: bag)
         
-//        rangesHStack.subject
-//            .drive(onNext: { [weak self] value in
-//                self?.viewModel.didChooseRangeData(value: value)
-//            })
-//            .disposed(by: bag)
+        viewModel.didChangeFunc
+                   .emit(onNext: { [weak self] points in
+                   guard let self else { return }
+                   
+                   self.hostingMainViewController.view.removeFromSuperview()
+                   self.hostingMainViewController = UIHostingController(rootView: GraphSUIViewMain(pointsData: points.points, agregatedPointsData: MathManager.sma(points: points.points)))
+                   self.view.addSubview(self.hostingMainViewController.view)
+                   self.setupUI()
+               })
+                   .disposed(by: bag)
+
+        rangesHStack.subject
+            .drive(onNext: { [weak self] value in
+                self?.viewModel.didChooseRangeData(value: value)
+            })
+            .disposed(by: bag)
     }
     
     private func setupUI() {
