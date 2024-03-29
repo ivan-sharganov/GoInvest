@@ -12,6 +12,7 @@ final class DetailViewController: UIViewController {
     private lazy var hostingMainViewController = UIHostingController(rootView: self.suiViewMain)
     private lazy var hostingAdditionalViewController = UIHostingController(rootView: self.suiViewAdditional)
     private var viewModel: DetailViewModel
+    private var stockDisplayItem: StockDisplayItem
     
     // MARK: - UI
     
@@ -67,8 +68,9 @@ final class DetailViewController: UIViewController {
         setupUI()
     }
     
-    init(viewModel: DetailViewModel) {
+    init(viewModel: DetailViewModel, stocksDisplayItem: StockDisplayItem) {
         self.viewModel = viewModel
+        self.stockDisplayItem = stocksDisplayItem
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -161,6 +163,10 @@ final class DetailViewController: UIViewController {
     private func rightBarButtonItemTapped(_ sender: UIBarButtonItem) {
         isFavorite = !isFavorite
         sender.image = setupFavoriteButton(isFavorite: isFavorite)
+        
+        stockDisplayItem.isFavorite = isFavorite
+        
+        FirebaseManager.shared.addItems([stockDisplayItem], kind: .favorite)
     }
 
 }
