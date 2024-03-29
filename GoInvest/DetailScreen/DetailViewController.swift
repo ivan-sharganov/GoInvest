@@ -111,9 +111,6 @@ final class DetailViewController: UIViewController {
                 self.hostingMainViewController = UIHostingController(rootView: GraphSUIViewMain(pointsData: points.points, agregatedPointsData: MathManager.sma(points: points.points)))
                 self.view.addSubview(self.hostingMainViewController.view)
                 self.setupUI()
-                viewModel.allPoints.points.forEach {
-                    print($0.y)
-                }
             })
             .disposed(by: bag)
         
@@ -131,7 +128,6 @@ final class DetailViewController: UIViewController {
         
         hostingMainViewController.view.backgroundColor = .background
         hostingAdditionalViewController.view.backgroundColor = .background
-        print(viewModel.allPoints)
         
         hostingMainView.translatesAutoresizingMaskIntoConstraints = false
         buyButton.translatesAutoresizingMaskIntoConstraints = false

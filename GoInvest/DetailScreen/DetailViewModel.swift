@@ -53,12 +53,10 @@ final class DetailViewModelImpl: DetailViewModel {
                                                  price: transferModel.price)
         
         Task {
-//            for range in GraphRangeValues.allCases {
-//                await fetchDataForTicker(ticker: transferModel.ticker,
-//                                         parameter: transferModel.stockState, range: range)
-//            }
-            await fetchDataForTicker(ticker: transferModel.ticker,
-                                     parameter: transferModel.stockState)
+            for range in GraphRangeValues.allCases {
+                await fetchDataForTicker(ticker: transferModel.ticker,
+                                         parameter: transferModel.stockState, range: range)
+            }
             if let allPoints = self.allRequestsPoints[.oneDay] {
                 self.allPoints = allPoints
             }
@@ -67,7 +65,9 @@ final class DetailViewModelImpl: DetailViewModel {
     }
     
     func didChooseRangeData(value: Int) {
-        
+        if let allPoints = self.allRequestsPoints[GraphRangeValues.allCases[value]] {
+            self.allPoints = allPoints
+        }
         _didFetchPoints.accept(self.allPoints)
     }
     
@@ -119,12 +119,8 @@ final class DetailViewModelImpl: DetailViewModel {
         case .EMA:
             points.points = MathManager.ema(points: self.allPoints.points)
         }
+        print("WORKED")
         _didChangeFunc.accept((points))
-//        Task {
-//            // TODO: запросить данные с новой матешей 
-////            await fetchData(parameters: stockState, source: source) // TODO: Сделать еще 5 запросов после этого
-////            _updateSnapshot.accept((false)) // анимация
-//        }
     }
     
 }
