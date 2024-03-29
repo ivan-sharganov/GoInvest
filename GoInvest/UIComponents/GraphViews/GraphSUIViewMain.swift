@@ -4,17 +4,23 @@ import Charts
 struct GraphSUIViewMain: View {
     
     @State var pointsData: [PointModel]
+    @State var agregatedPointsData: [PointModel] = []
     var maxY: Double
     var minY: Double
     
-    init(pointsData: PointModels) {
-        self.pointsData = pointsData.points
-        self.maxY = pointsData.maxY
-        self.minY = pointsData.minY
+    init(pointsData: [PointModel], agregatedPointsData: [PointModel]) {
+        self.pointsData = pointsData
+        self.agregatedPointsData = agregatedPointsData
+        // TODO: какие дефолтные?
+        self.maxY = pointsData.map { $0.y }.max() ?? 0
+        self.minY = pointsData.map { $0.y }.min() ?? 0
     }
     
     var data: [(type: String, pointsData: [PointModel])] {
-        [(type: "", pointsData: pointsData)]
+        [
+            (type: "", pointsData: pointsData),
+            (type: "agr", pointsData: agregatedPointsData),
+        ]
     }
     
     var body: some View {
