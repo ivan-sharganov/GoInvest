@@ -29,7 +29,8 @@ struct GraphSUIViewMain: View {
                 LineMark(x: .value("Date", data.x),
                          y: .value("Result", data.y))
             }
-            .symbol(by: .value("Pet type", dataSeries.type))
+            .foregroundStyle(by: .value("type", dataSeries.type))
+            .symbol(by: .value("type", dataSeries.type))
         }
         .chartBackground { _ in
             Color(UIColor.offTabBackground)
