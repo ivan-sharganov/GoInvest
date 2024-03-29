@@ -1,10 +1,3 @@
-//
-//  SecuritiesTransferModel.swift
-//  GoInvest
-//
-//  Created by Кирилл Бережной on 28.03.2024.
-//
-
 import Foundation
 
 struct SecuritiesTransferModel {

@@ -1,15 +1,21 @@
 import UIKit
 import RxSwift
 
+struct DoubleFilter {
+    let state: StockState
+    let source: SecuritiesSource
+}
+
 final class MainViewController: UIViewController {
 
     typealias DiffableDataSource = UITableViewDiffableDataSource<Int, StockDisplayItem>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, StockDisplayItem>
 
     // MARK: - Public properties
+    
+    var isFavorite = false
 
     // MARK: - Private properties
-    
     private var isPressed = false
     private var viewModel: MainViewModel
     private let bag = DisposeBag()
@@ -94,16 +100,29 @@ final class MainViewController: UIViewController {
     }
 
     // MARK: - Private methods
-
+    
     private func setupBindings() {
         // подписка на нажатия стека
         horizontalButtonStack.subject
-            .drive(onNext: { [weak self] stockState in
-                self?.viewModel.didChooseStockStateData(stockState: stockState)
+            .drive(onNext: { [weak self] value in
+                self?.viewModel.didChooseStockStateData(value: value)
             })
-//            .subscribe(onNext: { [weak self] stockState in
-//                self?.viewModel.didChooseStockStateData(stockState: stockState)
-//            })
+            .disposed(by: bag)
+        
+        navItem.subject
+            .drive(onNext: { [weak self] value in
+                self?.viewModel.didChooseSecuritiesSource(value: value)
+            })
+            .disposed(by: bag)
+        
+        viewModel.didHideStackView
+            .emit(onNext: { [weak self] isHidden in
+                self?.horizontalButtonStack.isHidden = isHidden
+                self?.isFavorite = isHidden
+                self?.setupUI()
+                self?.view.setNeedsLayout()
+                self?.view.layoutIfNeeded()
+            })
             .disposed(by: bag)
         
         viewModel.cellTapped
@@ -118,6 +137,14 @@ final class MainViewController: UIViewController {
             })
             .disposed(by: bag)
     }
+    
+    private lazy var c1 = horizontalButtonStack.topAnchor.constraint(equalTo: self.navItem.bottomAnchor, constant: 8)
+    private lazy var c2 = horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 14)
+    private lazy var c3 = horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -14)
+    private lazy var c4 = horizontalButtonStack.heightAnchor.constraint(equalToConstant: 36)
+    
+    private lazy var c5 = searchBar.topAnchor.constraint(equalTo: self.horizontalButtonStack.bottomAnchor, constant: 8)
+    private lazy var c6 = searchBar.topAnchor.constraint(equalTo: self.navItem.bottomAnchor, constant: 8)
 
     private func setupUI() {
         view.addSubview(self.navItem)
@@ -131,22 +158,25 @@ final class MainViewController: UIViewController {
         self.tblView.translatesAutoresizingMaskIntoConstraints = false
         self.searchBar.translatesAutoresizingMaskIntoConstraints = false
         
+        self.c1.isActive = !isFavorite
+        self.c2.isActive = !isFavorite
+        self.c3.isActive = !isFavorite
+        self.c4.isActive = !isFavorite
+        
+        self.c5.isActive = !isFavorite
+        self.c6.isActive = isFavorite
+
         NSLayoutConstraint.activate([
             self.navItem.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.navItem.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 4),
             self.navItem.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -4),
             
-            self.horizontalButtonStack.topAnchor.constraint(equalTo: self.navItem.bottomAnchor, constant: -5),
-            self.horizontalButtonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 14),
-            self.horizontalButtonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -14),
-            self.horizontalButtonStack.heightAnchor.constraint(equalToConstant: 36),
-            
             self.searchBar.topAnchor.constraint(equalTo: self.horizontalButtonStack.bottomAnchor, constant: 8),
             self.searchBar.heightAnchor.constraint(equalToConstant: 35),
             self.searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             self.searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            self.searchBar.bottomAnchor.constraint(equalTo: self.tblView.topAnchor, constant: -8),
 
+            self.tblView.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor, constant: 8),
             self.tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor)

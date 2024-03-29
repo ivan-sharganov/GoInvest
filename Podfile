@@ -12,10 +12,11 @@ target 'GoInvest' do
   pod 'FirebaseStorage'
   pod 'Firebase/Auth'
   pod 'Firebase/Crashlytics'
+  pod 'Firebase/Firestore'
+
 #  __________________________
 #  pod 'Firebase/Storage'
 #  pod 'FirebaseDatabase'
-#  pod 'Firebase/Firestore'
 
   target 'GoInvestTests' do
     inherit! :search_paths
@@ -27,10 +28,11 @@ target 'GoInvest' do
     pod 'FirebaseStorage'
     pod 'Firebase/Auth'
     pod 'Firebase/Crashlytics'
+    pod 'Firebase/Firestore'
 #  __________________________
   #  pod 'Firebase/Storage'
   #  pod 'FirebaseDatabase'
-  #  pod 'Firebase/Firestore'
+  
 
   end
 

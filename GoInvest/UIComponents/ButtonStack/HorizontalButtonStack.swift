@@ -22,9 +22,9 @@ final class HorizontalButtonStack: UIStackView {
     // MARK: - Public properties
 
     /// Sends current selected button index. Start value is zero.
-    /// 
-    var subject: Driver<StockState> { _subject.asDriver() }
-    let _subject = BehaviorRelay<StockState>(value: .shares)
+    var subject: Driver<Int> { _subject.asDriver() }
+    private let _subject = BehaviorRelay<Int>(value: 0)
+    
     let titles: [String]
 
     // MARK: - Private properties
@@ -47,9 +47,8 @@ final class HorizontalButtonStack: UIStackView {
         }
 
         self?.selectedButtonIndex = senderIndex
+        self?._subject.accept((senderIndex))
         
-        guard let currentState = self?.prepareState(value: senderIndex) else { return }
-        self?._subject.accept(currentState)
     }
 
     // MARK: - Initialization
@@ -109,7 +108,18 @@ final class HorizontalButtonStack: UIStackView {
         }
     }
     
-    private func prepareState(value: Int) -> StockState? {
+    private func prepareSecuritiesSource(value: Int) -> SecuritiesSource? {
+        switch value {
+        case 0:
+            return .apiRequest
+        case 1:
+            return .favorities
+        default:
+            return nil
+        }
+    }
+    
+    private func prepareStockState(value: Int) -> StockState? {
         switch value {
         case 0:
             return .shares
