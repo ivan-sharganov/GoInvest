@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
@@ -36,17 +37,8 @@ class ProfileViewController: UIViewController {
     let topLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Петр Иванов"
-        label.textAlignment = .center
-        label.textColor = .label
-        label.backgroundColor = .background
-        return label
-    }()
-    
-    let bottomLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1234 акций"
+        label.text = FirebaseAuth.Auth.auth().currentUser?.email
+        label.font = UIFont.systemFont(ofSize: 28)
         label.textAlignment = .center
         label.textColor = .label
         label.backgroundColor = .background
@@ -98,7 +90,6 @@ class ProfileViewController: UIViewController {
     private func setupViews() {
         view.addSubview(imageView)
         view.addSubview(topLabel)
-        view.addSubview(bottomLabel)
         view.addSubview(tableView)
     }
     
@@ -115,13 +106,8 @@ class ProfileViewController: UIViewController {
             topLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             topLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            // bottomLabel
-            bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 20),
-            bottomLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            bottomLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
             // tableView
-            tableView.topAnchor.constraint(equalTo: bottomLabel.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
