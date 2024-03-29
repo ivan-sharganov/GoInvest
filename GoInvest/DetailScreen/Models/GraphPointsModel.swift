@@ -22,6 +22,11 @@ struct PointModel: Identifiable {
     let y: Double
     var id: UUID
     
+    init(x: Date, y: Double, id: UUID = UUID()) {
+        self.x = x
+        self.y = y
+        self.id = id
+    }
 }
 
 enum GraphRangeValues: Int {

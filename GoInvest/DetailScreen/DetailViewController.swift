@@ -8,7 +8,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Private properties
     
     private lazy var suiViewAdditional: GraphSUIViewMain = {
-        GraphSUIViewMain(pointsData: viewModel.allPoints)
+        GraphSUIViewMain(pointsData: viewModel.allPoints.points, agregatedPointsData: viewModel.allPoints.points)
     }()
     private var isFavorite: Bool = false // MARK: - TODO: УДАЛИТЬ КОГДА МОДУЛЬ БУДЕТ
     
@@ -57,13 +57,17 @@ final class DetailViewController: UIViewController {
     
     private func setupBindings() {
         viewModel.didFetchPoints
-            .emit(onNext: { [weak self] points in
+        // TODO: точки передать?
+            .emit(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 sleep(1)
                 self.hostingMainViewController.view.removeFromSuperview()
-                self.hostingMainViewController = UIHostingController(rootView: GraphSUIViewMain(pointsData: points))
+                self.hostingMainViewController = UIHostingController(rootView: GraphSUIViewMain(pointsData: viewModel.allPoints.points, agregatedPointsData: MathManager.sma(points: viewModel.allPoints.points)))
                 self.view.addSubview(self.hostingMainViewController.view)
                 self.setupUI()
+                viewModel.allPoints.points.forEach {
+                    print($0.y)
+                }
             })
             .disposed(by: bag)
     }
@@ -109,7 +113,6 @@ final class DetailViewController: UIViewController {
             hostingMainView.topAnchor.constraint(equalTo: self.proxyView.safeAreaLayoutGuide.topAnchor, constant: 45),
             hostingMainView.heightAnchor.constraint(equalToConstant: 250),
             
-
         ])
         
         configureNavigationBar()
