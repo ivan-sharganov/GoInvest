@@ -47,10 +47,6 @@ final class LoginRouter: LoginRoutable {
         ], animated: false)
 
         loginViewController?.present(tabBarController, animated: true)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: DispatchWorkItem(block: {
-            self.back()
-        }))
     }
 
     func back() {

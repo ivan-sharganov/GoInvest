@@ -7,13 +7,16 @@ protocol DetailViewModel {
     var didFetchPoints: Signal<PointModels> { get }
     var didChangeFunc: Signal<PointModels> { get }
     
+    var allRequestsPoints: [GraphRangeValues: PointModels] { get set }
+    var pointsForExtraGraph: PointModels { get set }
     var allPoints: PointModels { get }
     var pointsModel: PointModel? { get }
     var pricesData: [PricesModel] { get }
     var displayItem: SecuritiesDisplayItem { get }
     var transferModel: SecuritiesTransferModel { get }
-    
+
     func didChooseFunction(value: Int)
+    func didChooseRangeData(value: Int)
     func transformPricesToPointModels(data: [PricesModel] ) -> PointModels
     func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues, interval: Int)
     async
@@ -22,9 +25,12 @@ protocol DetailViewModel {
 
 final class DetailViewModelImpl: DetailViewModel {
     
+    var allRequestsPoints = [GraphRangeValues: PointModels]()
+    
     var didFetchPoints: Signal<PointModels> { _didFetchPoints.asSignal() }
     var didChangeFunc: Signal<PointModels> { _didChangeFunc.asSignal() }
     
+    var pointsForExtraGraph = PointModels(points: [])
     var allPoints = PointModels(points: [])
     var pointsModel: PointModel?
     var pricesData = [PricesModel]()
@@ -49,14 +55,23 @@ final class DetailViewModelImpl: DetailViewModel {
                                                  price: transferModel.price)
         
         Task {
-//            for range in GraphRangeValues.allCases {
-//                await fetchDataForTicker(ticker: transferModel.ticker,
-//                                         parameter: transferModel.stockState, range: range)
-//            }
-            await fetchDataForTicker(ticker: transferModel.ticker,
-                                     parameter: transferModel.stockState)
+            for range in GraphRangeValues.allCases {
+                await fetchDataForTicker(ticker: transferModel.ticker,
+                                         parameter: transferModel.stockState, range: range)
+            }
+            if let allPoints = self.allRequestsPoints[.oneDay] {
+                self.allPoints = allPoints
+            }
             _didFetchPoints.accept(self.allPoints)
         }
+    }
+    
+    func didChooseRangeData(value: Int) {
+        if let allPoints = self.allRequestsPoints[GraphRangeValues.allCases[value]] {
+            self.allPoints = allPoints
+        }
+        _didChangeFunc.accept(self.pointsForExtraGraph)
+        _didFetchPoints.accept(self.allPoints)
     }
     
     /// Функция перевода данных к виду для графиков
@@ -87,9 +102,8 @@ final class DetailViewModelImpl: DetailViewModel {
                                                          parameter: parameter,
                                                          range: range,
                                                          interval: interval)
-            // let points = transformPricesToPointModels(data: self.pricesData)
-            // self.allPoints[range] = points
-            self.allPoints = transformPricesToPointModels(data: self.pricesData)
+            let points = transformPricesToPointModels(data: self.pricesData)
+            self.allRequestsPoints[range] = points
         } catch {
             self.pricesData = [PricesModel]()
         }
@@ -98,22 +112,15 @@ final class DetailViewModelImpl: DetailViewModel {
     func didChooseFunction(value: Int) {
         guard let function = prepareFunc(value: value) else { return }
         
-        var points = PointModels(points: [])
-        
         self.function = function
-         
         switch function {
         case .SMA:
-            points.points = MathManager.sma(points: self.allPoints.points)
+            self.pointsForExtraGraph.points = MathManager.sma(points: self.allPoints.points)
         case .EMA:
-            points.points = MathManager.ema(points: self.allPoints.points)
+            self.pointsForExtraGraph.points = MathManager.ema(points: self.allPoints.points)
         }
-        _didChangeFunc.accept((points))
-//        Task {
-//            // TODO: запросить данные с новой матешей 
-////            await fetchData(parameters: stockState, source: source) // TODO: Сделать еще 5 запросов после этого
-////            _updateSnapshot.accept((false)) // анимация
-//        }
+        _didFetchPoints.accept(self.allPoints)
+        _didChangeFunc.accept(self.pointsForExtraGraph)
     }
     
 }
