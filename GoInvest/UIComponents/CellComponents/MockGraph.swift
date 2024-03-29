@@ -2,10 +2,15 @@ import UIKit
 
 final class MockGraph: UIView {
     
+    // MARK: - Public propery
+    
+    var priceChange: Double = 0
+    
     // MARK: - Life cycle
     
-    override init(frame: CGRect = .zero) {
-        super.init(frame: frame)
+    init() {
+
+        super.init(frame: .zero)
 
         backgroundColor = .clear
 
@@ -22,16 +27,18 @@ final class MockGraph: UIView {
     // MARK: - Public methods
 
     override func draw(_ rect: CGRect) {
+        let color = priceChange >= 0 ? UIColor.systemGreen : UIColor.systemRed
+        
         let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0, y: 48))
-        path.addLine(to: CGPoint(x: 10, y: 40))
-        path.addLine(to: CGPoint(x: 23, y: 10))
-        path.addLine(to: CGPoint(x: 33, y: 35))
-        path.addLine(to: CGPoint(x: 45, y: 29))
-        path.addLine(to: CGPoint(x: 53, y: 16))
-        path.addLine(to: CGPoint(x: 78, y: 9))
-        path.addLine(to: CGPoint(x: 96, y: 0))
-        UIColor.systemGreen.set()
+        path.move(to: CGPoint(x: Int.random(in: 0...10), y: Int.random(in: 30...48)))
+        path.addLine(to: CGPoint(x: Int.random(in: 10...15), y: Int.random(in: 20...45)))
+        path.addLine(to: CGPoint(x: Int.random(in: 15...25), y: Int.random(in: 10...20)))
+        path.addLine(to: CGPoint(x: Int.random(in: 25...40), y: Int.random(in: 25...38)))
+        path.addLine(to: CGPoint(x: Int.random(in: 40...55), y: Int.random(in: 20...30)))
+        path.addLine(to: CGPoint(x: Int.random(in: 55...65), y: Int.random(in: 0...48)))
+        path.addLine(to: CGPoint(x: Int.random(in: 65...85), y: Int.random(in: 0...48)))
+        path.addLine(to: CGPoint(x: Int.random(in: 85...90), y: Int.random(in: 0...48)))
+        color.set()
         path.lineWidth = 4
         path.stroke()
     }

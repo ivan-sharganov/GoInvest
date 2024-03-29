@@ -66,6 +66,7 @@ final class StocksCellContentView: UIView, UIContentView {
         namesView.fullName = configuration.fullName
         priceView.price = configuration.price
         priceView.priceChange = configuration.priceChange
+        graph.priceChange = configuration.priceChange
     }
     
     // MARK: - Private methods

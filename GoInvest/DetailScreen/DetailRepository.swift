@@ -15,7 +15,7 @@ final class DetailRepositoryImpl: DetailRepository {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
 
-        return try await NetworkManager.shared.getPricesForTicker(parameter: parameter.rawValue, ticker: ticker, from: dateFormatter.string(from: from), till: dateFormatter.string(from: Date.now), interval: interval)
+        return try await NetworkManager.shared.getPricesForTicker(parameter: parameter.rawValue, ticker: ticker, from: dateFormatter.string(from: from), till: dateFormatter.string(from: Date.now.addOrSubtractDay(day: -1)), interval: interval)
     }
     
 }
