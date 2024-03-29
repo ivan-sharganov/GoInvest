@@ -42,6 +42,7 @@ final class LoginView: UIView {
             comment: "Login email field placeholder text"
         )
         let field = TextField(placeholder: placeholder, isSecure: false)
+        field.backgroundColor = .systemGray5
         field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
@@ -52,7 +53,8 @@ final class LoginView: UIView {
             "Password",
             comment: "Login password field placeholder text"
         )
-        let field = TextField(placeholder: placeholder, isSecure: true)
+        let field = TextField(placeholder: placeholder, isSecure: false)
+        field.backgroundColor = .systemGray5
         field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
