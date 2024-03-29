@@ -5,6 +5,7 @@ import RxCocoa
 protocol DetailViewModel {
     
     var didFetchPoints: Signal<PointModels> { get }
+    var didChangeFunc: Signal<PointModels> { get }
     
     var allPoints: PointModels { get }
     var pointsModel: PointModel? { get }
@@ -12,6 +13,7 @@ protocol DetailViewModel {
     var displayItem: SecuritiesDisplayItem { get }
     var transferModel: SecuritiesTransferModel { get }
     
+    func didChooseFunction(value: Int)
     func transformPricesToPointModels(data: [PricesModel] ) -> PointModels
     func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues, interval: Int)
     async
@@ -21,6 +23,7 @@ protocol DetailViewModel {
 final class DetailViewModelImpl: DetailViewModel {
     
     var didFetchPoints: Signal<PointModels> { _didFetchPoints.asSignal() }
+    var didChangeFunc: Signal<PointModels> { _didChangeFunc.asSignal() }
     
     var allPoints = PointModels(points: [])
     var pointsModel: PointModel?
@@ -30,10 +33,13 @@ final class DetailViewModelImpl: DetailViewModel {
     
     let useCase: DetailUseCase
     
+    var function: MathFunctions = .SMA
+    
     private let _didFetchPoints = PublishRelay<PointModels>()
+    private let _didChangeFunc = PublishRelay<PointModels>()
     
     // MARK: - Life cycle
-
+    
     init(transferModel: SecuritiesTransferModel, useCase: DetailUseCase) {
         self.transferModel = transferModel
         self.useCase = useCase
@@ -65,7 +71,16 @@ final class DetailViewModelImpl: DetailViewModel {
             
         return pointsModel
     }
-    
+    private func prepareFunc(value: Int) -> MathFunctions? {
+        switch value {
+        case 0:
+            return .EMA
+        case 1:
+            return .SMA
+        default:
+            return nil
+        }
+    }
     func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues = .oneDay, interval: Int = 20) async {
         do {
             self.pricesData = try await self.useCase.get(ticker: ticker,
@@ -78,6 +93,27 @@ final class DetailViewModelImpl: DetailViewModel {
         } catch {
             self.pricesData = [PricesModel]()
         }
+    }
+    
+    func didChooseFunction(value: Int) {
+        guard let function = prepareFunc(value: value) else { return }
+        
+        var points = PointModels(points: [])
+        
+        self.function = function
+         
+        switch function {
+        case .SMA:
+            points.points = MathManager.sma(points: self.allPoints.points)
+        case .EMA:
+            points.points = MathManager.ema(points: self.allPoints.points)
+        }
+        _didChangeFunc.accept((points))
+//        Task {
+//            // TODO: запросить данные с новой матешей 
+////            await fetchData(parameters: stockState, source: source) // TODO: Сделать еще 5 запросов после этого
+////            _updateSnapshot.accept((false)) // анимация
+//        }
     }
     
 }

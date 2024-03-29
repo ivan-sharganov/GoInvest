@@ -48,7 +48,7 @@ final class DetailViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 36, weight: .semibold)
         
         return label
-    }()
+    }() 
     
     private lazy var rangesHStack: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(
@@ -64,7 +64,7 @@ final class DetailViewController: UIViewController {
     private lazy var functionsHStack: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(
             titles:
-                MathFunctions.allCases.map {$0.rawValue}
+                MathFunctions.allCases.map {$0.title}
             ,
             size: .small
         )
@@ -96,19 +96,39 @@ final class DetailViewController: UIViewController {
     // MARK: - Private methods
     
     private func setupBindings() {
+        functionsHStack.subject
+            .drive(onNext: { [weak self] value in
+                self?.viewModel.didChooseFunction(value: value)
+            })
+            .disposed(by: bag)
+        
         viewModel.didFetchPoints
         // TODO: точки передать?
-            .emit(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                sleep(1)
+            .emit(onNext: { [weak self] points in
+                guard let self else { return }
+                
                 self.hostingMainViewController.view.removeFromSuperview()
-                self.hostingMainViewController = UIHostingController(rootView: GraphSUIViewMain(pointsData: viewModel.allPoints.points, agregatedPointsData: MathManager.sma(points: viewModel.allPoints.points)))
+                self.hostingMainViewController = UIHostingController(rootView: GraphSUIViewMain(pointsData: points.points, agregatedPointsData: MathManager.sma(points: points.points)))
                 self.view.addSubview(self.hostingMainViewController.view)
                 self.setupUI()
                 viewModel.allPoints.points.forEach {
                     print($0.y)
                 }
             })
+            .disposed(by: bag)
+        
+        viewModel.didChangeFunc
+            .emit(onNext: { [weak self] points in
+            guard let self else { return }
+            
+            self.hostingMainViewController.view.removeFromSuperview()
+            self.hostingMainViewController = UIHostingController(rootView: GraphSUIViewMain(pointsData: points.points, agregatedPointsData: MathManager.sma(points: points.points)))
+            self.view.addSubview(self.hostingMainViewController.view)
+            self.setupUI()
+            viewModel.allPoints.points.forEach {
+                print($0.y)
+            }
+        })
             .disposed(by: bag)
     }
     

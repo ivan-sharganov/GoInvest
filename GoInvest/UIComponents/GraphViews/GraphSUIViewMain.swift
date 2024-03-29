@@ -9,7 +9,7 @@ struct GraphSUIViewMain: View {
     var minY: Double
     
     init(pointsData: [PointModel], agregatedPointsData: [PointModel]) {
-        self.pointsData = pointsData
+        self.pointsData = pointsData.dropLast()
         self.agregatedPointsData = agregatedPointsData
         // TODO: какие дефолтные?
         self.maxY = pointsData.map { $0.y }.max() ?? 0
@@ -18,16 +18,23 @@ struct GraphSUIViewMain: View {
     
     var data: [(type: String, pointsData: [PointModel])] {
         [
-            (type: "", pointsData: pointsData),
-            (type: "agr", pointsData: agregatedPointsData),
+            // (type: "", pointsData: pointsData),
+            (type: "a", pointsData: agregatedPointsData),
         ]
     }
     
     var body: some View {
         Chart(data, id: \.type) { dataSeries in
-            ForEach(dataSeries.pointsData) { data in
+            ForEach(pointsData) { data in
+                LineMark(x: .value("Date", data.x),
+                         y: .value("Result", data.y)).foregroundStyle(.red)
+            }
+//            .symbol(by: .value("Pet type", dataSeries.type))
+
+            ForEach(agregatedPointsData) { data in
                 LineMark(x: .value("Date", data.x),
                          y: .value("Result", data.y))
+                .foregroundStyle(.blue)
             }
             .symbol(by: .value("Pet type", dataSeries.type))
         }

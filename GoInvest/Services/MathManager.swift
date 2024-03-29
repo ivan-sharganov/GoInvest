@@ -4,22 +4,23 @@ struct MathManager {
     
     private init() {}
     
-    static let windowSize: Int = 5
+    static let windowSize: Int = 7
     
     static func sma(points: [PointModel], windowSize: Int = MathManager.windowSize) -> [PointModel] {
         guard !points.isEmpty && windowSize > 0 else {
             return []
         }
         
-        var averages = points
-        for i in windowSize...(points.count - 1) {
-            let window = points[i-windowSize..<i]
+        var smaValues = [PointModel]()
+        
+        for i in (windowSize - 1)..<points.count {
+            let window = points[(i - windowSize + 1)...i]
             let averagePrice = window.map { $0.y }.reduce(0.0, +) / Double(windowSize)
             let averagePoint = PointModel(x: points[i].x, y: averagePrice)
-            averages.append(averagePoint)
+            smaValues.append(averagePoint)
         }
         
-        return averages
+        return smaValues
     }
     
     static func ema(points: [PointModel], windowSize: Int = MathManager.windowSize) -> [PointModel] {
