@@ -18,16 +18,23 @@ struct GraphSUIViewMain: View {
     
     var data: [(type: String, pointsData: [PointModel])] {
         [
-            (type: "", pointsData: pointsData),
-            (type: "agr", pointsData: agregatedPointsData),
+            // (type: "", pointsData: pointsData),
+            (type: "a", pointsData: agregatedPointsData),
         ]
     }
     
     var body: some View {
         Chart(data, id: \.type) { dataSeries in
-            ForEach(dataSeries.pointsData) { data in
+            ForEach(pointsData) { data in
+                LineMark(x: .value("Date", data.x),
+                         y: .value("Result", data.y)).foregroundStyle(.red)
+            }
+//            .symbol(by: .value("Pet type", dataSeries.type))
+
+            ForEach(agregatedPointsData) { data in
                 LineMark(x: .value("Date", data.x),
                          y: .value("Result", data.y))
+                .foregroundStyle(.blue)
             }
             .symbol(by: .value("Pet type", dataSeries.type))
         }
@@ -43,3 +50,27 @@ struct GraphSUIViewMain: View {
     }
     
 }
+//
+// struct SwiftUdddIViewAdditional: View {
+//    let catData: [PetDataMOCK] = [PetDataMOCK(year: 2000, population: 6.8),
+//                                  PetDataMOCK(year: 2010, population: 8.2),
+//                                  PetDataMOCK(year: 2015, population: 12.9),
+//                                  PetDataMOCK(year: 2022, population: 15.2)]
+//    
+//    var data: [(type: String, petData: [PetDataMOCK])] {
+//        [(type: "cat", petData: catData)]
+//    }
+//    
+//    var body: some View {
+//        Chart(data, id: \.type) { dataSeries in
+//            ForEach(dataSeries.petData) { data in
+//                LineMark(x: .value("Year", data.year),
+//                         y: .value("Population", data.population))
+//            }
+//            .foregroundStyle(by: .value("Pet type", dataSeries.type))
+//        }
+//        .chartXScale(domain: 1998...2031)
+//        .chartYScale(domain: 0...30)
+//        .edgesIgnoringSafeArea(.all)
+//    }
+// }
