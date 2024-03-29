@@ -25,7 +25,6 @@ final class DetailViewController: UIViewController {
 
     private let bag = DisposeBag()
 
-    
     // MARK: - UI
     
     private lazy var buyButton: UIButton = {

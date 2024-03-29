@@ -2,11 +2,22 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    var items: [StockDisplayItem] = [] {
+        didSet {
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+        }
+    }
+    
     // MARK: - Properties
     
     override init(nibName: String? = nil, bundle: Bundle? = nil) {
         super.init(nibName: nibName, bundle: bundle)
         self.setupTabBarItem()
+        
+        Task {
+            await fetchData()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -68,6 +79,20 @@ class ProfileViewController: UIViewController {
         self.imageView.layer.borderColor = UIColor.inactiveLabel.cgColor
     }
     
+    public func fetchData() async {
+        FirebaseManager.shared.getItems(
+            kind: .bought,
+            completition: { result in
+                switch result {
+                case .success(let items):
+                    self.items = items
+                case .failure(let error):
+                    debugPrint(error)
+                }
+            }
+        )
+    }
+    
     // MARK: - Setup Methods
     
     private func setupViews() {
@@ -124,19 +149,21 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let item = items[indexPath.row]
+        
         let cell = UITableViewCell()
-        var config = cell.stocksCellContentViewConfiguration()
-        config.shortName = "sdsd"
-        config.fullName = "full"
-        config.price = 1234
-        config.priceChange = 12345678
-        config.rate = 5
-        cell.contentConfiguration = config
+        var configuration = cell.stocksCellContentViewConfiguration()
+        configuration.fullName = item.name
+        configuration.shortName = item.shortName
+        configuration.price = item.closePrice
+        configuration.priceChange = item.priceChange
+        configuration.rate = item.rate
+        cell.contentConfiguration = configuration
         return cell
     }
     
