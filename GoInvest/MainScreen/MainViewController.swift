@@ -228,18 +228,24 @@ extension MainViewController: UISearchBarDelegate {
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
     }
     
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if let ans = self.searchBar.searchTextField.text?.isEmpty {
+            self.searchBar.setShowsCancelButton(!ans, animated: true)
+        }
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.searchTextField.text = ""
-        self.searchBar.showsCancelButton.toggle()
         self.viewModel.searchItems(for: searchBar.searchTextField.text)
+        self.searchBar.setShowsCancelButton(false, animated: true)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.searchBar.showsCancelButton = true
+        self.searchBar.setShowsCancelButton(true, animated: true)
     }
     
 }
