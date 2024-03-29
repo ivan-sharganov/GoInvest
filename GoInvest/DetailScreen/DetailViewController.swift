@@ -20,7 +20,11 @@ final class DetailViewController: UIViewController {
 
     private lazy var proxyView = UIView()
     private var viewModel: DetailViewModel
+
+    private var stockDisplayItem: StockDisplayItem
+
     private let bag = DisposeBag()
+
     
     // MARK: - UI
     
@@ -71,8 +75,10 @@ final class DetailViewController: UIViewController {
     
     // MARK: - Life cycle
     
-    init(viewModel: DetailViewModel) {
+    init(viewModel: DetailViewModel, stocksDisplayItem: StockDisplayItem) {
         self.viewModel = viewModel
+
+        self.stockDisplayItem = stocksDisplayItem
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -179,6 +185,10 @@ final class DetailViewController: UIViewController {
     
     @objc private func tapped() {
         Fireworks.fireworks(view: self.tabBarController?.view ?? UIView())
+        buyButton.backgroundColor = .systemGray2
+        buyButton.isEnabled = false
+        
+        FirebaseManager.shared.addItems([stockDisplayItem], kind: .bought)
     }
     
     private func configureNavigationBar() {
@@ -198,6 +208,10 @@ final class DetailViewController: UIViewController {
     private func rightBarButtonItemTapped(_ sender: UIBarButtonItem) {
         isFavorite = !isFavorite
         sender.image = setupFavoriteButton(isFavorite: isFavorite)
+        
+        stockDisplayItem.isFavorite = isFavorite
+        
+        FirebaseManager.shared.addItems([stockDisplayItem], kind: .favorite)
     }
 
 }

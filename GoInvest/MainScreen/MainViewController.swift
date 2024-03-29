@@ -19,7 +19,7 @@ final class MainViewController: UIViewController {
     private var isPressed = false
     private var viewModel: MainViewModel
     private let bag = DisposeBag()
-    private lazy var router: MainRoutable = MainRouter(viewController: self)
+    lazy var router: MainRoutable = MainRouter(viewController: self)    // private
     private lazy var diffableDataSource = createDiffableDataSource()
 
     // MARK: - UI
@@ -71,8 +71,10 @@ final class MainViewController: UIViewController {
 
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
-
+        
         super.init(nibName: nil, bundle: nil)
+        
+        self.viewModel.mainViewController = self
         
         setupTabBarItem()
     }
@@ -125,11 +127,11 @@ final class MainViewController: UIViewController {
             })
             .disposed(by: bag)
         
-        viewModel.cellTapped
-            .emit(onNext: { [weak self] securitiesTranferModel in
-                self?.router.pushNext(transferModel: securitiesTranferModel)
-            })
-            .disposed(by: bag)
+//        viewModel.cellTapped
+//            .emit(onNext: { [weak self] securitiesTranferModel in
+//                self?.router.pushNext(transferModel: securitiesTranferModel)
+//            })
+//            .disposed(by: bag)
         
         viewModel.updateSnapshot
             .emit(onNext: { [weak self] isAnimated in

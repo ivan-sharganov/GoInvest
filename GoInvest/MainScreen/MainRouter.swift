@@ -2,7 +2,7 @@ import UIKit
 
 protocol MainRoutable {
 
-    func pushNext(transferModel: SecuritiesTransferModel)
+    func pushNext(transferModel: SecuritiesTransferModel, stockDisplayItem: StockDisplayItem)
     func back()
 
 }
@@ -21,9 +21,9 @@ final class MainRouter: MainRoutable {
 
     // MARK: - Public methods
 
-    func pushNext(transferModel: SecuritiesTransferModel) {
+    func pushNext(transferModel: SecuritiesTransferModel, stockDisplayItem: StockDisplayItem) {
         let viewModel = DetailViewModelImpl(transferModel: transferModel, useCase: DetailUseCaseImpl(repository: DetailRepositoryImpl()))
-        let detailViewController = DetailViewController(viewModel: viewModel)
+        let detailViewController = DetailViewController(viewModel: viewModel, stocksDisplayItem: stockDisplayItem)
 
         viewController?.navigationController?.pushViewController(detailViewController, animated: true)
     }

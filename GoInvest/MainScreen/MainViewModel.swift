@@ -15,9 +15,11 @@ enum SecuritiesSource {
 
 protocol MainViewModel {
     
-    var cellTapped: Signal<SecuritiesTransferModel> { get }
+//    var cellTapped: Signal<SecuritiesTransferModel> { get }
     var updateSnapshot: Signal<Bool> { get }
     var didHideStackView: Signal<Bool> { get }
+    
+    var mainViewController: MainViewController? { get set }
 
     var displayItems: [StockDisplayItem] { get }
     var responseItems: [StockDisplayItem] { get }
@@ -38,15 +40,17 @@ final class MainViewModelImpl: MainViewModel {
     // MARK: - Public properties
 
     /// Эти проперти кастятся к Signal, чтобы работать в main потоке на ViewController
-    var cellTapped: Signal<SecuritiesTransferModel> { _cellTapped.asSignal() }
+//    var cellTapped: Signal<SecuritiesTransferModel> { _cellTapped.asSignal() }
     var updateSnapshot: Signal<Bool> { _updateSnapshot.asSignal() }
     var didHideStackView: Signal<Bool> { _didHideStackView.asSignal() }
 
     var displayItems: [StockDisplayItem] = []
     var responseItems: [StockDisplayItem] = []
     
+    var mainViewController: MainViewController?
+    
     private let _updateSnapshot = PublishRelay<Bool>()
-    private let _cellTapped = PublishRelay<SecuritiesTransferModel>()
+//    private let _cellTapped = PublishRelay<SecuritiesTransferModel>()
     private let _didHideStackView = PublishRelay<Bool>()
 
     var stockState: StockState = .shares
@@ -77,7 +81,9 @@ final class MainViewModelImpl: MainViewModel {
                                                              isFavorite: item.isFavorite,
                                                              priceChange: item.priceChange,
                                                              price: item.closePrice)
-        _cellTapped.accept((securitiesTranferModel))
+        
+        mainViewController?.router.pushNext(transferModel: securitiesTranferModel, stockDisplayItem: item)
+//        _cellTapped.accept((securitiesTranferModel))
     }
     
     func didChooseStockStateData(value: Int) {
