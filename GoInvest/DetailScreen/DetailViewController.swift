@@ -7,7 +7,7 @@ final class DetailViewController: UIViewController {
     
     private let suiViewMain = GraphSUIViewMain()
     private let suiViewAdditional = GraphSUIViewMain()
-    private var isFavorite: Bool = false // MARK: - TODO: УДАЛИТЬ КОГДА МОДУЛЬ БУДЕТ
+    private var isFavorite: Bool = false
     
     private lazy var hostingMainViewController = UIHostingController(rootView: self.suiViewMain)
     private lazy var hostingAdditionalViewController = UIHostingController(rootView: self.suiViewAdditional)

@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = .tint
-        imageView.image = UIImage(systemName: "person.crop.circle")
+        imageView.image = .iterator
         return imageView
     }()
     
@@ -64,7 +64,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         self.imageView.layer.cornerRadius = self.imageView.frame.height / 2
         self.imageView.layer.masksToBounds = true
-
+        self.imageView.layer.borderWidth = 5
+        self.imageView.layer.borderColor = UIColor.inactiveLabel.cgColor
     }
     
     // MARK: - Setup Methods
