@@ -3,9 +3,9 @@ import Charts
 
 struct GraphSUIViewMain: View {
     
-    let pointsData: [PointModel]
-    let maxY: Double
-    let minY: Double
+    @State var pointsData: [PointModel]
+    var maxY: Double
+    var minY: Double
     
     init(pointsData: PointModels) {
         self.pointsData = pointsData.points
@@ -31,7 +31,7 @@ struct GraphSUIViewMain: View {
         .chartXAxis { AxisMarks(stroke: StrokeStyle(lineWidth: 0)) } // AxisGridLine() AxisTick()
         .chartYAxis { AxisMarks(stroke: StrokeStyle(lineWidth: 0)) } // AxisGridLine() AxisTick()
 //        .chartXScale(domain: 1998...2031)
-//        .chartYScale(domain: minY...maxY)
+        .chartYScale(domain: minY...maxY)
         .cornerRadius(15)
         .edgesIgnoringSafeArea(.all)
     }
