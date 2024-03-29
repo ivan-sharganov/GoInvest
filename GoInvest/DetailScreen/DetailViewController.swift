@@ -144,6 +144,10 @@ final class DetailViewController: UIViewController {
     
     @objc private func tapped() {
         Fireworks.fireworks(view: self.tabBarController?.view ?? UIView())
+        buyButton.backgroundColor = .systemGray2
+        buyButton.isEnabled = false
+        
+        FirebaseManager.shared.addItems([stockDisplayItem], kind: .bought)
     }
     
     private func configureNavigationBar() {
