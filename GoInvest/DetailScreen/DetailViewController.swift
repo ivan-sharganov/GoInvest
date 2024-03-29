@@ -29,6 +29,14 @@ final class DetailViewController: UIViewController {
         
         return view
     }()
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = viewModel.displayItem.title
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
+        
+        return label
+    }()
     
     private lazy var rangesHStack: HorizontalButtonStack = {
         let stack = HorizontalButtonStack(
@@ -61,7 +69,6 @@ final class DetailViewController: UIViewController {
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
-        print(viewModel.allPoints)
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -77,8 +84,6 @@ final class DetailViewController: UIViewController {
         guard let hostingMainView = hostingMainViewController.view,
               let hostingAdditionalView = hostingAdditionalViewController.view else { return }
         
-        self.title = "\(viewModel.displayItem.title) (\(viewModel.displayItem.subtitle))"
-        
         hostingMainView.translatesAutoresizingMaskIntoConstraints = false
         hostingAdditionalView.translatesAutoresizingMaskIntoConstraints = false
         buyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -91,13 +96,17 @@ final class DetailViewController: UIViewController {
         view.addSubview(hostingAdditionalView)
         view.addSubview(buyButton)
         view.addSubview(priceView)
+        view.addSubview(nameLabel)
         view.addSubview(rangesHStack)
         view.addSubview(functionsHStack)
         self.buyButton.addTarget(nil, action: #selector(tapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
+            self.nameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 4),
+            self.nameLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            
             self.priceView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            self.priceView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            self.priceView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             
             self.rangesHStack.topAnchor.constraint(equalTo: self.priceView.bottomAnchor, constant: 4 ),
             self.rangesHStack.leadingAnchor.constraint(equalTo: self.priceView.leadingAnchor),
@@ -136,9 +145,8 @@ final class DetailViewController: UIViewController {
     private func configureNavigationBar() {
         let favoritesBarButton = setupFavoriteButton(isFavorite: isFavorite)
         let rightBarButtonItem = UIBarButtonItem(image: favoritesBarButton, style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
-        
         navigationItem.rightBarButtonItem = rightBarButtonItem
-        navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = viewModel.displayItem.subtitle
     }
     
     private func setupFavoriteButton(isFavorite: Bool) -> UIImage? {
