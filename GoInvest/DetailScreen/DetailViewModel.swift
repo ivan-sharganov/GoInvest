@@ -7,13 +7,15 @@ protocol DetailViewModel {
     var didFetchPoints: Signal<PointModels> { get }
     var didChangeFunc: Signal<PointModels> { get }
     
+    var allRequestsPoints: [GraphRangeValues: PointModels] { get set }
     var allPoints: PointModels { get }
     var pointsModel: PointModel? { get }
     var pricesData: [PricesModel] { get }
     var displayItem: SecuritiesDisplayItem { get }
     var transferModel: SecuritiesTransferModel { get }
-    
+
     func didChooseFunction(value: Int)
+    func didChooseRangeData(value: Int)
     func transformPricesToPointModels(data: [PricesModel] ) -> PointModels
     func fetchDataForTicker(ticker: String, parameter: StockState, range: GraphRangeValues, interval: Int)
     async
@@ -21,6 +23,8 @@ protocol DetailViewModel {
 }
 
 final class DetailViewModelImpl: DetailViewModel {
+    
+    var allRequestsPoints = [GraphRangeValues: PointModels]()
     
     var didFetchPoints: Signal<PointModels> { _didFetchPoints.asSignal() }
     var didChangeFunc: Signal<PointModels> { _didChangeFunc.asSignal() }
@@ -55,8 +59,16 @@ final class DetailViewModelImpl: DetailViewModel {
 //            }
             await fetchDataForTicker(ticker: transferModel.ticker,
                                      parameter: transferModel.stockState)
+            if let allPoints = self.allRequestsPoints[.oneDay] {
+                self.allPoints = allPoints
+            }
             _didFetchPoints.accept(self.allPoints)
         }
+    }
+    
+    func didChooseRangeData(value: Int) {
+        
+        _didFetchPoints.accept(self.allPoints)
     }
     
     /// Функция перевода данных к виду для графиков
@@ -87,9 +99,8 @@ final class DetailViewModelImpl: DetailViewModel {
                                                          parameter: parameter,
                                                          range: range,
                                                          interval: interval)
-            // let points = transformPricesToPointModels(data: self.pricesData)
-            // self.allPoints[range] = points
-            self.allPoints = transformPricesToPointModels(data: self.pricesData)
+            let points = transformPricesToPointModels(data: self.pricesData)
+            self.allRequestsPoints[range] = points
         } catch {
             self.pricesData = [PricesModel]()
         }
