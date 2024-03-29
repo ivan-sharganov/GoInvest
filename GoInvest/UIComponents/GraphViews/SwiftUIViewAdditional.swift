@@ -17,7 +17,7 @@ struct SwiftUIViewAdditional: View {
                 LineMark(x: .value("Year", data.year),
                          y: .value("Population", data.population))
             }
-//            .foregroundStyle(by: .value("Pet type", dataSeries.type))
+            .foregroundStyle(by: .value("Pet type", dataSeries.type))
         }
         .chartXScale(domain: 1998...2031)
         .chartYScale(domain: 0...30)
