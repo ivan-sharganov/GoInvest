@@ -55,14 +55,16 @@ class NetworkManager {
         till: String,
         interval: Int
     ) async throws -> [PricesModel] {
-        
         let url = StockRequest.price(market: parameter, ticker: ticker, from: from, till: till)
+        
         guard let URL = url.url else {
             throw GIError.error
         }
+        
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
         let (data, _) = try await URLSession.shared.data(for: request)
+        
         guard let answer = try? JSONDecoder().decode(ResponseCandles.self, from: data) else {
             throw GIError.error
         }
