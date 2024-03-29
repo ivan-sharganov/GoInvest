@@ -89,9 +89,11 @@ final class DetailViewModelImpl: DetailViewModel {
     private func prepareFunc(value: Int) -> MathFunctions? {
         switch value {
         case 0:
-            return .EMA
-        case 1:
             return .SMA
+        case 1:
+            return .EMA
+        case 2:
+            return .RSI
         default:
             return nil
         }
@@ -118,6 +120,8 @@ final class DetailViewModelImpl: DetailViewModel {
             self.pointsForExtraGraph.points = MathManager.sma(points: self.allPoints.points)
         case .EMA:
             self.pointsForExtraGraph.points = MathManager.ema(points: self.allPoints.points)
+        case .RSI:
+            self.pointsForExtraGraph.points = MathManager.rsi(points: self.allPoints.points)
         }
         _didFetchPoints.accept(self.allPoints)
         _didChangeFunc.accept(self.pointsForExtraGraph)
