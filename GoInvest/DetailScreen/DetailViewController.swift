@@ -33,7 +33,7 @@ final class DetailViewController: UIViewController {
         let label = UILabel()
         label.text = viewModel.displayItem.title
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 36, weight: .semibold)
         
         return label
     }()
@@ -84,6 +84,8 @@ final class DetailViewController: UIViewController {
         guard let hostingMainView = hostingMainViewController.view,
               let hostingAdditionalView = hostingAdditionalViewController.view else { return }
         
+        hostingMainViewController.view.backgroundColor = .background
+        hostingAdditionalViewController.view.backgroundColor = .background
         hostingMainView.translatesAutoresizingMaskIntoConstraints = false
         hostingAdditionalView.translatesAutoresizingMaskIntoConstraints = false
         buyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -106,9 +108,9 @@ final class DetailViewController: UIViewController {
             self.nameLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             
             self.priceView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            self.priceView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            self.priceView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
             
-            self.rangesHStack.topAnchor.constraint(equalTo: self.priceView.bottomAnchor, constant: 4 ),
+            self.rangesHStack.topAnchor.constraint(equalTo: self.priceView.bottomAnchor, constant: 8),
             self.rangesHStack.leadingAnchor.constraint(equalTo: self.priceView.leadingAnchor),
             self.rangesHStack.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.rangesHStack.heightAnchor.constraint(equalToConstant: 36),
@@ -129,8 +131,8 @@ final class DetailViewController: UIViewController {
             self.functionsHStack.heightAnchor.constraint(equalTo: rangesHStack.heightAnchor),
             
             self.buyButton.topAnchor.constraint(greaterThanOrEqualTo: functionsHStack.bottomAnchor, constant: -16),
-            self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
+            self.buyButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 13),
+            self.buyButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -13),
             self.buyButton.heightAnchor.constraint(equalToConstant: 50),
             self.buyButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
