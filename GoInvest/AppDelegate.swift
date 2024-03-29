@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ], animated: false)
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = tabBarController
+        window?.rootViewController = FirebaseAuth.Auth.auth().currentUser == nil ?  LoginViewController(loginViewModel: LoginViewModelImpl()) : tabBarController
         window?.makeKeyAndVisible()
         
         return true

@@ -22,35 +22,39 @@ final class LoginRouter: LoginRoutable {
     // MARK: - Public methods
 
     func pushNext() {
-//        // main screen
-//        let mainViewController = MainViewController(
-//            viewModel: MainViewModelImpl(useCase: MainUseCaseImpl(repository: MainRepositoryImpl()))
-//        )
-//        // profile screen
-//        let profileViewController = ProfileViewController()
-//
-//        // navigation (main -> detail)
-//        let navigationController = UINavigationController(rootViewController: mainViewController)
-//        let backBarButtonItem = UIBarButtonItem()
-//        backBarButtonItem.title = ""
-//        navigationController.navigationBar.topItem?.backBarButtonItem = backBarButtonItem
-//
-//        // tabs (navigation + profile)
-//        let tabBarController = UITabBarController()
-//        tabBarController.tabBar.backgroundColor = .background
-//        tabBarController.tabBar.tintColor = .label
-//        tabBarController.tabBar.unselectedItemTintColor = .inactiveLabel
-//        tabBarController.modalPresentationStyle = .fullScreen
-//        tabBarController.setViewControllers([
-//            navigationController,
-//            profileViewController
-//        ], animated: false)
-//
-//        loginViewController?.present(tabBarController, animated: true)
+        // main screen
+        let mainViewController = MainViewController(
+            viewModel: MainViewModelImpl(useCase: MainUseCaseImpl(repository: MainRepositoryImpl()))
+        )
+        // profile screen
+        let profileViewController = ProfileViewController()
+
+        // navigation (main -> detail)
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = ""
+        navigationController.navigationBar.topItem?.backBarButtonItem = backBarButtonItem
+
+        // tabs (navigation + profile)
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.backgroundColor = .background
+        tabBarController.tabBar.tintColor = .label
+        tabBarController.tabBar.unselectedItemTintColor = .inactiveLabel
+        tabBarController.modalPresentationStyle = .fullScreen
+        tabBarController.setViewControllers([
+            navigationController,
+            profileViewController
+        ], animated: false)
+
+        loginViewController?.present(tabBarController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: DispatchWorkItem(block: {
+            self.back()
+        }))
     }
 
     func back() {
-//        loginViewController?.dismiss(animated: true)
+        loginViewController?.dismiss(animated: true)
     }
     
 }

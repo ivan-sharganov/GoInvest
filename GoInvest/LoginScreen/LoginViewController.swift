@@ -1,5 +1,6 @@
 import UIKit
 import RxSwift
+import FirebaseAuth
 
 final class LoginViewController: UIViewController {
     
@@ -8,6 +9,7 @@ final class LoginViewController: UIViewController {
     private let loginView = LoginView()
     private let disposeBag = DisposeBag()
     private let loginViewModel: LoginViewModel
+    private lazy var router = LoginRouter(loginViewController: self)
     
     // MARK: - Lifecycle
     
@@ -41,10 +43,18 @@ final class LoginViewController: UIViewController {
                 return
             }
             
-            let isSuccesfulLogin = strongSelf.loginViewModel.logIn(email: email, password: password)
-            
-            if !isSuccesfulLogin {
-                // написать, что не получилось, предложить сделать еще раз
+            strongSelf.loginViewModel.logIn(email: email, password: password) { _, error in
+                if error == nil {
+                    self?.router.pushNext()
+                } else {
+                    debugPrint(error)
+                    let alert = UIAlertController(
+                        title: NSLocalizedString("Login error", comment: "login failure alert title"),
+                        message: error?.localizedDescription,
+                        preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: "login failure alert button title"), style: .cancel))
+                    strongSelf.present(alert, animated: true)
+                }
             }
         }.disposed(by: disposeBag)
         
@@ -56,12 +66,18 @@ final class LoginViewController: UIViewController {
                 return
             }
             
-            let isSuccessfulCreateAccount = strongSelf.loginViewModel.createAccount(email: email, password: password)
-            
-            if isSuccessfulCreateAccount {
-                // ...
-            } else {
-                // ...
+            strongSelf.loginViewModel.createAccount(email: email, password: password) { _, error in
+                if error == nil, FirebaseAuth.Auth.auth().currentUser != nil {
+                    self?.router.pushNext()
+                } else {
+                    debugPrint(error)
+                    let alert = UIAlertController(
+                        title: NSLocalizedString("Account creation error", comment: "Account creation failure alert title"),
+                        message: error?.localizedDescription,
+                        preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: "Account creation failure alert button title"), style: .cancel))
+                    strongSelf.present(alert, animated: true)
+                }
             }
         }.disposed(by: disposeBag)
     }
