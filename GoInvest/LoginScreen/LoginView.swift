@@ -116,7 +116,7 @@ final class LoginView: UIView {
     private func setupContraints() {
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label.topAnchor.constraint(equalTo: topAnchor, constant: 400),
+            label.topAnchor.constraint(equalTo: topAnchor, constant: 200),
             
             emailField.centerXAnchor.constraint(equalTo: centerXAnchor),
             emailField.widthAnchor.constraint(equalToConstant: 300),
