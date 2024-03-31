@@ -5,9 +5,9 @@ struct MathManager {
     private init() {}
     
     static let windowSize: Int = 7
-    
+    // TODO: подумать, почему на выходе точек больше, чем на входе во всех функциях
     static func sma(points: [PointModel], windowSize: Int = MathManager.windowSize) -> [PointModel] {
-        guard !points.isEmpty && windowSize > 0 else {
+        guard !points.isEmpty && windowSize > 0 && points.count > windowSize else {
             return []
         }
         

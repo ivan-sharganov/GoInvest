@@ -63,7 +63,7 @@ enum GraphRangeValues: Int, CaseIterable {
 enum MathFunctions: Int, CaseIterable {
     case SMA = 0
     case EMA = 1
-//    case RSI
+    case RSI = 2
     
     var title: String {
         switch self {
@@ -71,6 +71,8 @@ enum MathFunctions: Int, CaseIterable {
             return "SMA"
         case .EMA:
             return "EMA"
+        case .RSI:
+            return "RSI"
         }
     }
 }

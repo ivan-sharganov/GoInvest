@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        try! FirebaseAuth.Auth.auth().signOut()
+        // try! FirebaseAuth.Auth.auth().signOut()
         
         let mainViewController = MainViewController(
             viewModel: MainViewModelImpl(useCase: MainUseCaseImpl(repository: MainRepositoryImpl()))

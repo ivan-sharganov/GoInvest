@@ -69,6 +69,9 @@ class ProfileViewController: UIViewController {
         self.imageView.layer.masksToBounds = true
         self.imageView.layer.borderWidth = 5
         self.imageView.layer.borderColor = UIColor.inactiveLabel.cgColor
+        Task {
+            await fetchData()
+        }
     }
     
     public func fetchData() async {
